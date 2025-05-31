@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react'; // Changed to ArrowLeft for RTL
 
 interface ServiceCardProps {
   icon: LucideIcon;
@@ -27,7 +27,7 @@ export default function ServiceCard({ icon: Icon, title, description, link }: Se
       <div className="p-6 pt-0 mt-auto">
         <Link href={link}>
           <Button variant="outline" className="w-full group hover:bg-accent hover:text-accent-foreground transition-colors">
-            Learn More <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            اعرف المزيد <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" /> {/* Changed to ArrowLeft and margin */}
           </Button>
         </Link>
       </div>

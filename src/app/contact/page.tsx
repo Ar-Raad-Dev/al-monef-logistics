@@ -2,30 +2,30 @@
 import ContactForm from '@/components/contact-form';
 import MapEmbed from '@/components/map-embed';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, Clock, Printer } from 'lucide-react'; // Added Printer for Fax
+import { Mail, Phone, MapPin, Clock, Printer } from 'lucide-react'; 
 
 const contactDetails = [
-  { icon: MapPin, title: 'Office Address', lines: ['Al Badai, Al Qassim', 'Saudi Arabia'] },
-  { icon: Phone, title: 'Telephone', lines: ['3212000'] },
-  { icon: Printer, title: 'Fax Number', lines: ['3213000'] },
-  { icon: Mail, title: 'Email Address', lines: ['info@almonef-transport.com'] },
-  { icon: Clock, title: 'Office Hours', lines: ['Sunday - Thursday: 8:00 AM - 6:00 PM', 'Friday: Closed', 'Saturday: 10:00 AM - 2:00 PM (By Appointment)'] },
+  { icon: MapPin, title: 'عنوان المكتب', lines: ['البدائع، القصيم', 'المملكة العربية السعودية'] },
+  { icon: Phone, title: 'الهاتف', lines: ['3212000'] },
+  { icon: Printer, title: 'رقم الفاكس', lines: ['3213000'] },
+  { icon: Mail, title: 'البريد الإلكتروني', lines: ['info@almonef-transport.com'] },
+  { icon: Clock, title: 'ساعات العمل', lines: ['الأحد - الخميس: 8:00 صباحًا - 6:00 مساءً', 'الجمعة: مغلق', 'السبت: 10:00 صباحًا - 2:00 ظهرًا (بموعد مسبق)'] },
 ];
 
 export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">Get In Touch With Us</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">تواصل معنا</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          We&apos;re ready to assist with your trade and transport needs. Reach out via phone, email, or visit our office in Al Badai.
+          نحن على استعداد لمساعدتك في احتياجات التجارة والنقل الخاصة بك. تواصل معنا عبر الهاتف أو البريد الإلكتروني أو قم بزيارة مكتبنا في البدائع.
         </p>
       </header>
 
       <div className="grid lg:grid-cols-2 gap-12 mb-16 md:mb-24">
         <Card className="shadow-xl p-2 md:p-4">
           <CardHeader>
-            <CardTitle className="text-2xl md:text-3xl font-headline text-foreground mb-4">Send Us a Message</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl font-headline text-foreground mb-4">أرسل لنا رسالة</CardTitle>
           </CardHeader>
           <CardContent>
             <ContactForm />
@@ -43,7 +43,7 @@ export default function ContactPage() {
                             <CardTitle className="text-xl font-semibold text-foreground">{detail.title}</CardTitle>
                         </div>
                     </CardHeader>
-                    <CardContent className="pl-16">
+                    <CardContent className="pr-16"> {/* Changed pl-16 to pr-16 for RTL */}
                         {detail.lines.map(line => (
                             <p key={line} className="text-muted-foreground">{line}</p>
                         ))}
@@ -55,7 +55,7 @@ export default function ContactPage() {
 
       <section id="location-map">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
-          Find Our Office in Al Badai, Al Qassim
+          اعثر على مكتبنا في البدائع، القصيم
         </h2>
         <MapEmbed />
       </section>

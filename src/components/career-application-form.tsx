@@ -20,12 +20,12 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Paperclip } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  phone: z.string().min(7, { message: "Please enter a valid phone number." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  position: z.string().min(1, { message: "Please select a position."}),
-  cv: z.any().optional(), // For file uploads, validation is more complex and typically handled server-side
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }).max(500, { message: "Message cannot exceed 500 characters." }),
+  name: z.string().min(2, { message: "يجب أن يتكون الاسم من حرفين على الأقل." }),
+  phone: z.string().min(7, { message: "الرجاء إدخال رقم هاتف صالح." }),
+  email: z.string().email({ message: "الرجاء إدخال عنوان بريد إلكتروني صالح." }),
+  position: z.string().min(1, { message: "الرجاء تحديد وظيفة."}),
+  cv: z.any().optional(),
+  message: z.string().min(10, { message: "يجب أن تتكون الرسالة من 10 أحرف على الأقل." }).max(500, { message: "لا يمكن أن تتجاوز الرسالة 500 حرف." }),
 });
 
 export type CareerFormValues = z.infer<typeof formSchema>;
@@ -49,12 +49,11 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
   });
 
   async function onSubmit(values: CareerFormValues) {
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("Career application submitted:", values);
+    console.log("تم إرسال طلب التوظيف:", values);
     toast({
-      title: "Application Sent!",
-      description: "Thank you for your interest. We will review your application and get back to you if there's a match.",
+      title: "تم إرسال الطلب!",
+      description: "شكرًا لاهتمامك. سنراجع طلبك وسنتصل بك إذا كان هناك تطابق.",
       variant: "default", 
     });
     form.reset();
@@ -68,9 +67,9 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>الاسم الكامل</FormLabel>
               <FormControl>
-                <Input placeholder="Your Full Name" {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder="اسمك الكامل" {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,9 +81,9 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel>رقم الهاتف</FormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="Your Phone Number" {...field} className="bg-input focus:bg-background transition-colors"/>
+                  <Input type="tel" placeholder="رقم هاتفك" {...field} className="bg-input focus:bg-background transition-colors"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,7 +94,7 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel>البريد الإلكتروني</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="your.email@example.com" {...field} className="bg-input focus:bg-background transition-colors"/>
                 </FormControl>
@@ -109,18 +108,18 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="position"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position Applying For</FormLabel>
+              <FormLabel>الوظيفة المتقدم لها</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="bg-input focus:bg-background transition-colors">
-                    <SelectValue placeholder="Select a position" />
+                    <SelectValue placeholder="اختر وظيفة" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {availablePositions.map(pos => (
                     <SelectItem key={pos} value={pos}>{pos}</SelectItem>
                   ))}
-                  <SelectItem value="General Application">General Application</SelectItem>
+                  <SelectItem value="General Application">طلب عام</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -132,7 +131,7 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="cv"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Upload CV (PDF, DOC, DOCX)</FormLabel>
+              <FormLabel>تحميل السيرة الذاتية (PDF, DOC, DOCX)</FormLabel>
               <FormControl>
                 <div className="relative">
                     <Input 
@@ -141,7 +140,7 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
                         onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : null)} 
                         className="bg-input focus:bg-background transition-colors pr-10"
                     />
-                    <Paperclip className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Paperclip className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" /> {/* Adjusted icon position for RTL */}
                 </div>
               </FormControl>
               <FormMessage />
@@ -153,10 +152,10 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Cover Letter / Message (Optional)</FormLabel>
+              <FormLabel>رسالة تعريفية / رسالة (اختياري)</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Briefly tell us why you're a good fit..."
+                  placeholder="أخبرنا بإيجاز لماذا أنت مناسب..."
                   className="resize-y min-h-[100px] bg-input focus:bg-background transition-colors"
                   {...field}
                 />
@@ -166,8 +165,8 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           )}
         />
         <Button type="submit" size="lg" className="w-full transition-transform hover:scale-105" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Submitting..." : "Submit Application"}
-          {!form.formState.isSubmitting && <Send className="ml-2 h-5 w-5" />}
+          {form.formState.isSubmitting ? "جارٍ الإرسال..." : "إرسال الطلب"}
+          {!form.formState.isSubmitting && <Send className="mr-2 h-5 w-5" />} {/* Changed ml-2 to mr-2 */}
         </Button>
       </form>
     </Form>

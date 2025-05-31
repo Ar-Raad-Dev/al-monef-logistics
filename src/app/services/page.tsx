@@ -5,32 +5,32 @@ import { Truck, Ship, Plane, Warehouse, Package, Car, Handshake, Award } from 'l
 import FleetCard from '@/components/fleet-card';
 
 const fleetItems = [
-  { name: 'Flatbed Trailers', description: 'Versatile for various cargo types, available for sale and lease.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "flatbed trailer" },
-  { name: 'Curtain-Side Trailers', description: 'Easy loading/unloading, ideal for palletized goods.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Truck, imageHint: "curtain side trailer" },
-  { name: 'Refrigerated Trailers', description: 'Temperature-controlled transport for sensitive goods.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "refrigerated trailer" },
-  { name: 'Commercial Cars & Vans', description: 'Reliable vehicles for business operations and smaller cargo.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Car, imageHint: "commercial van" },
+  { name: 'مقطورات مسطحة', description: 'متعددة الاستخدامات لمختلف أنواع البضائع، متاحة للبيع والتأجير.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "flatbed trailer" },
+  { name: 'مقطورات ذات جوانب ستائرية', description: 'سهلة التحميل والتفريغ، مثالية للبضائع المعبأة على منصات نقالة.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Truck, imageHint: "curtain side trailer" },
+  { name: 'مقطورات مبردة', description: 'نقل يمكن التحكم في درجة حرارته للبضائع الحساسة.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "refrigerated trailer" },
+  { name: 'سيارات وشاحنات تجارية', description: 'مركبات موثوقة لعمليات الأعمال والبضائع الصغيرة.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Car, imageHint: "commercial van" },
 ];
 
 const logisticsSolutions = [
-    { icon: Package, title: "Freight Forwarding", description: "Efficient and reliable air, sea, and land freight forwarding services globally." },
-    { icon: Warehouse, title: "Warehousing & Distribution", description: "Secure warehousing facilities and streamlined distribution networks." },
-    { icon: Truck, title: "Supply Chain Management", description: "End-to-end supply chain optimization for enhanced efficiency and cost savings." },
-    { icon: Award, title: "Customs Clearance", description: "Expert handling of customs documentation for smooth international and domestic trade." }
+    { icon: Package, title: "شحن البضائع", description: "خدمات شحن جوي وبحري وبري فعالة وموثوقة عالميًا." },
+    { icon: Warehouse, title: "التخزين والتوزيع", description: "مرافق تخزين آمنة وشبكات توزيع مبسطة." },
+    { icon: Truck, title: "إدارة سلسلة التوريد", description: "تحسين سلسلة التوريد من البداية إلى النهاية لتعزيز الكفاءة وتوفير التكاليف." },
+    { icon: Award, title: "التخليص الجمركي", description: "معالجة خبيرة للوثائق الجمركية لتجارة دولية ومحلية سلسة." }
 ];
 
 const currentPartnerships = [
-    { name: "Al Watania Poultry (Hobar)", description: "Key logistics partner for poultry distribution." },
-    { name: "Mahamal Madinah Water Factory", description: "Transporting bottled water across regions." },
-    { name: "Mirad Water Factory", description: "Reliable delivery services for water products." }
+    { name: "الوطنية للدواجن (الهفوف)", description: "شريك لوجستي رئيسي لتوزيع الدواجن." },
+    { name: "مصنع مياه محامل المدينة", description: "نقل المياه المعبأة عبر المناطق." },
+    { name: "مصنع مياه ميراد", description: "خدمات توصيل موثوقة لمنتجات المياه." }
 ];
 
 export default function ServicesPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">Our Specialized Services</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">خدماتنا المتخصصة</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Comprehensive solutions for vehicle trade, leasing, and Kingdom-wide logistics and transport.
+          حلول شاملة لتجارة المركبات، والتأجير، والخدمات اللوجستية والنقل على مستوى المملكة.
         </p>
       </header>
 
@@ -38,22 +38,22 @@ export default function ServicesPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold text-foreground mb-6 font-headline flex items-center gap-3">
-              <Car className="h-10 w-10 text-primary" /> Vehicle Trade Services
+              <Car className="h-10 w-10 text-primary" /> خدمات تجارة المركبات
             </h2>
             <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              We specialize in the buying and selling of high-quality new and used trailers, trucks, and other commercial vehicles. Our inventory is carefully selected to meet diverse operational needs.
+              نحن متخصصون في بيع وشراء المقطورات والشاحنات والمركبات التجارية الأخرى الجديدة والمستعملة عالية الجودة. يتم اختيار مخزوننا بعناية لتلبية الاحتياجات التشغيلية المتنوعة.
             </p>
-            <ul className="list-disc list-inside text-lg text-muted-foreground space-y-2 mb-4">
-              <li>Wide selection of trailers (flatbeds, refrigerated, curtain-siders, etc.)</li>
-              <li>Sourcing of specific commercial vehicles and cars</li>
-              <li>Transparent inspection and valuation processes</li>
-              <li>Flexible leasing options available for trailers and vehicles</li>
+            <ul className="list-disc list-inside text-lg text-muted-foreground space-y-2 mb-4 mr-5"> {/* Added mr-5 for RTL list marker */}
+              <li>مجموعة واسعة من المقطورات (مسطحة، مبردة، ذات جوانب ستائرية، إلخ.)</li>
+              <li>توريد مركبات وسيارات تجارية محددة</li>
+              <li>عمليات فحص وتقييم شفافة</li>
+              <li>خيارات تأجير مرنة متاحة للمقطورات والمركبات</li>
             </ul>
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
               src="https://placehold.co/600x450/29ABE2/FFFFFF"
-              alt="Trailers and commercial vehicles for sale"
+              alt="مقطورات ومركبات تجارية للبيع"
               layout="fill"
               objectFit="cover"
               data-ai-hint="trailers commercial vehicles"
@@ -65,10 +65,10 @@ export default function ServicesPage() {
 
       <section id="logistics" className="mb-16 md:mb-24 scroll-mt-20">
          <h2 className="text-3xl font-bold text-foreground mb-12 font-headline text-center flex items-center justify-center gap-3">
-            <Package className="h-10 w-10 text-primary" /> Logistics & Transport Solutions
+            <Package className="h-10 w-10 text-primary" /> حلول الخدمات اللوجستية والنقل
         </h2>
         <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
-            We offer reliable transportation of goods across Saudi Arabia, ensuring timely and secure delivery. Our extensive network and experienced team handle diverse logistical challenges.
+            نقدم نقلًا موثوقًا للبضائع عبر المملكة العربية السعودية، مما يضمن التسليم الآمن وفي الوقت المناسب. تتعامل شبكتنا الواسعة وفريقنا المتمرس مع التحديات اللوجستية المتنوعة.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {logisticsSolutions.map(service => (
@@ -87,7 +87,7 @@ export default function ServicesPage() {
         </div>
         
         <h3 className="text-2xl font-bold text-foreground mb-6 font-headline text-center flex items-center justify-center gap-3">
-            <Handshake className="h-8 w-8 text-primary" /> Current Key Partnerships
+            <Handshake className="h-8 w-8 text-primary" /> الشراكات الرئيسية الحالية
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {currentPartnerships.map(partner => (
@@ -105,10 +105,10 @@ export default function ServicesPage() {
 
       <section id="fleet" className="scroll-mt-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
-          Our Modern & Versatile Fleet
+          أسطولنا الحديث والمتنوع
         </h2>
         <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
-          Explore our range of trailers and vehicles. We offer options for sale, lease, and utilize them in our extensive transport operations. Filters for "For Sale", "In Use", "Leased" can help narrow your search (feature coming soon).
+          اكتشف مجموعتنا من المقطورات والمركبات. نقدم خيارات للبيع والتأجير، ونستخدمها في عمليات النقل الواسعة لدينا. يمكن أن تساعدك فلاتر "للبيع"، "قيد الاستخدام"، "مؤجرة" في تضييق نطاق البحث (الميزة قادمة قريبًا).
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {fleetItems.map((item) => (
@@ -116,7 +116,7 @@ export default function ServicesPage() {
           ))}
         </div>
         <p className="text-center text-muted-foreground mt-12 text-lg">
-          Our diverse fleet is meticulously maintained and equipped to ensure safe and efficient transport.
+          يتم صيانة أسطولنا المتنوع بدقة وتجهيزه لضمان النقل الآمن والفعال.
         </p>
       </section>
     </div>

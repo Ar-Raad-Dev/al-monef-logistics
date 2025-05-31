@@ -19,10 +19,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  subject: z.string().min(5, { message: "Subject must be at least 5 characters." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }).max(500, { message: "Message cannot exceed 500 characters." }),
+  name: z.string().min(2, { message: "يجب أن يتكون الاسم من حرفين على الأقل." }),
+  email: z.string().email({ message: "الرجاء إدخال عنوان بريد إلكتروني صالح." }),
+  subject: z.string().min(5, { message: "يجب أن يتكون الموضوع من 5 أحرف على الأقل." }),
+  message: z.string().min(10, { message: "يجب أن تتكون الرسالة من 10 أحرف على الأقل." }).max(500, { message: "لا يمكن أن تتجاوز الرسالة 500 حرف." }),
 });
 
 export type ContactFormValues = z.infer<typeof formSchema>;
@@ -40,12 +40,11 @@ export default function ContactForm() {
   });
 
   async function onSubmit(values: ContactFormValues) {
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("Form submitted:", values);
+    console.log("تم إرسال النموذج:", values);
     toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We will get back to you shortly.",
+      title: "تم إرسال الرسالة!",
+      description: "شكرًا لتواصلك معنا. سنعود إليك قريبًا.",
       variant: "default", 
     });
     form.reset();
@@ -59,9 +58,9 @@ export default function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>الاسم الكامل</FormLabel>
               <FormControl>
-                <Input placeholder="Your Name" {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder="اسمك" {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -72,7 +71,7 @@ export default function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>البريد الإلكتروني</FormLabel>
               <FormControl>
                 <Input type="email" placeholder="your.email@example.com" {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
@@ -85,9 +84,9 @@ export default function ContactForm() {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>الموضوع</FormLabel>
               <FormControl>
-                <Input placeholder="Regarding your services..." {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder="بخصوص خدماتكم..." {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -98,10 +97,10 @@ export default function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel>الرسالة</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us how we can help you..."
+                  placeholder="أخبرنا كيف يمكننا مساعدتك..."
                   className="resize-y min-h-[120px] bg-input focus:bg-background transition-colors"
                   {...field}
                 />
@@ -111,8 +110,8 @@ export default function ContactForm() {
           )}
         />
         <Button type="submit" size="lg" className="w-full transition-transform hover:scale-105" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Sending..." : "Send Message"}
-          {!form.formState.isSubmitting && <Send className="ml-2 h-5 w-5" />}
+          {form.formState.isSubmitting ? "جارٍ الإرسال..." : "إرسال الرسالة"}
+          {!form.formState.isSubmitting && <Send className="mr-2 h-5 w-5" />} {/* Changed ml-2 to mr-2 */}
         </Button>
       </form>
     </Form>

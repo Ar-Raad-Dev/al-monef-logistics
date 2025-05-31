@@ -21,7 +21,7 @@
     --secondary-foreground: 240 100 46; /* New Blue */
 
     --muted: 240 100 97; /* Very Light New Blue (paler than secondary bg) */
-    --muted-foreground: 0 0 0; /* Black */
+    --muted-foreground: 0 0 0; /* Black for placeholder/sub-text */
 
     --accent: 240 100 46; /* New Blue */
     --accent-foreground: 0 0 100; /* White */
@@ -70,7 +70,7 @@
     --secondary-foreground: 0 0 100; /* White */
 
     --muted: 240 100 55; /* Slightly Lighter New Blue than BG */
-    --muted-foreground: 0 0 100; /* White */
+    --muted-foreground: 0 0 100; /* White for placeholder/sub-text */
 
     --accent: 0 0 100; /* White */
     --accent-foreground: 240 100 46; /* New Blue */
@@ -107,9 +107,68 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans Arabic', 'Inter', sans-serif; /* Added Noto Sans Arabic */
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans Arabic', 'Inter', sans-serif; /* Added Noto Sans Arabic */
   }
+
+  [dir="rtl"] body {
+    text-align: right;
+  }
+
+  /* Tailwind's text-left/right should be RTL aware. These are fallbacks or overrides if needed. */
+  [dir="rtl"] .text-left { text-align: right !important; }
+  [dir="rtl"] .text-right { text-align: left !important; }
+  [dir="rtl"] .md\:text-left { text-align: right !important; }
+  [dir="rtl"] .md\:text-right { text-align: left !important; }
+  [dir="rtl"] .lg\:text-left { text-align: right !important; }
+  [dir="rtl"] .lg\:text-right { text-align: left !important; }
+  [dir="rtl"] .sm\:text-left { text-align: right !important; }
+  [dir="rtl"] .sm\:text-right { text-align: left !important; }
+  [dir="rtl"] .text-center { text-align: center !important; } /* Keep center aligned */
+
+
+  /* RTL margin adjustments for common classes like ml-*, mr-* */
+  [dir="rtl"] .ml-1 { margin-right: 0.25rem; margin-left: 0 !important; }
+  [dir="rtl"] .mr-1 { margin-left: 0.25rem; margin-right: 0 !important; }
+  [dir="rtl"] .ml-2 { margin-right: 0.5rem; margin-left: 0 !important; }
+  [dir="rtl"] .mr-2 { margin-left: 0.5rem; margin-right: 0 !important; }
+  [dir="rtl"] .ml-3 { margin-right: 0.75rem; margin-left: 0 !important; }
+  [dir="rtl"] .mr-3 { margin-left: 0.75rem; margin-right: 0 !important; }
+  [dir="rtl"] .ml-4 { margin-right: 1rem; margin-left: 0 !important; }
+  [dir="rtl"] .mr-4 { margin-left: 1rem; margin-right: 0 !important; }
+  [dir="rtl"] .ml-6 { margin-right: 1.5rem; margin-left: 0 !important; }
+  [dir="rtl"] .mr-6 { margin-left: 1.5rem; margin-right: 0 !important; }
+  [dir="rtl"] .ml-auto { margin-right: auto !important; margin-left: 0 !important; }
+  [dir="rtl"] .mr-auto { margin-left: auto !important; margin-right: 0 !important; }
+
+  /* Reverse space-x utilities in RTL */
+  [dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+  [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+  [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+  [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+  [dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+  [dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+
+  /* Adjust padding for RTL. Tailwind's p{s/e}-* are preferred but these are for explicit p{l/r}-* */
+  [dir="rtl"] .pl-1 { padding-right: 0.25rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-1 { padding-left: 0.25rem; padding-right: 0 !important; }
+  [dir="rtl"] .pl-2 { padding-right: 0.5rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-2 { padding-left: 0.5rem; padding-right: 0 !important; }
+  [dir="rtl"] .pl-3 { padding-right: 0.75rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-3 { padding-left: 0.75rem; padding-right: 0 !important; }
+  [dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-4 { padding-left: 1rem; padding-right: 0 !important; }
+  [dir="rtl"] .pl-6 { padding-right: 1.5rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-6 { padding-left: 1.5rem; padding-right: 0 !important; }
+  [dir="rtl"] .pl-8 { padding-right: 2rem; padding-left: 0 !important; }
+  [dir="rtl"] .pr-8 { padding-left: 2rem; padding-right: 0 !important; }
+   [dir="rtl"] .pl-16 { padding-right: 4rem; padding-left: 0 !important; }
+
+
+  /* Icon flipping for specific classes if needed */
+  [dir="rtl"] .group-hover\:translate-x-1 { transform: translateX(-0.25rem); }
+  [dir="rtl"] .group-hover\:-translate-x-1 { transform: translateX(0.25rem); }
+
 }

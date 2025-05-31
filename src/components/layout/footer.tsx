@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { Linkedin, Facebook, MessageCircle } from 'lucide-react'; // Using MessageCircle for WhatsApp
+import { Linkedin, Facebook, MessageCircle } from 'lucide-react'; 
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,24 +10,24 @@ export default function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background/95 py-8">
       <div className="container mx-auto px-4 text-muted-foreground text-sm">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 text-center md:text-right"> {/* Adjusted text alignment for RTL */}
           <div>
-            <h3 className="font-semibold text-foreground mb-2">Quick Links</h3>
+            <h3 className="font-semibold text-foreground mb-2">روابط سريعة</h3>
             <ul className="space-y-1">
-              <li><Link href="/about" className="hover:text-primary">About Us</Link></li>
-              <li><Link href="/services" className="hover:text-primary">Services</Link></li>
-              <li><Link href="/careers" className="hover:text-primary">Careers</Link></li>
-              <li><Link href="/contact" className="hover:text-primary">Contact Us</Link></li>
+              <li><Link href="/about" className="hover:text-primary">من نحن</Link></li>
+              <li><Link href="/services" className="hover:text-primary">خدماتنا</Link></li>
+              <li><Link href="/careers" className="hover:text-primary">الوظائف</Link></li>
+              <li><Link href="/contact" className="hover:text-primary">اتصل بنا</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-foreground mb-2">Legal Information</h3>
-            <p>CR Number: {crNumber}</p>
-            <p>Chamber of Commerce: {chamberNumber}</p>
+            <h3 className="font-semibold text-foreground mb-2">المعلومات القانونية</h3>
+            <p>رقم السجل التجاري: {crNumber}</p>
+            <p>رقم عضوية الغرفة التجارية: {chamberNumber}</p>
           </div>
           <div>
-            <h3 className="font-semibold text-foreground mb-2">Connect With Us</h3>
-            <div className="flex justify-center md:justify-start space-x-4">
+            <h3 className="font-semibold text-foreground mb-2">تواصل معنا</h3>
+            <div className="flex justify-center md:justify-end space-x-4"> {/* Adjusted justification for RTL */}
               <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-primary">
                 <Linkedin size={20} />
               </a>
@@ -41,8 +41,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-border/40 pt-6 text-center">
-          <p>&copy; {currentYear} Abdul Aziz AlMonef and Sons Trade and Transport. All rights reserved.</p>
-          <p className="mt-1">Driving Trade Forward Across Saudi Arabia.</p>
+          <p>&copy; {currentYear} عبدالعزيز المنيف وأولاده للتجارة والنقل. جميع الحقوق محفوظة.</p>
+          <p className="mt-1">نقود التجارة إلى الأمام عبر المملكة العربية السعودية.</p>
         </div>
       </div>
     </footer>
