@@ -1,15 +1,15 @@
+
+// This file is obsolete and will be replaced by /src/app/[lang]/layout.tsx
+// Please delete this file manually after confirming the new structure works.
+// Keeping it temporarily to avoid build errors if not deleted immediately by the tooling.
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
 
 export const metadata: Metadata = {
-  title: 'عبدالعزيز المنيف وأولاده للتجارة والنقل',
-  description: 'خدمات لوجستية رائدة وتجارة المقطورات والمركبات في البدائع، القصيم، المملكة العربية السعودية.',
-  icons: {
-    icon: "/favicon.ico", 
-  },
+  title: 'Obsolete Layout - Please Delete',
+  description: 'This layout is no longer in use.',
 };
 
 export default function RootLayout({
@@ -18,20 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning={true}>
+    <html lang="en" dir="ltr" suppressHydrationWarning={true}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Ensure a font that supports Arabic is used - Inter generally does. Consider specific Arabic fonts if needed. */}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
-        <Header />
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
         <Toaster />
       </body>
     </html>

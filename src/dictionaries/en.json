@@ -1,0 +1,54 @@
+
+{
+  "metadata": {
+    "title": "Abdul Aziz AlMonef & Sons | Trade & Transport",
+    "description": "Leading logistics services and commercial vehicle trade in Al Badai, Al Qassim, KSA."
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "clients": "Clients",
+    "careers": "Careers",
+    "contact": "Contact Us",
+    "switchLanguage": "العربية"
+  },
+  "hero": {
+    "title": "Abdul Aziz AlMonef & Sons",
+    "tagline": "Driving Trade Forward Across Saudi Arabia",
+    "exploreServices": "Explore Services",
+    "getInTouch": "Get in Touch"
+  },
+  "companyIntro": {
+    "heading": "Your Partner in Trade & Transport in Saudi Arabia",
+    "paragraph": "Abdul Aziz AlMonef and Sons Trade and Transport is a leading name in the logistics and trade industry, operating from Al Badai, Al Qassim. We specialize in commercial vehicles and offer dependable logistics services across the Kingdom.",
+    "discoverStory": "Discover Our Story"
+  },
+  "quickStats": {
+    "heading": "Our Impact by the Numbers",
+    "stats": {
+      "yearsInBusiness": { "title": "Years in Business", "description": "Extensive experience in logistics and trade." },
+      "trailersCount": { "title": "Trailers Fleet", "description": "Large and diverse fleet for various needs." },
+      "companiesServed": { "title": "Companies Served", "description": "Trusted by businesses across the Kingdom." },
+      "trailersSold": { "title": "Trailers Sold", "description": "Effectively connecting buyers and sellers." }
+    }
+  },
+  "keyServices": {
+    "heading": "Key Services We Offer",
+    "services": {
+      "vehicleTrade": { "title": "Vehicle Trade Services", "description": "Selling, buying, and leasing quality commercial trailers and vehicles." },
+      "logistics": { "title": "Logistics & Transport", "description": "Reliable goods transport across KSA with key partnerships." },
+      "fleetShowcase": { "title": "Fleet Showcase", "description": "Explore our modern fleet, available for sale, lease, or operations." }
+    },
+    "learnMore": "Learn More"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "legalInfo": "Legal Information",
+    "crNumber": "CR Number",
+    "chamberNumber": "Chamber Number",
+    "connectWithUs": "Connect With Us",
+    "copyright": "Abdul Aziz AlMonef & Sons for Trade and Transport. All rights reserved.",
+    "tagline": "Driving trade forward across Saudi Arabia."
+  }
+}
