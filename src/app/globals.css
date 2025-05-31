@@ -4,95 +4,99 @@
 
 @layer base {
   :root {
-    --background: 0 0 100; /* #FFFFFF - Pure White */
-    --foreground: 200 19 18; /* #263238 - Dark Graphite */
+    --background: 210 17 98; /* #F8F9FA - Off-White */
+    --foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
-    --card: 200 17 26; /* #37474F - Soft Charcoal */
-    --card-foreground: 0 0 95; /* #F2F2F2 - Off-white */
+    --card: 0 0 100; /* #FFFFFF - Pure White */
+    --card-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
     --popover: 0 0 100; /* #FFFFFF - Pure White */
-    --popover-foreground: 200 19 18; /* #263238 - Dark Graphite */
+    --popover-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
-    --primary: 210 50 11; /* #0D1B2A - Royal Midnight Blue */
+    --primary: 179 100 33; /* #00A9A5 - Vibrant Teal */
     --primary-foreground: 0 0 100; /* #FFFFFF - Pure White */
 
-    --secondary: 200 21 73; /* #B0BEC5 - Steel Silver */
-    --secondary-foreground: 200 19 18; /* #263238 - Dark Graphite */
+    --secondary: 16 100 66; /* #FF7F50 - Light Coral */
+    --secondary-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
-    --muted: 200 21 90; /* #E1E7E9 - Lighter Steel Silver */
-    --muted-foreground: 200 18 35; /* #4A5B62 - Muted Dark Graphite */
+    --muted: 210 17 90; /* #E0E0E0 - Lighter version of Off-White/Light Grey */
+    --muted-foreground: 210 10 40; /* #5A6168 - Muted Deep Charcoal */
 
-    --accent: 27 100 50; /* #FF6F00 - Trade Orange */
-    --accent-foreground: 0 0 100; /* #FFFFFF - Pure White */
+    --accent: 46 100 70; /* #FFDA63 - Sunny Yellow */
+    --accent-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
-    --destructive: 0 84 60;
-    --destructive-foreground: 0 0 98;
+    --destructive: 0 84 60; /* Standard Red */
+    --destructive-foreground: 0 0 98; /* Light color for text on destructive */
 
-    --border: 200 20 88; /* #DCE1E3 - Light Gray */
-    --input: 200 20 96; /* #F0F3F4 - Very Light Gray */
-    --ring: 27 100 50; /* #FF6F00 - Trade Orange */
+    --border: 210 17 88; /* #DDE1E3 - Light Grey */
+    --input: 210 17 96; /* #F0F3F4 - Very Light Grey */
+    --ring: 46 100 70; /* #FFDA63 - Sunny Yellow */
 
     --radius: 0.75rem;
 
-    --chart-1: 27 100 50; /* Trade Orange */
-    --chart-2: 46 100 66; /* Golden Sand */
-    --chart-3: 200 21 73; /* Steel Silver */
-    --chart-4: 210 50 11; /* Royal Midnight Blue */
-    --chart-5: 210 50 30; /* Lighter Royal Midnight Blue */
+    /* Chart Colors - derived from the new palette */
+    --chart-1: 179 100 33; /* Vibrant Teal */
+    --chart-2: 16 100 66; /* Light Coral */
+    --chart-3: 46 100 70; /* Sunny Yellow */
+    --chart-4: 199 58 82; /* Soft Sky Blue */
+    --chart-5: 179 100 25; /* Darker Teal */
 
-    --sidebar-background: 200 20 97; /* #F3F5F6 - Very Light Steel Silver/Gray */
-    --sidebar-foreground: 200 19 18; /* #263238 - Dark Graphite */
-    --sidebar-primary: 210 50 11; /* #0D1B2A - Royal Midnight Blue */
+    /* Sidebar Colors - Light Theme */
+    --sidebar-background: 210 17 97; /* #F5F7F8 - Slightly different Off-White */
+    --sidebar-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
+    --sidebar-primary: 179 100 33; /* #00A9A5 - Vibrant Teal */
     --sidebar-primary-foreground: 0 0 100; /* #FFFFFF - Pure White */
-    --sidebar-accent: 27 100 50; /* #FF6F00 - Trade Orange */
-    --sidebar-accent-foreground: 0 0 100; /* #FFFFFF - Pure White */
-    --sidebar-border: 200 20 88; /* #DCE1E3 - Light Gray */
-    --sidebar-ring: 27 100 50; /* #FF6F00 - Trade Orange */
+    --sidebar-accent: 46 100 70; /* #FFDA63 - Sunny Yellow */
+    --sidebar-accent-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
+    --sidebar-border: 210 17 90; /* #E0E0E0 - Light Grey */
+    --sidebar-ring: 46 100 70; /* #FFDA63 - Sunny Yellow */
   }
 
   .dark {
-    --background: 210 30 8; /* #0A1420 - Very Dark Blue */
-    --foreground: 200 20 90; /* #DDE1E2 - Light Gray/Off-white */
+    --background: 240 30 14; /* #1A1A2E - Very Dark Blue/Grey */
+    --foreground: 0 0 88; /* #E0E0E0 - Light Grey/Off-white */
 
-    --card: 210 25 15; /* #1A2638 - Darker Blue Card */
-    --card-foreground: 200 20 90; /* #DDE1E2 - Light Gray/Off-white */
+    --card: 240 25 19; /* #24243E - Darker Blue/Grey Card */
+    --card-foreground: 0 0 88; /* #E0E0E0 - Light Grey/Off-white */
 
-    --popover: 210 25 15; /* #1A2638 - Darker Blue Card */
-    --popover-foreground: 200 20 90; /* #DDE1E2 - Light Gray/Off-white */
+    --popover: 240 25 19; /* #24243E - Darker Blue/Grey Card */
+    --popover-foreground: 0 0 88; /* #E0E0E0 - Light Grey/Off-white */
 
-    --primary: 27 100 50; /* #FF6F00 - Trade Orange */
-    --primary-foreground: 0 0 100; /* #FFFFFF - Pure White */
+    --primary: 179 100 43; /* #00D9D3 - Brighter Teal for dark mode */
+    --primary-foreground: 210 10 15; /* #1E2428 - Darker for contrast on bright primary */
 
-    --secondary: 210 20 25; /* #2D3A4C - Medium Dark Blue */
-    --secondary-foreground: 200 20 80; /* #BFC5C7 - Lighter Gray */
+    --secondary: 16 100 70; /* #FF9978 - Brighter Coral for dark mode */
+    --secondary-foreground: 210 10 15; /* #1E2428 - Darker for contrast */
 
-    --muted: 210 20 12; /* #131F2D - Darker Blue Muted */
-    --muted-foreground: 200 20 60; /* #879093 - Medium-Light Gray */
+    --muted: 240 15 35; /* #4A4A6A - Dark Grey */
+    --muted-foreground: 240 15 70; /* #A0A0B8 - Lighter Grey */
 
-    --accent: 46 100 66; /* #FFD54F - Golden Sand */
-    --accent-foreground: 200 19 18; /* #263238 - Dark Graphite */
+    --accent: 46 100 75; /* #FFE082 - Brighter Sunny Yellow */
+    --accent-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
 
-    --destructive: 0 80 60;
+    --destructive: 0 70 55; /* Slightly less intense red for dark mode */
     --destructive-foreground: 0 0 98;
 
-    --border: 210 20 20; /* #263240 - Dark Blue-Gray Border */
-    --input: 210 20 18; /* #202C3A - Dark Blue-Gray Input */
-    --ring: 27 100 50; /* #FF6F00 - Trade Orange */
+    --border: 240 20 30; /* #3A3A5A - Medium Grey */
+    --input: 240 20 23; /* #2E2E4A - Darker Grey Input */
+    --ring: 46 100 75; /* #FFE082 - Brighter Sunny Yellow */
     
-    --chart-1: 27 100 60; /* Brighter Trade Orange */
-    --chart-2: 46 100 70; /* Brighter Golden Sand */
-    --chart-3: 200 21 65; /* Darker Steel Silver */
-    --chart-4: 210 50 30; /* Lighter Royal Midnight Blue */
-    --chart-5: 210 50 45; /* Even Lighter Royal Midnight Blue */
+    /* Chart Colors - Dark Theme (can be same or adjusted) */
+    --chart-1: 179 100 43; /* Brighter Teal */
+    --chart-2: 16 100 70; /* Brighter Coral */
+    --chart-3: 46 100 75; /* Brighter Sunny Yellow */
+    --chart-4: 199 58 75; /* Brighter Soft Sky Blue */
+    --chart-5: 179 100 35; /* Adjusted Darker Teal */
 
-    --sidebar-background: 210 25 12; /* #121D2B - Dark Blue Sidebar */
-    --sidebar-foreground: 200 20 90; /* #DDE1E2 - Light Gray */
-    --sidebar-primary: 27 100 50; /* #FF6F00 - Trade Orange */
-    --sidebar-primary-foreground: 0 0 100; /* #FFFFFF - Pure White */
-    --sidebar-accent: 46 100 66; /* #FFD54F - Golden Sand */
-    --sidebar-accent-foreground: 200 19 18; /* #263238 - Dark Graphite */
-    --sidebar-border: 210 20 20; /* #263240 - Dark Blue-Gray Border */
-    --sidebar-ring: 27 100 50; /* #FF6F00 - Trade Orange */
+    /* Sidebar Colors - Dark Theme */
+    --sidebar-background: 240 28 16; /* #1C1C33 - Slightly lighter dark blue/grey */
+    --sidebar-foreground: 0 0 88; /* #E0E0E0 - Light Grey/Off-white */
+    --sidebar-primary: 179 100 43; /* #00D9D3 - Brighter Teal */
+    --sidebar-primary-foreground: 210 10 15; /* #1E2428 - Darker for contrast */
+    --sidebar-accent: 46 100 75; /* #FFE082 - Brighter Sunny Yellow */
+    --sidebar-accent-foreground: 210 10 23; /* #343A40 - Deep Charcoal */
+    --sidebar-border: 240 20 25; /* #31314F - Medium Grey border */
+    --sidebar-ring: 46 100 75; /* #FFE082 - Brighter Sunny Yellow */
   }
 }
 
