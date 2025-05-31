@@ -3,9 +3,13 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Target, Eye, Info, Phone, Printer, MapPin } from 'lucide-react';
 
+// Placeholder for Users icon if not available in lucide-react directly.
+// Moved definition before usage.
+const Users = Building2; 
+
 const companyCredentials = [
   { icon: Info, name: 'CR Number', value: '112990003463' },
-  { icon: Users, name: 'Chamber of Commerce', value: '121800' }, // Assuming Users icon for Chamber
+  { icon: Users, name: 'Chamber of Commerce', value: '121800' },
   { icon: Phone, name: 'Telephone', value: '3212000' },
   { icon: Printer, name: 'Fax', value: '3213000' },
   { icon: MapPin, name: 'Address', value: 'Al Badai, Al Qassim, Saudi Arabia' },
@@ -98,6 +102,3 @@ export default function AboutPage() {
     </div>
   );
 }
-// Placeholder for Users icon if not available in lucide-react directly.
-// You might need to choose a more appropriate icon or handle it differently.
-const Users = Building2; 
