@@ -1,15 +1,15 @@
 
-// This file is obsolete and will be replaced by /src/app/[lang]/layout.tsx
-// Please delete this file manually after confirming the new structure works.
-// Keeping it temporarily to avoid build errors if not deleted immediately by the tooling.
+// This file is the true root layout.
+// The comment about it being obsolete should be reviewed based on project structure.
 
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Obsolete Layout - Please Delete',
-  description: 'This layout is no longer in use.',
+  // Generic fallback title and description. Specific pages will override this via their own metadata.
+  title: 'Abdul Aziz AlMonef Logistics Hub',
+  description: 'Leading Trade and Transport Services.',
 };
 
 export default function RootLayout({
@@ -17,15 +17,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // NOTE: For true i18n, lang and dir here should be dynamic.
+  // This currently hardcodes to "en" and "ltr", which will affect Arabic page rendering for dir-sensitive CSS.
+  // Fixing this requires a more complex i18n setup for the root layout.
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning={true}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
-        <main className="flex-grow">
-          {children}
-        </main>
+        {children}
         <Toaster />
       </body>
     </html>
