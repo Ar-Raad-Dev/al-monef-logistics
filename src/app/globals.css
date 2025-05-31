@@ -6,22 +6,22 @@
 @layer base {
   :root {
     --background: 0 0 100; /* White */
-    --foreground: 240 100 46; /* New Blue #0000EA */
+    --foreground: 0 0 0; /* Black */
 
     --card: 0 0 100; /* White */
-    --card-foreground: 240 100 46; /* New Blue */
+    --card-foreground: 0 0 0; /* Black */
 
     --popover: 0 0 100; /* White */
-    --popover-foreground: 240 100 46; /* New Blue */
+    --popover-foreground: 0 0 0; /* Black */
 
-    --primary: 240 100 46; /* New Blue */
+    --primary: 240 100 46; /* New Blue #0000EA */
     --primary-foreground: 0 0 100; /* White */
 
     --secondary: 240 100 95; /* Very Light New Blue */
     --secondary-foreground: 240 100 46; /* New Blue */
 
     --muted: 240 100 97; /* Very Light New Blue (paler than secondary bg) */
-    --muted-foreground: 0 0 55; /* Grey for sub-texts and placeholders */
+    --muted-foreground: 0 0 0; /* Black */
 
     --accent: 240 100 46; /* New Blue */
     --accent-foreground: 0 0 100; /* White */
@@ -35,16 +35,16 @@
 
     --radius: 0.75rem;
 
-    /* Chart Colors - Light Theme (Shades of New Blue and White) */
+    /* Chart Colors - Light Theme (Shades of New Blue and Black/White) */
     --chart-1: 240 100 46;    /* New Blue */
     --chart-2: 240 100 66;    /* Lighter New Blue */
-    --chart-3: 240 100 26;    /* Darker New Blue */
+    --chart-3: 0 0 0;         /* Black */
     --chart-4: 240 100 76;    /* Very Light New Blue */
     --chart-5: 240 100 56;    /* Mid New Blue */
 
     /* Sidebar Colors - Light Theme */
     --sidebar-background: 0 0 100; /* White */
-    --sidebar-foreground: 240 100 46; /* New Blue */
+    --sidebar-foreground: 0 0 0; /* Black */
     --sidebar-primary: 240 100 46; /* New Blue */
     --sidebar-primary-foreground: 0 0 100; /* White */
     --sidebar-accent: 240 100 46; /* New Blue */
@@ -70,7 +70,7 @@
     --secondary-foreground: 0 0 100; /* White */
 
     --muted: 240 100 55; /* Slightly Lighter New Blue than BG */
-    --muted-foreground: 0 0 90; /* Off-white (for muted text) */
+    --muted-foreground: 0 0 100; /* White */
 
     --accent: 0 0 100; /* White */
     --accent-foreground: 240 100 46; /* New Blue */
@@ -85,7 +85,7 @@
     /* Chart Colors - Dark Theme (Shades of White/Light Blue on Dark New Blue BG) */
     --chart-1: 0 0 100;       /* White */
     --chart-2: 240 100 85;    /* Very Light New Blue shade 1 */
-    --chart-3: 0 0 90;        /* Off-White */
+    --chart-3: 0 0 90;        /* Off-White (used for contrast with main white) */
     --chart-4: 240 100 75;    /* Very Light New Blue shade 2 */
     --chart-5: 0 0 95;        /* Almost White */
 
