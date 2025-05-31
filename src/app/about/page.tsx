@@ -1,22 +1,24 @@
 
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Award, Target, Eye, CheckCircle } from 'lucide-react';
+import { Building2, Target, Eye, Info, Phone, Printer, MapPin } from 'lucide-react';
 
-const credentials = [
-  { icon: CheckCircle, name: 'ISO 9001:2015 Certified', description: 'Ensuring quality management systems.' },
-  { icon: CheckCircle, name: 'Licensed Freight Forwarder', description: 'Authorized for global logistics operations.' },
-  { icon: CheckCircle, name: 'Customs Brokerage License', description: 'Expertise in customs clearance procedures.' },
-  { icon: CheckCircle, name: 'Secure Trade Partnership Member', description: 'Committed to supply chain security.' },
+const companyCredentials = [
+  { icon: Info, name: 'CR Number', value: '112990003463' },
+  { icon: Users, name: 'Chamber of Commerce', value: '121800' }, // Assuming Users icon for Chamber
+  { icon: Phone, name: 'Telephone', value: '3212000' },
+  { icon: Printer, name: 'Fax', value: '3213000' },
+  { icon: MapPin, name: 'Address', value: 'Al Badai, Al Qassim, Saudi Arabia' },
 ];
+
 
 export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">About Abdul Aziz AlMonef Logistics Hub</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">About Abdul Aziz AlMonef and Sons</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Pioneering logistics and vehicle trade with integrity, innovation, and a client-first approach.
+          Pioneers in Saudi Arabian logistics and vehicle trade, committed to integrity and excellence.
         </p>
       </header>
 
@@ -25,20 +27,22 @@ export default function AboutPage() {
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
               src="https://placehold.co/600x450/D4E7F0/29ABE2"
-              alt="AlMonef Logistics team meeting"
+              alt="AlMonef and Sons team or operations"
               layout="fill"
               objectFit="cover"
-              data-ai-hint="office meeting"
+              data-ai-hint="logistics company team"
               className="transform hover:scale-105 transition-transform duration-500"
             />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-foreground mb-6 font-headline">Our Story</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-6 font-headline flex items-center gap-3">
+              <Building2 className="h-10 w-10 text-primary" /> Our Company
+            </h2>
             <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              Founded with a vision to redefine logistics, Abdul Aziz AlMonef Logistics Hub has grown into a trusted name for comprehensive supply chain solutions and international vehicle trade. Our journey is marked by a relentless pursuit of excellence and adaptation to the evolving global market.
+              Abdul Aziz AlMonef and Sons Trade and Transport is a leading name in the logistics and trade industry, operating from Al Badai, Al Qassim, Saudi Arabia. With years of expertise, we specialize in the buying, selling, and leasing of trailers and commercial vehicles, and offer dependable logistics services across the Kingdom.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We believe in building strong relationships with our clients, understanding their unique needs, and delivering services that not only meet but exceed their expectations. Our expertise spans across various industries, offering specialized solutions for complex logistical challenges.
+              Our foundation is built on trust, efficiency, and a deep understanding of the Saudi market. We strive to empower businesses by providing seamless and reliable solutions tailored to their unique needs.
             </p>
           </div>
         </div>
@@ -53,7 +57,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                To provide innovative, reliable, and cost-effective logistics and vehicle trade solutions that empower businesses to thrive in the global marketplace. We are committed to operational excellence, customer satisfaction, and sustainable practices.
+                To be the foremost provider of comprehensive trade and transport solutions in Saudi Arabia, delivering exceptional value through innovation, reliability, and a client-centric approach. We aim to facilitate economic growth by connecting businesses and enabling efficient movement of goods.
               </p>
             </CardContent>
           </Card>
@@ -64,7 +68,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                To be the leading logistics and vehicle trade partner recognized for our unwavering commitment to quality, integrity, and customer success. We aspire to set new standards in the industry through continuous innovation and strategic global presence.
+                To be the undisputed leader in the Saudi Arabian logistics and vehicle trade sector, recognized for our unwavering commitment to quality, integrity, and sustainable practices, while fostering long-term partnerships and contributing to the Kingdom's prosperity.
               </p>
             </CardContent>
           </Card>
@@ -73,19 +77,19 @@ export default function AboutPage() {
 
       <section id="credentials">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
-          Our Credentials & Certifications
+          Company Credentials
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {credentials.map((cred) => (
-            <Card key={cred.name} className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="mx-auto bg-primary/10 rounded-full p-3 w-fit mb-2">
-                  <cred.icon className="h-10 w-10 text-primary" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {companyCredentials.map((cred) => (
+            <Card key={cred.name} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <CardHeader className="flex flex-row items-center gap-3 pb-2">
+                <div className="p-2 bg-primary/10 rounded-md">
+                  <cred.icon className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle className="text-xl font-semibold">{cred.name}</CardTitle>
+                <CardTitle className="text-lg font-semibold">{cred.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">{cred.description}</p>
+                <p className="text-md text-muted-foreground">{cred.value}</p>
               </CardContent>
             </Card>
           ))}
@@ -94,3 +98,6 @@ export default function AboutPage() {
     </div>
   );
 }
+// Placeholder for Users icon if not available in lucide-react directly.
+// You might need to choose a more appropriate icon or handle it differently.
+const Users = Building2; 

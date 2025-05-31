@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Package2 } from 'lucide-react';
+import { Menu, Package2, Briefcase } from 'lucide-react'; // Added Briefcase for Careers
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { href: '/about', label: 'About Us' },
   { href: '/services', label: 'Services' },
   { href: '/clients', label: 'Clients' },
+  { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact Us' },
 ];
 
@@ -24,7 +25,7 @@ export default function Header() {
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2 mr-6">
           <Package2 className="h-6 w-6 text-primary" />
-          <span className="font-bold text-lg font-headline">AlMonef Logistics</span>
+          <span className="font-bold text-lg font-headline">AlMonef & Sons</span>
         </Link>
         
         <nav className="hidden md:flex gap-6 items-center">
@@ -54,7 +55,7 @@ export default function Header() {
               <nav className="grid gap-6 text-lg font-medium mt-8">
                 <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                   <Package2 className="h-6 w-6 text-primary" />
-                  <span className="font-headline">AlMonef Logistics</span>
+                  <span className="font-headline">AlMonef & Sons</span>
                 </Link>
                 {navItems.map((item) => (
                   <Link

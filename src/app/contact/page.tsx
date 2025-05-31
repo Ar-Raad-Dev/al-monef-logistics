@@ -2,22 +2,23 @@
 import ContactForm from '@/components/contact-form';
 import MapEmbed from '@/components/map-embed';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Printer } from 'lucide-react'; // Added Printer for Fax
 
 const contactDetails = [
-  { icon: MapPin, title: 'Office Address', lines: ['123 Logistics Avenue', 'Industrial Zone B, Suite 404', 'Riyadh, Saudi Arabia'] },
-  { icon: Phone, title: 'Phone Number', lines: ['+966 11 555 1234 (Main)', '+966 50 555 5678 (Support)'] },
-  { icon: Mail, title: 'Email Address', lines: ['info@almoneflogistics.sa', 'sales@almoneflogistics.sa'] },
-  { icon: Clock, title: 'Office Hours', lines: ['Sunday - Thursday: 8:00 AM - 6:00 PM', 'Friday: Closed', 'Saturday: 10:00 AM - 2:00 PM'] },
+  { icon: MapPin, title: 'Office Address', lines: ['Al Badai, Al Qassim', 'Saudi Arabia'] },
+  { icon: Phone, title: 'Telephone', lines: ['3212000'] },
+  { icon: Printer, title: 'Fax Number', lines: ['3213000'] },
+  { icon: Mail, title: 'Email Address', lines: ['info@almonef-transport.com'] },
+  { icon: Clock, title: 'Office Hours', lines: ['Sunday - Thursday: 8:00 AM - 6:00 PM', 'Friday: Closed', 'Saturday: 10:00 AM - 2:00 PM (By Appointment)'] },
 ];
 
 export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">Get In Touch</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">Get In Touch With Us</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          We&apos;re here to help with all your logistics and vehicle trade inquiries. Reach out to us through any of the channels below.
+          We&apos;re ready to assist with your trade and transport needs. Reach out via phone, email, or visit our office in Al Badai.
         </p>
       </header>
 
@@ -54,7 +55,7 @@ export default function ContactPage() {
 
       <section id="location-map">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
-          Find Our Office
+          Find Our Office in Al Badai, Al Qassim
         </h2>
         <MapEmbed />
       </section>
