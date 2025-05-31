@@ -1,102 +1,103 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0 100; /* #FFFFFF - Pure White */
-    --foreground: 220 60 45; /* #3366CC - Blue for main text */
+    --background: 0 0 100; /* White */
+    --foreground: 210 100 50; /* Fast Blue */
 
-    --card: 0 0 100; /* #FFFFFF - Pure White */
-    --card-foreground: 220 60 45; /* Blue for card text */
+    --card: 0 0 100; /* White */
+    --card-foreground: 210 100 50; /* Fast Blue */
 
-    --popover: 0 0 100; /* #FFFFFF - Pure White */
-    --popover-foreground: 220 60 45; /* Blue for popover text */
+    --popover: 0 0 100; /* White */
+    --popover-foreground: 210 100 50; /* Fast Blue */
 
-    --primary: 48 100 50; /* #FFC100 - Bright Yellow (from red-yellow gradient idea) */
-    --primary-foreground: 220 10 20; /* #262B33 - Dark Blue/Graphite for contrast on yellow */
+    --primary: 210 100 50; /* Fast Blue */
+    --primary-foreground: 0 0 100; /* White */
 
-    --secondary: 210 25 95; /* #EEF2F5 - Very Light Bluish Grey (can act as a subtle background or "water grey" element bg) */
-    --secondary-foreground: 220 60 45; /* Blue */
+    --secondary: 210 100 95; /* Very Light Blue (almost white) */
+    --secondary-foreground: 210 100 50; /* Fast Blue */
 
-    --muted: 210 20 97; /* #F6F8FA - Even Lighter Grey (for subtle backgrounds) */
-    --muted-foreground: 210 20 55; /* #7A8C99 - "Water Grey" for filling/muted text */
+    --muted: 210 100 97; /* Very Light Blue (paler than secondary bg) */
+    --muted-foreground: 210 100 60; /* Lighter Blue (for less emphasis than main text) */
 
-    --accent: 0 100 55; /* #FF1A1A - Bright Red (from red-yellow gradient idea) */
-    --accent-foreground: 0 0 100; /* #FFFFFF - White */
+    --accent: 210 100 50; /* Fast Blue */
+    --accent-foreground: 0 0 100; /* White */
 
-    --destructive: 0 84 60; /* Standard Red for destructive actions */
-    --destructive-foreground: 0 0 98; /* Light color for text on destructive */
+    --destructive: 210 100 40; /* Darker Blue for destructive action background */
+    --destructive-foreground: 0 0 100; /* White for text on destructive */
 
-    --border: 210 20 88; /* #DDE3E8 - Light Grey (default border; gradients are custom) */
-    --input: 210 25 98; /* #F8FAFB - Very Light Grey for input backgrounds */
-    --ring: 48 100 50; /* #FFC100 - Bright Yellow for focus rings */
+    --border: 210 100 85; /* Light Blue Border */
+    --input: 0 0 100; /* White input background */
+    --ring: 210 100 50; /* Fast Blue for focus rings */
 
     --radius: 0.75rem;
 
-    /* Chart Colors - derived from the new palette */
-    --chart-1: 48 100 50;    /* Bright Yellow (Primary) */
-    --chart-2: 0 100 55;     /* Bright Red (Accent) */
-    --chart-3: 140 60 50;    /* #33CC66 - A complementary Green */
-    --chart-4: 270 60 60;    /* #9966CC - A complementary Purple */
-    --chart-5: 25 100 50;    /* #FF8000 - An Orange */
+    /* Chart Colors - Light Theme (Shades of Blue and White) */
+    --chart-1: 210 100 50;    /* Fast Blue */
+    --chart-2: 210 100 70;    /* Lighter Blue */
+    --chart-3: 210 100 30;    /* Darker Blue */
+    --chart-4: 210 100 80;    /* Very Light Blue */
+    --chart-5: 210 100 60;    /* Mid Blue */
 
     /* Sidebar Colors - Light Theme */
-    --sidebar-background: 0 0 98; /* #F9F9F9 - Slightly off-white */
-    --sidebar-foreground: 220 60 45; /* Blue text */
-    --sidebar-primary: 48 100 50; /* Bright Yellow */
-    --sidebar-primary-foreground: 220 10 20; /* Dark Blue/Graphite */
-    --sidebar-accent: 0 100 55; /* Bright Red */
+    --sidebar-background: 0 0 100; /* White */
+    --sidebar-foreground: 210 100 50; /* Fast Blue */
+    --sidebar-primary: 210 100 50; /* Fast Blue */
+    --sidebar-primary-foreground: 0 0 100; /* White */
+    --sidebar-accent: 210 100 50; /* Fast Blue */
     --sidebar-accent-foreground: 0 0 100; /* White */
-    --sidebar-border: 210 20 88; /* Light Grey */
-    --sidebar-ring: 48 100 50; /* Bright Yellow */
+    --sidebar-border: 210 100 85; /* Light Blue Border */
+    --sidebar-ring: 210 100 50; /* Fast Blue */
   }
 
   .dark {
-    --background: 220 20 10; /* #14181C - Very Dark Blue/Grey */
-    --foreground: 210 30 90; /* #D9E1E8 - Light Greyish Blue for text */
+    --background: 210 100 50; /* Fast Blue */
+    --foreground: 0 0 100; /* White */
 
-    --card: 220 20 15; /* #1E242B - Darker Card */
-    --card-foreground: 210 30 90; /* Light Greyish Blue */
+    --card: 210 100 45; /* Slightly Darker Blue than BG */
+    --card-foreground: 0 0 100; /* White */
 
-    --popover: 220 20 15; /* #1E242B - Darker Popover */
-    --popover-foreground: 210 30 90; /* Light Greyish Blue */
+    --popover: 210 100 45; /* Slightly Darker Blue */
+    --popover-foreground: 0 0 100; /* White */
 
-    --primary: 48 100 60; /* #FFD033 - Brighter Yellow */
-    --primary-foreground: 220 20 10; /* #14181C - Very Dark Blue/Grey for contrast */
+    --primary: 0 0 100; /* White (button background) */
+    --primary-foreground: 210 100 50; /* Fast Blue (text on button) */
 
-    --secondary: 220 15 25; /* #333B47 - Dark Muted Blue/Grey */
-    --secondary-foreground: 210 30 80; /* #B8C5D3 - Lighter Greyish Blue */
+    --secondary: 210 100 60; /* Lighter Blue than BG (for secondary element backgrounds) */
+    --secondary-foreground: 0 0 100; /* White */
 
-    --muted: 220 15 20; /* #2A313A - Darker Grey */
-    --muted-foreground: 210 20 65; /* #93A1B0 - Lighter "Water Grey" for dark mode */
+    --muted: 210 100 55; /* Slightly Lighter Blue than BG */
+    --muted-foreground: 0 0 90; /* Off-white (for muted text) */
 
-    --accent: 0 100 65; /* #FF4D4D - Brighter Red */
-    --accent-foreground: 0 0 100; /* #FFFFFF - White */
+    --accent: 0 0 100; /* White */
+    --accent-foreground: 210 100 50; /* Fast Blue */
 
-    --destructive: 0 70 55; /* Slightly less intense red for dark mode */
-    --destructive-foreground: 0 0 98;
+    --destructive: 0 0 100; /* White background for destructive button */
+    --destructive-foreground: 210 100 40; /* Darker Blue text for destructive button */
 
-    --border: 220 15 30; /* #3E4857 - Medium Dark Grey for borders */
-    --input: 220 15 22; /* #2E3640 - Darker Input */
-    --ring: 48 100 60; /* #FFD033 - Brighter Yellow */
+    --border: 210 100 65; /* Lighter Blue border than card bg */
+    --input: 210 100 40; /* Darker Blue input background */
+    --ring: 0 0 100; /* White for focus rings */
     
-    /* Chart Colors - Dark Theme */
-    --chart-1: 48 100 60;    /* Brighter Yellow */
-    --chart-2: 0 100 65;     /* Brighter Red */
-    --chart-3: 140 60 60;    /* #52D680 - Brighter Green */
-    --chart-4: 270 60 70;    /* #AD85E0 - Brighter Purple */
-    --chart-5: 25 100 60;    /* #FF9933 - Brighter Orange */
+    /* Chart Colors - Dark Theme (Shades of White/Light Blue on Dark Blue BG) */
+    --chart-1: 0 0 100;       /* White */
+    --chart-2: 210 100 85;    /* Very Light Blue shade 1 */
+    --chart-3: 0 0 90;        /* Off-White */
+    --chart-4: 210 100 75;    /* Very Light Blue shade 2 */
+    --chart-5: 0 0 95;        /* Almost White */
 
     /* Sidebar Colors - Dark Theme */
-    --sidebar-background: 220 20 12; /* #171C21 - Slightly different dark for sidebar */
-    --sidebar-foreground: 210 30 90; /* Light Greyish Blue text */
-    --sidebar-primary: 48 100 60; /* Brighter Yellow */
-    --sidebar-primary-foreground: 220 20 10; /* Very Dark Blue/Grey */
-    --sidebar-accent: 0 100 65; /* Brighter Red */
-    --sidebar-accent-foreground: 0 0 100; /* White */
-    --sidebar-border: 220 15 30; /* Medium Dark Grey */
-    --sidebar-ring: 48 100 60; /* Brighter Yellow */
+    --sidebar-background: 210 100 45; /* Dark Blue (slightly different from main BG for potential separation) */
+    --sidebar-foreground: 0 0 100; /* White */
+    --sidebar-primary: 0 0 100; /* White */
+    --sidebar-primary-foreground: 210 100 50; /* Fast Blue */
+    --sidebar-accent: 0 0 100; /* White */
+    --sidebar-accent-foreground: 210 100 50; /* Fast Blue */
+    --sidebar-border: 210 100 60; /* Lighter Blue border than sidebar BG */
+    --sidebar-ring: 0 0 100; /* White */
   }
 }
 
