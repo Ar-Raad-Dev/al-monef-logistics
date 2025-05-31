@@ -21,7 +21,7 @@
     --secondary-foreground: 240 100 46; /* New Blue */
 
     --muted: 240 100 97; /* Very Light New Blue (paler than secondary bg) */
-    --muted-foreground: 240 100 60; /* Lighter New Blue (for less emphasis) */
+    --muted-foreground: 0 0 55; /* Grey for sub-texts and placeholders */
 
     --accent: 240 100 46; /* New Blue */
     --accent-foreground: 0 0 100; /* White */
