@@ -29,6 +29,9 @@ const companyLocation = { lat: 25.9638, lng: 43.7118 };
 export default async function ContactPage({ params: { lang } }: { params: { lang: Locale }}) {
   const dictionary = await getDictionary(lang);
   const d = dictionary.contactPage;
+  
+  // The API key is sourced from environment variables (e.g., .env.local file)
+  // See .env.local.example for the required variable name: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
