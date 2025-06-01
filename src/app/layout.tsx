@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   // Generic fallback title and description. Specific pages will override this via their own metadata.
   title: 'Abdul Aziz AlMonef Logistics Hub',
   description: 'Leading Trade and Transport Services.',
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -17,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}> {/* Default lang, dir will be set by client component */}
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
