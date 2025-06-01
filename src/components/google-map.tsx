@@ -29,42 +29,76 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
   loadingMessage,
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // Status to manage different phases: loading script, map initialized, or error
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+  // Store specific error messages
+  const [internalErrorMessage, setInternalErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Reset states on re-render if apiKey or critical props change
-    setIsLoading(true);
-    setError(null);
+    let isMounted = true;
 
+    // Immediately set to error if API key is missing
     if (!apiKey) {
-      console.error("Google Maps API Key is missing.");
-      setError(noApiKeyMessage);
-      setIsLoading(false);
+      console.error(`[${lang}] Google Maps API Key is missing.`);
+      if (isMounted) {
+        setInternalErrorMessage(noApiKeyMessage);
+        setStatus('error');
+      }
       return;
     }
 
-    console.log("Attempting to load Google Maps with API Key and language:", lang);
+    // If mapRef.current is null here, it means the div hasn't been rendered by React yet.
+    // This effect will run after the initial render where mapRef is assigned.
+    if (!mapRef.current) {
+        console.warn(`[${lang}] mapRef.current is null during useEffect setup. This is unexpected if component is mounted.`);
+        // This state indicates a problem with the component's own rendering, not API loading yet.
+        if (isMounted) {
+            setInternalErrorMessage("Map container element not found in DOM.");
+            setStatus('error');
+        }
+        return;
+    }
+    
+    console.log(`[${lang}] Attempting to load Google Maps (API Key: ${apiKey ? '******' : 'MISSING'}, Center: ${center.lat},${center.lng})`);
+    if (isMounted) {
+      setStatus('loading'); // Reset status on re-run (e.g., lang change)
+      setInternalErrorMessage(null); // Clear previous errors
+    }
 
     const loader = new Loader({
       apiKey: apiKey,
       version: 'weekly',
-      libraries: ['marker'], // 'maps' and 'marker' are distinct libraries
+      libraries: ['marker'],
       language: lang,
-      // region: lang === 'ar' ? 'SA' : undefined // Optional: hint region
     });
 
     loader.load().then(async (google) => {
-      console.log("Google Maps API script loaded successfully.");
-      if (mapRef.current) {
-        console.log("Map container ref is available. Initializing map.");
+      if (!isMounted) {
+        console.log(`[${lang}] GoogleMapComponent unmounted before map could be initialized.`);
+        return;
+      }
+      if (!mapRef.current) {
+        // This is the critical error from before
+        console.error(`[${lang}] mapRef.current is null AFTER Google Maps API script loaded, but component is still mounted. The map div might have been removed.`);
+        if (isMounted) {
+          setInternalErrorMessage("Map container (ref) became null. Please try refreshing.");
+          setStatus('error');
+        }
+        return;
+      }
+
+      console.log(`[${lang}] Google Maps API script loaded. mapRef.current is available. Initializing map.`);
+      try {
+        // Ensure the map div is clear before Google Maps initializes over it
+        // mapRef.current.innerHTML = ''; // Usually not necessary, Maps SDK handles this.
+
         const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
         const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
         const map = new Map(mapRef.current, {
           center: center,
           zoom: zoom,
-          mapId: mapId || 'DEMO_MAP_ID', 
+          mapId: mapId || 'DEMO_MAP_ID', // Using DEMO_MAP_ID if no mapId is provided
           disableDefaultUI: false,
         });
 
@@ -74,36 +108,58 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
             position: markerPosition,
             title: markerTitle,
           });
-          console.log("Marker added to map at:", markerPosition);
+          console.log(`[${lang}] Marker added to map at:`, markerPosition);
         }
-        setIsLoading(false);
-        console.log("Map initialization complete.");
-      } else {
-        console.error("Map container ref (mapRef.current) is null after API load.");
-        setError("Map container not found. Please try refreshing.");
-        setIsLoading(false);
+
+        if (isMounted) {
+          setStatus('loaded');
+        }
+        console.log(`[${lang}] Map initialization complete.`);
+      } catch (initError) {
+        console.error(`[${lang}] Error initializing Google Map instance:`, initError);
+        if (isMounted) {
+          setInternalErrorMessage(initError instanceof Error ? initError.message : "Failed to initialize map instance.");
+          setStatus('error');
+        }
       }
     }).catch(e => {
-      console.error("Error loading or initializing Google Maps:", e);
-      // Check if the error object has a more specific message
-      const errorMessage = e.message || "Failed to load map. Check browser console for details from Google Maps API, ensure your API key is valid, correctly configured in Google Cloud Console (Maps JavaScript API enabled, billing active, no restrictive referrers for localhost), and that your .env.local file is correct (NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=YOUR_KEY) and server was restarted.";
-      setError(errorMessage);
-      setIsLoading(false);
+      if (!isMounted) {
+        console.log(`[${lang}] GoogleMapComponent unmounted before map loading error could be processed.`);
+        return;
+      }
+      console.error(`[${lang}] Error loading Google Maps API script:`, e);
+      const specificMessage = e.message || "Failed to load map script. Check API key, network, and browser console for Google API errors.";
+      if (isMounted) {
+        setInternalErrorMessage(specificMessage);
+        setStatus('error');
+      }
     });
 
-  // Key dependencies that should trigger re-load
+    return () => {
+      isMounted = false;
+      console.log(`[${lang}] GoogleMapComponent effect cleanup. isMounted set to false.`);
+      // If you were storing the map instance (e.g., in a ref: mapInstanceRef.current),
+      // you might call mapInstanceRef.current.dispose() or similar map-specific cleanup here.
+      // The js-api-loader handles the <script> tag cleanup automatically.
+    };
   }, [apiKey, center.lat, center.lng, zoom, markerPosition?.lat, markerPosition?.lng, markerTitle, mapId, lang, noApiKeyMessage, loadingMessage]);
 
 
-  if (error) {
-    return <div className="flex items-center justify-center h-full w-full bg-destructive/10 text-destructive p-4 rounded-lg text-center text-sm">{error}</div>;
-  }
-
-  if (isLoading) {
-    return <div className="flex items-center justify-center h-full w-full bg-muted text-muted-foreground p-4 rounded-lg animate-pulse">{loadingMessage}...</div>;
-  }
-
-  return <div ref={mapRef} className="h-full w-full rounded-lg overflow-hidden border border-border" />;
+  return (
+    <div ref={mapRef} className="h-full w-full rounded-lg overflow-hidden border border-border">
+      {status === 'loading' && (
+        <div className="flex items-center justify-center h-full w-full bg-muted text-muted-foreground p-4 animate-pulse">
+          {loadingMessage}...
+        </div>
+      )}
+      {status === 'error' && (
+        <div className="flex items-center justify-center h-full w-full bg-destructive/10 text-destructive p-4 text-center text-sm">
+          {internalErrorMessage || "An unexpected error occurred."}
+        </div>
+      )}
+      {/* When status is 'loaded', this div will be empty, and Google Maps will have populated mapRef.current */}
+    </div>
+  );
 };
 
 export default GoogleMapComponent;
