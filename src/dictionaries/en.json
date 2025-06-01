@@ -182,8 +182,10 @@
       "positionSelectPlaceholder": "Select a position",
       "positionRequiredError": "Please select a position.",
       "generalApplicationOption": "General Application",
-      "cvLabel": "Upload CV (PDF, DOC, DOCX)",
-      "cvFileTypes": "(PDF, DOC, DOCX)",
+      "cvLabel": "Upload CV",
+      "cvFileTypes": "(PDF, DOC, DOCX - Max 5MB)",
+      "cvFileSizeError": "CV file size must be less than 5MB.",
+      "cvFileTypeError": "Invalid file type. Only PDF, DOC, or DOCX are allowed.",
       "coverLetterLabel": "Cover Letter / Message (Optional)",
       "coverLetterPlaceholder": "Briefly tell us why you're a good fit...",
       "coverLetterMinLengthError": "Message must be at least 10 characters.",
@@ -191,7 +193,10 @@
       "submitButtonText": "Submit Application",
       "submittingButtonText": "Submitting...",
       "submitSuccessTitle": "Application Sent!",
-      "submitSuccessDescription": "Thank you for your interest. We'll review your application and get in touch if there's a match."
+      "submitSuccessDescription": "Thank you for your interest. We'll review your application and get in touch if there's a match.",
+      "submitErrorTitle": "Submission Error",
+      "submitErrorDescription": "There was an error submitting your application. Please try again.",
+      "submitNetworkErrorDescription": "Could not connect to the server. Please check your internet connection and try again."
     }
   },
   "contactPage": {
@@ -231,7 +236,10 @@
       "submitButtonText": "Send Message",
       "submittingButtonText": "Sending...",
       "submitSuccessTitle": "Message Sent!",
-      "submitSuccessDescription": "Thank you for contacting us. We'll get back to you soon."
+      "submitSuccessDescription": "Thank you for contacting us. We'll get back to you soon.",
+      "submitErrorTitle": "Submission Error",
+      "submitErrorDescription": "There was an error sending your message. Please try again.",
+      "submitNetworkErrorDescription": "Could not connect to the server. Please check your internet connection and try again."
     }
   }
 }

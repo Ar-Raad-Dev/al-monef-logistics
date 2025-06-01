@@ -182,8 +182,10 @@
       "positionSelectPlaceholder": "اختر وظيفة",
       "positionRequiredError": "الرجاء تحديد وظيفة.",
       "generalApplicationOption": "طلب عام",
-      "cvLabel": "تحميل السيرة الذاتية (PDF, DOC, DOCX)",
-      "cvFileTypes": "(PDF, DOC, DOCX)",
+      "cvLabel": "تحميل السيرة الذاتية",
+      "cvFileTypes": "(PDF, DOC, DOCX - الحد الأقصى 5 ميجابايت)",
+      "cvFileSizeError": "يجب أن يكون حجم ملف السيرة الذاتية أقل من 5 ميجابايت.",
+      "cvFileTypeError": "نوع الملف غير صالح. يُسمح فقط بملفات PDF أو DOC أو DOCX.",
       "coverLetterLabel": "رسالة تعريفية / رسالة (اختياري)",
       "coverLetterPlaceholder": "أخبرنا بإيجاز لماذا أنت مناسب...",
       "coverLetterMinLengthError": "يجب أن تتكون الرسالة من 10 أحرف على الأقل.",
@@ -191,7 +193,10 @@
       "submitButtonText": "إرسال الطلب",
       "submittingButtonText": "جارٍ الإرسال...",
       "submitSuccessTitle": "تم إرسال الطلب!",
-      "submitSuccessDescription": "شكرًا لاهتمامك. سنراجع طلبك وسنتصل بك إذا كان هناك تطابق."
+      "submitSuccessDescription": "شكرًا لاهتمامك. سنراجع طلبك وسنتصل بك إذا كان هناك تطابق.",
+      "submitErrorTitle": "خطأ في الإرسال",
+      "submitErrorDescription": "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.",
+      "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
     }
   },
   "contactPage": {
@@ -231,7 +236,10 @@
       "submitButtonText": "إرسال الرسالة",
       "submittingButtonText": "جارٍ الإرسال...",
       "submitSuccessTitle": "تم إرسال الرسالة!",
-      "submitSuccessDescription": "شكرًا لتواصلك معنا. سنعود إليك قريبًا."
+      "submitSuccessDescription": "شكرًا لتواصلك معنا. سنعود إليك قريبًا.",
+      "submitErrorTitle": "خطأ في الإرسال",
+      "submitErrorDescription": "حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+      "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
     }
   }
 }

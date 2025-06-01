@@ -50,14 +50,39 @@ export default function ContactForm({ dictionary: d, lang }: ContactFormProps) {
   });
 
   async function onSubmit(values: ContactFormValues) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("Contact form submitted:", values);
-    toast({
-      title: d.submitSuccessTitle,
-      description: d.submitSuccessDescription,
-      variant: "default", 
-    });
-    form.reset();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: d.submitSuccessTitle,
+          description: d.submitSuccessDescription,
+          variant: "default", 
+        });
+        form.reset();
+      } else {
+        toast({
+          title: d.submitErrorTitle || "Submission Error",
+          description: result.message || d.submitErrorDescription || "An unexpected error occurred.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to submit contact form:", error);
+      toast({
+        title: d.submitErrorTitle || "Network Error",
+        description: d.submitNetworkErrorDescription || "Could not connect to the server. Please try again later.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

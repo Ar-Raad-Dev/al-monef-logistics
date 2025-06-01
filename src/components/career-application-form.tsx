@@ -19,6 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Send, Paperclip } from "lucide-react";
 import type { Translations, Locale } from "@/lib/dictionaries";
+import { useRef } from "react";
 
 type CareerFormDictionary = Translations['careersPage']['form'];
 
@@ -30,13 +31,17 @@ interface CareerApplicationFormProps {
 
 export default function CareerApplicationForm({ availablePositions, dictionary: d, lang }: CareerApplicationFormProps) {
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Adjust Zod schema to handle FileList for CV
   const formSchema = z.object({
     name: z.string().min(2, { message: d.fullNameMinLengthError }),
     phone: z.string().min(7, { message: d.phoneMinLengthError }),
     email: z.string().email({ message: d.emailInvalidError }),
     position: z.string().min(1, { message: d.positionRequiredError}),
-    cv: z.any().optional(),
+    cv: z.instanceof(FileList).optional()
+      .refine(files => !files || files.length === 0 || files?.[0]?.size <= 5 * 1024 * 1024, d.cvFileSizeError || `Max file size is 5MB.`)
+      .refine(files => !files || files.length === 0 || ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files?.[0]?.type), d.cvFileTypeError || "Only PDF, DOC, DOCX files are allowed."),
     message: z.string().min(10, { message: d.coverLetterMinLengthError }).max(500, { message: d.coverLetterMaxLengthError }).optional().or(z.literal('')),
   });
   
@@ -55,14 +60,51 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
   });
 
   async function onSubmit(values: CareerFormValues) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("Career application submitted:", values);
-    toast({
-      title: d.submitSuccessTitle,
-      description: d.submitSuccessDescription,
-      variant: "default", 
-    });
-    form.reset();
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('phone', values.phone);
+    formData.append('email', values.email);
+    formData.append('position', values.position);
+    if (values.message) {
+      formData.append('message', values.message);
+    }
+    if (values.cv && values.cv.length > 0) {
+      formData.append('cv', values.cv[0]);
+    }
+
+    try {
+      const response = await fetch('/api/careers', {
+        method: 'POST',
+        body: formData, // No 'Content-Type' header needed for FormData, browser sets it
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: d.submitSuccessTitle,
+          description: d.submitSuccessDescription,
+          variant: "default", 
+        });
+        form.reset();
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ""; // Reset file input
+        }
+      } else {
+        toast({
+          title: d.submitErrorTitle || "Submission Error",
+          description: result.message || d.submitErrorDescription || "An unexpected error occurred.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to submit career application:", error);
+      toast({
+        title: d.submitErrorTitle || "Network Error",
+        description: d.submitNetworkErrorDescription || "Could not connect to the server. Please try again later.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -135,16 +177,18 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
         <FormField
           control={form.control}
           name="cv"
-          render={({ field }) => ( // field does not include 'value' for file inputs directly, but onChange handles it
+          render={({ field: { onChange, value, ...restField } }) => (
             <FormItem>
               <FormLabel>{d.cvLabel} <span className="text-xs text-muted-foreground">{d.cvFileTypes}</span></FormLabel>
               <FormControl>
                 <div className="relative">
                     <Input 
                         type="file" 
-                        accept=".pdf,.doc,.docx"
-                        onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : null)} 
-                        className={`bg-input focus:bg-background transition-colors ${lang === 'ar' ? 'pl-10' : 'pr-10'}`} // Adjusted padding for icon
+                        accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        onChange={(e) => onChange(e.target.files)} 
+                        className={`bg-input focus:bg-background transition-colors ${lang === 'ar' ? 'pl-10' : 'pr-10'}`}
+                        ref={fileInputRef}
+                        {...restField}
                     />
                     <Paperclip className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground ${lang === 'ar' ? 'right-3' : 'left-3'}`} />
                 </div>

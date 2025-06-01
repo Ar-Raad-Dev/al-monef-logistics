@@ -178,6 +178,8 @@ export interface Translations {
       generalApplicationOption: string;
       cvLabel: string;
       cvFileTypes: string;
+      cvFileSizeError?: string; // Optional, for max file size
+      cvFileTypeError?: string; // Optional, for allowed file types
       coverLetterLabel: string;
       coverLetterPlaceholder: string;
       coverLetterMinLengthError: string;
@@ -186,6 +188,9 @@ export interface Translations {
       submittingButtonText: string;
       submitSuccessTitle: string;
       submitSuccessDescription: string;
+      submitErrorTitle?: string;
+      submitErrorDescription?: string;
+      submitNetworkErrorDescription?: string;
     };
   };
   contactPage: {
@@ -201,7 +206,7 @@ export interface Translations {
     }>;
     locationMapSection: {
       heading: string;
-      mapImageAlt: string; // This was for the old placeholder, can be repurposed or removed
+      mapImageAlt: string; 
       mapMarkerTitle: string;
       noApiKeyMessage: string;
       loadingMessage: string;
@@ -224,6 +229,9 @@ export interface Translations {
       submittingButtonText: string;
       submitSuccessTitle: string;
       submitSuccessDescription: string;
+      submitErrorTitle?: string;
+      submitErrorDescription?: string;
+      submitNetworkErrorDescription?: string;
     };
   };
 }
