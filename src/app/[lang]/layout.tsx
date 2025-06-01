@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { getDictionary, Locale } from '@/lib/dictionaries';
+import DynamicHtmlAttrs from '@/components/dynamic-html-attrs';
 
 export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
@@ -23,11 +24,10 @@ export default async function LangLayout({
   params: { lang: Locale };
 }>) {
   const dictionary = await getDictionary(params.lang);
-  // The direction is now primarily controlled by the root layout's <html> tag.
-  // Individual components might still use params.lang for specific styling if needed.
 
   return (
     <>
+      <DynamicHtmlAttrs lang={params.lang} />
       <Header lang={params.lang} dictionary={dictionary.navigation} />
       <main className="flex-grow">
         {children}

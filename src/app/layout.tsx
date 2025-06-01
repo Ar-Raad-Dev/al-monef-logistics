@@ -1,6 +1,5 @@
 
 // This file is the true root layout.
-// The comment about it being obsolete should be reviewed based on project structure.
 
 import type { Metadata } from 'next';
 import './globals.css';
@@ -17,11 +16,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // NOTE: For true i18n, lang and dir here should be dynamic.
-  // This currently hardcodes to "en" and "ltr", which will affect Arabic page rendering for dir-sensitive CSS.
-  // Fixing this requires a more complex i18n setup for the root layout.
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning={true}> {/* Default lang, dir will be set by client component */}
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
