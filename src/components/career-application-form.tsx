@@ -33,15 +33,15 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Adjust Zod schema to handle FileList for CV
+  // Define schema INSIDE the component to ensure browser APIs like FileList are available
   const formSchema = z.object({
     name: z.string().min(2, { message: d.fullNameMinLengthError }),
     phone: z.string().min(7, { message: d.phoneMinLengthError }),
     email: z.string().email({ message: d.emailInvalidError }),
     position: z.string().min(1, { message: d.positionRequiredError}),
     cv: z.instanceof(FileList).optional()
-      .refine(files => !files || files.length === 0 || files?.[0]?.size <= 5 * 1024 * 1024, d.cvFileSizeError || `Max file size is 5MB.`)
-      .refine(files => !files || files.length === 0 || ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files?.[0]?.type), d.cvFileTypeError || "Only PDF, DOC, DOCX files are allowed."),
+      .refine(files => !files || files.length === 0 || (files?.[0]?.size !== undefined && files[0].size <= 5 * 1024 * 1024), d.cvFileSizeError || `Max file size is 5MB.`)
+      .refine(files => !files || files.length === 0 || (files?.[0]?.type !== undefined && ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files[0].type)), d.cvFileTypeError || "Only PDF, DOC, DOCX files are allowed."),
     message: z.string().min(10, { message: d.coverLetterMinLengthError }).max(500, { message: d.coverLetterMaxLengthError }).optional().or(z.literal('')),
   });
   
@@ -75,7 +75,7 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
     try {
       const response = await fetch('/api/careers', {
         method: 'POST',
-        body: formData, // No 'Content-Type' header needed for FormData, browser sets it
+        body: formData, 
       });
 
       const result = await response.json();
@@ -88,7 +88,7 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
         });
         form.reset();
         if (fileInputRef.current) {
-          fileInputRef.current.value = ""; // Reset file input
+          fileInputRef.current.value = ""; 
         }
       } else {
         toast({
