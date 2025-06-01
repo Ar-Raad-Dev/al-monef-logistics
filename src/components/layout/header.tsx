@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -60,7 +59,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
         <Link href={`/${lang}`} className="flex items-center gap-2">
           <Package2 className="h-6 w-6 text-primary" />
           <span className="font-bold text-lg font-headline">
-            {lang === 'ar' ? 'المنيف وأولاده' : 'AlMonef & Sons'}
+            {lang === 'ar' ? 'عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad AlMonef & Sons'}
           </span>
         </Link>
         
@@ -101,7 +100,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
                   <Link href={`/${lang}`} className="flex items-center gap-2 text-lg font-semibold mb-4">
                     <Package2 className="h-6 w-6 text-primary" />
                     <span className="font-headline">
-                      {lang === 'ar' ? 'المنيف وأولاده' : 'AlMonef & Sons'}
+                      {lang === 'ar' ? 'عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad AlMonef & Sons'}
                     </span>
                   </Link>
                   {navItems.map((item) => (
