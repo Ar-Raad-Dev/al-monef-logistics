@@ -4,6 +4,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import type { Locale } from '@/lib/dictionaries';
+import { cn } from '@/lib/utils';
 
 interface GoogleMapProps {
   apiKey: string | undefined;
@@ -29,40 +30,38 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
   loadingMessage,
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const isMounted = useRef(false);
   // Status to manage different phases: loading script, map initialized, or error
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   // Store specific error messages
   const [internalErrorMessage, setInternalErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    isMounted.current = true;
+    console.log(`[${lang}] GoogleMapComponent effect triggered. API Key: ${apiKey ? 'Present' : 'MISSING'}`);
 
-    // Immediately set to error if API key is missing
     if (!apiKey) {
       console.error(`[${lang}] Google Maps API Key is missing.`);
-      if (isMounted) {
+      if (isMounted.current) {
         setInternalErrorMessage(noApiKeyMessage);
         setStatus('error');
       }
       return;
     }
 
-    // If mapRef.current is null here, it means the div hasn't been rendered by React yet.
-    // This effect will run after the initial render where mapRef is assigned.
     if (!mapRef.current) {
-        console.warn(`[${lang}] mapRef.current is null during useEffect setup. This is unexpected if component is mounted.`);
-        // This state indicates a problem with the component's own rendering, not API loading yet.
-        if (isMounted) {
-            setInternalErrorMessage("Map container element not found in DOM.");
-            setStatus('error');
-        }
-        return;
+      console.error(`[${lang}] mapRef.current is null during useEffect setup. This might be a timing issue or the div isn't rendered.`);
+      if (isMounted.current) {
+        setInternalErrorMessage("Map container element not found in DOM at setup.");
+        setStatus('error');
+      }
+      return;
     }
     
-    console.log(`[${lang}] Attempting to load Google Maps (API Key: ${apiKey ? '******' : 'MISSING'}, Center: ${center.lat},${center.lng})`);
-    if (isMounted) {
-      setStatus('loading'); // Reset status on re-run (e.g., lang change)
-      setInternalErrorMessage(null); // Clear previous errors
+    console.log(`[${lang}] Attempting to load Google Maps (Center: ${center.lat},${center.lng})`);
+    if (isMounted.current) {
+      setStatus('loading');
+      setInternalErrorMessage(null);
     }
 
     const loader = new Loader({
@@ -73,15 +72,14 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
     });
 
     loader.load().then(async (google) => {
-      if (!isMounted) {
+      if (!isMounted.current) {
         console.log(`[${lang}] GoogleMapComponent unmounted before map could be initialized.`);
         return;
       }
       if (!mapRef.current) {
-        // This is the critical error from before
-        console.error(`[${lang}] mapRef.current is null AFTER Google Maps API script loaded, but component is still mounted. The map div might have been removed.`);
-        if (isMounted) {
-          setInternalErrorMessage("Map container (ref) became null. Please try refreshing.");
+        console.error(`[${lang}] mapRef.current is null AFTER Google Maps API script loaded.`);
+        if (isMounted.current) {
+          setInternalErrorMessage("Map container (ref) became null post-API load. Please try refreshing.");
           setStatus('error');
         }
         return;
@@ -89,16 +87,13 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
 
       console.log(`[${lang}] Google Maps API script loaded. mapRef.current is available. Initializing map.`);
       try {
-        // Ensure the map div is clear before Google Maps initializes over it
-        // mapRef.current.innerHTML = ''; // Usually not necessary, Maps SDK handles this.
-
         const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
         const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
         const map = new Map(mapRef.current, {
           center: center,
           zoom: zoom,
-          mapId: mapId || 'DEMO_MAP_ID', // Using DEMO_MAP_ID if no mapId is provided
+          mapId: mapId || 'DEMO_MAP_ID',
           disableDefaultUI: false,
         });
 
@@ -111,53 +106,63 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
           console.log(`[${lang}] Marker added to map at:`, markerPosition);
         }
 
-        if (isMounted) {
+        if (isMounted.current) {
           setStatus('loaded');
         }
         console.log(`[${lang}] Map initialization complete.`);
       } catch (initError) {
         console.error(`[${lang}] Error initializing Google Map instance:`, initError);
-        if (isMounted) {
+        if (isMounted.current) {
           setInternalErrorMessage(initError instanceof Error ? initError.message : "Failed to initialize map instance.");
           setStatus('error');
         }
       }
     }).catch(e => {
-      if (!isMounted) {
+      if (!isMounted.current) {
         console.log(`[${lang}] GoogleMapComponent unmounted before map loading error could be processed.`);
         return;
       }
       console.error(`[${lang}] Error loading Google Maps API script:`, e);
       const specificMessage = e.message || "Failed to load map script. Check API key, network, and browser console for Google API errors.";
-      if (isMounted) {
+      if (isMounted.current) {
         setInternalErrorMessage(specificMessage);
         setStatus('error');
       }
     });
 
     return () => {
-      isMounted = false;
-      console.log(`[${lang}] GoogleMapComponent effect cleanup. isMounted set to false.`);
-      // If you were storing the map instance (e.g., in a ref: mapInstanceRef.current),
-      // you might call mapInstanceRef.current.dispose() or similar map-specific cleanup here.
-      // The js-api-loader handles the <script> tag cleanup automatically.
+      isMounted.current = false;
+      console.log(`[${lang}] GoogleMapComponent effect cleanup.`);
+      // The map instance is tied to the mapRef.current div.
+      // When this component unmounts (e.g. due to key change or navigation),
+      // React removes mapRef.current from the DOM, and the Google Maps instance
+      // associated with it is effectively cleaned up by the browser/API.
+      // The @googlemaps/js-api-loader also handles cleaning up the <script> tag it might have added.
     };
   }, [apiKey, center.lat, center.lng, zoom, markerPosition?.lat, markerPosition?.lng, markerTitle, mapId, lang, noApiKeyMessage, loadingMessage]);
 
 
   return (
-    <div ref={mapRef} className="h-full w-full rounded-lg overflow-hidden border border-border">
+    <div className="h-full w-full relative">
       {status === 'loading' && (
-        <div className="flex items-center justify-center h-full w-full bg-muted text-muted-foreground p-4 animate-pulse">
+        <div className="absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground p-4 animate-pulse z-20">
           {loadingMessage}...
         </div>
       )}
       {status === 'error' && (
-        <div className="flex items-center justify-center h-full w-full bg-destructive/10 text-destructive p-4 text-center text-sm">
+        <div className="absolute inset-0 flex items-center justify-center bg-destructive/10 text-destructive p-4 text-center text-sm z-20">
           {internalErrorMessage || "An unexpected error occurred."}
         </div>
       )}
-      {/* When status is 'loaded', this div will be empty, and Google Maps will have populated mapRef.current */}
+      <div
+        ref={mapRef}
+        className={cn(
+          "h-full w-full rounded-lg overflow-hidden border border-border",
+          // Make map container less prominent until loaded to avoid flicker or showing empty div
+          status !== 'loaded' ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'
+        )}
+        // Ensure the map div itself does not have React children that would conflict
+      />
     </div>
   );
 };
