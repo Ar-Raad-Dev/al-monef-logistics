@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export default function Header({ lang, dictionary }: HeaderProps) {
-  const pathname = usePathname();
+  const pathname = usePathname(); // e.g., /en/about or /ar
 
   const navItemsConfig = [
     { href: '/', labelKey: 'home' as keyof Translations['navigation'] },
@@ -27,16 +27,31 @@ export default function Header({ lang, dictionary }: HeaderProps) {
   ];
 
   const navItems = navItemsConfig.map(item => ({
-    href: `/${lang}${item.href}`,
+    // Ensure href for home is just /en or /ar, not /en/ or /ar/
+    href: item.href === '/' ? `/${lang}` : `/${lang}${item.href}`,
     label: dictionary[item.labelKey]
   }));
 
   const otherLang = lang === 'en' ? 'ar' : 'en';
-  // Ensure pathname starts with a slash if it's not just the language prefix
-  const pathWithoutLang = pathname.startsWith(`/${lang}`) ? pathname.substring(lang.length + 1) : pathname;
-  const switchLangPath = pathWithoutLang === `/${lang}` || pathWithoutLang === "/" || pathWithoutLang === "" 
-    ? `/${otherLang}` 
-    : `/${otherLang}${pathWithoutLang.startsWith('/') ? '' : '/'}${pathWithoutLang.replace(/^\/+/, '')}`;
+  let switchLangPath = '';
+
+  // Current path is like /en or /en/about
+  // We want to switch to /ar or /ar/about
+  const basePathSegment = `/${lang}`;
+  if (pathname === basePathSegment || pathname === `${basePathSegment}/`) { // Homepage
+    switchLangPath = `/${otherLang}`;
+  } else {
+    const routeSegment = pathname.substring(basePathSegment.length); // e.g., /about or "" if pathname was /en/
+    switchLangPath = `/${otherLang}${routeSegment || ''}`; // Append routeSegment, ensure it's not double slashed
+  }
+  // Normalize: ensure no trailing slash unless it's just the language root.
+  if (switchLangPath !== `/${otherLang}` && switchLangPath.endsWith('/')) {
+    switchLangPath = switchLangPath.slice(0, -1);
+  }
+  // Ensure homepage is just /en or /ar
+  if (switchLangPath === `/${otherLang}/`) {
+      switchLangPath = `/${otherLang}`;
+  }
 
 
   return (
@@ -56,7 +71,8 @@ export default function Header({ lang, dictionary }: HeaderProps) {
               href={item.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
+                // Check current pathname against item.href. Also handle if item.href is /en and pathname is /en/
+                (pathname === item.href || pathname === `${item.href}/`) ? "text-primary" : "text-muted-foreground"
               )}
             >
               {item.label}
@@ -94,7 +110,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
                       href={item.href}
                       className={cn(
                         "transition-colors hover:text-primary",
-                        pathname === item.href ? "text-primary" : "text-muted-foreground"
+                        (pathname === item.href || pathname === `${item.href}/`) ? "text-primary" : "text-muted-foreground"
                       )}
                     >
                       {item.label}

@@ -18,24 +18,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Paperclip } from "lucide-react";
+import type { Translations, Locale } from "@/lib/dictionaries";
 
-const formSchema = z.object({
-  name: z.string().min(2, { message: "يجب أن يتكون الاسم من حرفين على الأقل." }),
-  phone: z.string().min(7, { message: "الرجاء إدخال رقم هاتف صالح." }),
-  email: z.string().email({ message: "الرجاء إدخال عنوان بريد إلكتروني صالح." }),
-  position: z.string().min(1, { message: "الرجاء تحديد وظيفة."}),
-  cv: z.any().optional(),
-  message: z.string().min(10, { message: "يجب أن تتكون الرسالة من 10 أحرف على الأقل." }).max(500, { message: "لا يمكن أن تتجاوز الرسالة 500 حرف." }),
-});
-
-export type CareerFormValues = z.infer<typeof formSchema>;
+type CareerFormDictionary = Translations['careersPage']['form'];
 
 interface CareerApplicationFormProps {
   availablePositions: string[];
+  dictionary: CareerFormDictionary;
+  lang: Locale;
 }
 
-export default function CareerApplicationForm({ availablePositions }: CareerApplicationFormProps) {
+export default function CareerApplicationForm({ availablePositions, dictionary: d, lang }: CareerApplicationFormProps) {
   const { toast } = useToast();
+
+  const formSchema = z.object({
+    name: z.string().min(2, { message: d.fullNameMinLengthError }),
+    phone: z.string().min(7, { message: d.phoneMinLengthError }),
+    email: z.string().email({ message: d.emailInvalidError }),
+    position: z.string().min(1, { message: d.positionRequiredError}),
+    cv: z.any().optional(),
+    message: z.string().min(10, { message: d.coverLetterMinLengthError }).max(500, { message: d.coverLetterMaxLengthError }).optional().or(z.literal('')),
+  });
+  
+  type CareerFormValues = z.infer<typeof formSchema>;
+
   const form = useForm<CareerFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,10 +56,10 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
 
   async function onSubmit(values: CareerFormValues) {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("تم إرسال طلب التوظيف:", values);
+    console.log("Career application submitted:", values);
     toast({
-      title: "تم إرسال الطلب!",
-      description: "شكرًا لاهتمامك. سنراجع طلبك وسنتصل بك إذا كان هناك تطابق.",
+      title: d.submitSuccessTitle,
+      description: d.submitSuccessDescription,
       variant: "default", 
     });
     form.reset();
@@ -67,9 +73,9 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الاسم الكامل</FormLabel>
+              <FormLabel>{d.fullNameLabel}</FormLabel>
               <FormControl>
-                <Input placeholder="اسمك الكامل" {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder={d.fullNamePlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,9 +87,9 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>رقم الهاتف</FormLabel>
+                <FormLabel>{d.phoneLabel}</FormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="رقم هاتفك" {...field} className="bg-input focus:bg-background transition-colors"/>
+                  <Input type="tel" placeholder={d.phonePlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,9 +100,9 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>البريد الإلكتروني</FormLabel>
+                <FormLabel>{d.emailLabel}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="your.email@example.com" {...field} className="bg-input focus:bg-background transition-colors"/>
+                  <Input type="email" placeholder={d.emailPlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,18 +114,18 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="position"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الوظيفة المتقدم لها</FormLabel>
+              <FormLabel>{d.positionLabel}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="bg-input focus:bg-background transition-colors">
-                    <SelectValue placeholder="اختر وظيفة" />
+                    <SelectValue placeholder={d.positionSelectPlaceholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {availablePositions.map(pos => (
                     <SelectItem key={pos} value={pos}>{pos}</SelectItem>
                   ))}
-                  <SelectItem value="General Application">طلب عام</SelectItem>
+                  <SelectItem value="General Application">{d.generalApplicationOption}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -129,18 +135,18 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
         <FormField
           control={form.control}
           name="cv"
-          render={({ field }) => (
+          render={({ field }) => ( // field does not include 'value' for file inputs directly, but onChange handles it
             <FormItem>
-              <FormLabel>تحميل السيرة الذاتية (PDF, DOC, DOCX)</FormLabel>
+              <FormLabel>{d.cvLabel} <span className="text-xs text-muted-foreground">{d.cvFileTypes}</span></FormLabel>
               <FormControl>
                 <div className="relative">
                     <Input 
                         type="file" 
                         accept=".pdf,.doc,.docx"
                         onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : null)} 
-                        className="bg-input focus:bg-background transition-colors pr-10"
+                        className={`bg-input focus:bg-background transition-colors ${lang === 'ar' ? 'pl-10' : 'pr-10'}`} // Adjusted padding for icon
                     />
-                    <Paperclip className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" /> {/* Adjusted icon position for RTL */}
+                    <Paperclip className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground ${lang === 'ar' ? 'right-3' : 'left-3'}`} />
                 </div>
               </FormControl>
               <FormMessage />
@@ -152,10 +158,10 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>رسالة تعريفية / رسالة (اختياري)</FormLabel>
+              <FormLabel>{d.coverLetterLabel}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="أخبرنا بإيجاز لماذا أنت مناسب..."
+                  placeholder={d.coverLetterPlaceholder}
                   className="resize-y min-h-[100px] bg-input focus:bg-background transition-colors"
                   {...field}
                 />
@@ -165,8 +171,8 @@ export default function CareerApplicationForm({ availablePositions }: CareerAppl
           )}
         />
         <Button type="submit" size="lg" className="w-full transition-transform hover:scale-105" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "جارٍ الإرسال..." : "إرسال الطلب"}
-          {!form.formState.isSubmitting && <Send className="mr-2 h-5 w-5" />} {/* Changed ml-2 to mr-2 */}
+          {form.formState.isSubmitting ? d.submittingButtonText : d.submitButtonText}
+          {!form.formState.isSubmitting && <Send className={`${lang === 'ar' ? 'mr-2' : 'ml-2'} h-5 w-5`} />}
         </Button>
       </form>
     </Form>

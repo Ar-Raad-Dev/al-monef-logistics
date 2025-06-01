@@ -17,18 +17,28 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
+import type { Translations, Locale } from "@/lib/dictionaries";
 
-const formSchema = z.object({
-  name: z.string().min(2, { message: "يجب أن يتكون الاسم من حرفين على الأقل." }),
-  email: z.string().email({ message: "الرجاء إدخال عنوان بريد إلكتروني صالح." }),
-  subject: z.string().min(5, { message: "يجب أن يتكون الموضوع من 5 أحرف على الأقل." }),
-  message: z.string().min(10, { message: "يجب أن تتكون الرسالة من 10 أحرف على الأقل." }).max(500, { message: "لا يمكن أن تتجاوز الرسالة 500 حرف." }),
-});
+type ContactFormDictionary = Translations['contactPage']['form'];
 
-export type ContactFormValues = z.infer<typeof formSchema>;
+interface ContactFormProps {
+  dictionary: ContactFormDictionary;
+  lang: Locale;
+}
 
-export default function ContactForm() {
+export default function ContactForm({ dictionary: d, lang }: ContactFormProps) {
   const { toast } = useToast();
+
+  const formSchema = z.object({
+    name: z.string().min(2, { message: d.fullNameMinLengthError }),
+    email: z.string().email({ message: d.emailInvalidError }),
+    subject: z.string().min(5, { message: d.subjectMinLengthError }),
+    message: z.string().min(10, { message: d.messageMinLengthError }).max(500, { message: d.messageMaxLengthError }),
+  });
+  
+  type ContactFormValues = z.infer<typeof formSchema>;
+
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,10 +51,10 @@ export default function ContactForm() {
 
   async function onSubmit(values: ContactFormValues) {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("تم إرسال النموذج:", values);
+    console.log("Contact form submitted:", values);
     toast({
-      title: "تم إرسال الرسالة!",
-      description: "شكرًا لتواصلك معنا. سنعود إليك قريبًا.",
+      title: d.submitSuccessTitle,
+      description: d.submitSuccessDescription,
       variant: "default", 
     });
     form.reset();
@@ -58,9 +68,9 @@ export default function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الاسم الكامل</FormLabel>
+              <FormLabel>{d.fullNameLabel}</FormLabel>
               <FormControl>
-                <Input placeholder="اسمك" {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder={d.fullNamePlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -71,9 +81,9 @@ export default function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>البريد الإلكتروني</FormLabel>
+              <FormLabel>{d.emailLabel}</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="your.email@example.com" {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input type="email" placeholder={d.emailPlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,9 +94,9 @@ export default function ContactForm() {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الموضوع</FormLabel>
+              <FormLabel>{d.subjectLabel}</FormLabel>
               <FormControl>
-                <Input placeholder="بخصوص خدماتكم..." {...field} className="bg-input focus:bg-background transition-colors"/>
+                <Input placeholder={d.subjectPlaceholder} {...field} className="bg-input focus:bg-background transition-colors"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -97,10 +107,10 @@ export default function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الرسالة</FormLabel>
+              <FormLabel>{d.messageLabel}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="أخبرنا كيف يمكننا مساعدتك..."
+                  placeholder={d.messagePlaceholder}
                   className="resize-y min-h-[120px] bg-input focus:bg-background transition-colors"
                   {...field}
                 />
@@ -110,8 +120,8 @@ export default function ContactForm() {
           )}
         />
         <Button type="submit" size="lg" className="w-full transition-transform hover:scale-105" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "جارٍ الإرسال..." : "إرسال الرسالة"}
-          {!form.formState.isSubmitting && <Send className="mr-2 h-5 w-5" />} {/* Changed ml-2 to mr-2 */}
+          {form.formState.isSubmitting ? d.submittingButtonText : d.submitButtonText}
+          {!form.formState.isSubmitting && <Send className={`${lang === 'ar' ? 'mr-2' : 'ml-2'} h-5 w-5`} />}
         </Button>
       </form>
     </Form>

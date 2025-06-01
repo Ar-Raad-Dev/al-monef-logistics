@@ -50,5 +50,185 @@
     "connectWithUs": "Connect With Us",
     "copyright": "Abdul Aziz AlMonef & Sons for Trade and Transport. All rights reserved.",
     "tagline": "Driving trade forward across Saudi Arabia."
+  },
+  "aboutPage": {
+    "metaTitle": "About Abdul Aziz AlMonef & Sons | Our Story",
+    "metaDescription": "Learn about Abdul Aziz AlMonef & Sons, our mission, vision, and commitment to logistics and trade excellence in Saudi Arabia.",
+    "headerTitle": "About Abdul Aziz AlMonef & Sons",
+    "headerSubtitle": "Pioneers in logistics and vehicle trade in Saudi Arabia, committed to integrity and excellence.",
+    "companyOverview": {
+      "imageAlt": "AlMonef & Sons team or operations",
+      "heading": "Our Company",
+      "paragraph1": "Abdul Aziz AlMonef & Sons for Trade and Transport is a leading name in the logistics and trade industry, operating from Al Badai, Al Qassim, Saudi Arabia. With years of experience, we specialize in buying, selling, and leasing trailers and commercial vehicles, and offer dependable logistics services throughout the Kingdom.",
+      "paragraph2": "Our foundation is built on trust, efficiency, and a deep understanding of the Saudi market. We strive to empower businesses by providing seamless and reliable solutions tailored to their unique needs."
+    },
+    "missionVision": {
+      "missionHeading": "Our Mission",
+      "missionText": "To be the premier provider of comprehensive trade and transport solutions in Saudi Arabia, delivering exceptional value through innovation, reliability, and a customer-centric approach. We aim to facilitate economic growth by connecting businesses and enabling efficient movement of goods.",
+      "visionHeading": "Our Vision",
+      "visionText": "To be the undisputed leader in the Saudi Arabian logistics and vehicle trade sector, recognized for our unwavering commitment to quality, integrity, and sustainable practices, while fostering long-term partnerships and contributing to the Kingdom's prosperity."
+    },
+    "credentials": {
+      "heading": "Company Credentials",
+      "items": [
+        { "nameKey": "crNumber", "name": "Commercial Registration No.", "value": "112990003463" },
+        { "nameKey": "chamberMembership", "name": "Chamber of Commerce Membership", "value": "121800" },
+        { "nameKey": "phone", "name": "Phone", "value": "3212000" },
+        { "nameKey": "fax", "name": "Fax", "value": "3213000" },
+        { "nameKey": "address", "name": "Address", "value": "Al Badai, Al Qassim, Saudi Arabia" }
+      ]
+    }
+  },
+  "servicesPage": {
+    "metaTitle": "Our Services | AlMonef Trade & Transport",
+    "metaDescription": "Explore our comprehensive vehicle trade, leasing, and logistics services across Saudi Arabia.",
+    "headerTitle": "Our Specialized Services",
+    "headerSubtitle": "Comprehensive solutions for vehicle trade, leasing, and kingdom-wide logistics & transport.",
+    "vehicleTradeSection": {
+      "heading": "Vehicle Trade Services",
+      "paragraph": "We specialize in the sale and purchase of high-quality new and used trailers, trucks, and other commercial vehicles. Our inventory is carefully selected to meet diverse operational needs.",
+      "listItems": [
+        "Wide range of trailers (flatbeds, refrigerated, curtain-siders, etc.)",
+        "Sourcing of specific commercial vehicles and cars",
+        "Transparent inspection and valuation processes",
+        "Flexible leasing options available for trailers and vehicles"
+      ],
+      "imageAlt": "Trailers and commercial vehicles for sale"
+    },
+    "logisticsSection": {
+      "heading": "Logistics & Transport Solutions",
+      "paragraph": "We offer reliable goods transportation across Saudi Arabia, ensuring timely and secure delivery. Our extensive network and experienced team handle diverse logistical challenges.",
+      "solutions": [
+        { "titleKey": "freightForwarding", "title": "Freight Forwarding", "description": "Efficient and reliable air, sea, and land freight services globally." },
+        { "titleKey": "warehousing", "title": "Warehousing & Distribution", "description": "Secure storage facilities and streamlined distribution networks." },
+        { "titleKey": "supplyChain", "title": "Supply Chain Management", "description": "End-to-end supply chain optimization for enhanced efficiency and cost savings." },
+        { "titleKey": "customsClearance", "title": "Customs Clearance", "description": "Expert handling of customs documentation for smooth international and domestic trade." }
+      ],
+      "partnershipsHeading": "Current Key Partnerships",
+      "partnerships": [
+        { "name": "Al Watania Poultry (Hofuf)", "description": "Key logistics partner for poultry distribution." },
+        { "name": "Mahamal Al Madina Water Factory", "description": "Transporting bottled water across regions." },
+        { "name": "Mirad Water Factory", "description": "Reliable delivery services for water products." }
+      ]
+    },
+    "fleetSection": {
+      "heading": "Our Modern & Diverse Fleet",
+      "paragraph": "Discover our range of trailers and vehicles. We offer options for sale, lease, and utilize them in our extensive transport operations. Filters for 'For Sale', 'In Use', 'Leased' can help narrow your search (feature coming soon).",
+      "items": [
+        { "nameKey": "flatbedTrailers", "name": "Flatbed Trailers", "description": "Versatile for various cargo types, available for sale and lease." },
+        { "nameKey": "curtainSideTrailers", "name": "Curtain-Side Trailers", "description": "Easy loading/unloading, ideal for palletized goods." },
+        { "nameKey": "refrigeratedTrailers", "name": "Refrigerated Trailers", "description": "Temperature-controlled transport for sensitive cargo." },
+        { "nameKey": "commercialVehicles", "name": "Commercial Cars & Vans", "description": "Reliable vehicles for business operations and smaller cargo." }
+      ],
+      "maintenanceNote": "Our diverse fleet is meticulously maintained and equipped to ensure safe and efficient transport."
+    }
+  },
+  "clientsPage": {
+    "metaTitle": "Our Valued Clients | AlMonef & Sons",
+    "metaDescription": "Proudly serving industry leaders across Saudi Arabia. See our key partners and testimonials.",
+    "headerTitle": "Our Valued Clients",
+    "headerSubtitle": "Building strong, lasting partnerships is at the core of what we do. We are proud to serve industry leaders.",
+    "keyPartnersSection": {
+      "heading": "Key Partners",
+      "partners": [
+        { "nameKey": "alwatania", "name": "Al Watania Poultry", "imageHint": "company logo" },
+        { "nameKey": "mahamalWater", "name": "Mahamal Al Madina Water", "imageHint": "company logo" },
+        { "nameKey": "miradWater", "name": "Mirad Water Factory", "imageHint": "company logo" },
+        { "nameKey": "ksaRetailers", "name": "Major KSA Retailers", "imageHint": "company logo" },
+        { "nameKey": "fbDistributors", "name": "Food & Beverage Distributors", "imageHint": "company logo" },
+        { "nameKey": "constructionLeaders", "name": "Construction Sector Leaders", "imageHint": "company logo" }
+      ],
+      "trustedByNote": "Trusted by leaders in food & beverage, retail, and industrial logistics across Saudi Arabia."
+    },
+    "testimonialsSection": {
+      "heading": "Client Testimonials",
+      "testimonials": [
+        { "name": "Logistics Manager", "companyKey": "alwatania", "company": "Al Watania Poultry", "testimonial": "AlMonef & Sons consistently delivers reliable and timely transport for our goods to Hofuf. Their professionalism is key to our supply chain.", "avatarHint": "manager portrait", "rating": 5 },
+        { "name": "Procurement Head", "companyKey": "mahamalWater", "company": "Mahamal Al Madina Water", "testimonial": "Their trailer leasing options are flexible and their vehicles top-notch. AlMonef has been a valuable partner for our distribution needs.", "avatarHint": "person face", "rating": 5 },
+        { "name": "Operations Director", "companyKey": "anonymousFMCG", "company": "Anonymous FMCG Client", "testimonial": "We trust AlMonef & Sons for their extensive network throughout KSA. They handle our diverse logistics requirements with utmost care.", "avatarHint": "director photo", "rating": 4 }
+      ]
+    }
+  },
+  "careersPage": {
+    "metaTitle": "Careers at AlMonef & Sons | Join Our Team",
+    "metaDescription": "Explore job opportunities at Abdul Aziz AlMonef & Sons. We're hiring drivers, office staff, and logistics professionals.",
+    "headerTitle": "Careers at AlMonef & Sons",
+    "headerSubtitle": "Join our growing team! We are always looking for dedicated drivers, office staff, and logistics professionals to contribute to our success.",
+    "currentOpeningsSection": {
+      "heading": "Current Openings",
+      "openings": [
+        { "titleKey": "heavyVehicleDriver", "title": "Heavy Vehicle Driver", "description": "Experienced heavy vehicle drivers needed for routes across KSA. Valid license and good record essential." },
+        { "titleKey": "officeAccountant", "title": "Office Accountant", "description": "Detail-oriented accountant to manage financial records, payroll, and reporting. Relevant degree and experience required." },
+        { "titleKey": "logisticsCoordinator", "title": "Logistics Coordinator", "description": "Organized professional to plan routes, coordinate drivers, and ensure timely deliveries. Strong communication skills needed." }
+      ],
+      "checkBackNote": "New positions are added regularly. Check back often or submit a general application below."
+    },
+    "applicationFormSection": {
+      "heading": "Apply Now",
+      "cardTitle": "Submit Your Application",
+      "cardDescription": "Interested in a career with us? Fill out the form below. We'll be in touch if your profile matches our requirements."
+    },
+    "form": {
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Your full name",
+      "fullNameMinLengthError": "Name must be at least 2 characters.",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Your phone number",
+      "phoneMinLengthError": "Please enter a valid phone number.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "emailInvalidError": "Please enter a valid email address.",
+      "positionLabel": "Position Applied For",
+      "positionSelectPlaceholder": "Select a position",
+      "positionRequiredError": "Please select a position.",
+      "generalApplicationOption": "General Application",
+      "cvLabel": "Upload CV (PDF, DOC, DOCX)",
+      "cvFileTypes": "(PDF, DOC, DOCX)",
+      "coverLetterLabel": "Cover Letter / Message (Optional)",
+      "coverLetterPlaceholder": "Briefly tell us why you're a good fit...",
+      "coverLetterMinLengthError": "Message must be at least 10 characters.",
+      "coverLetterMaxLengthError": "Message cannot exceed 500 characters.",
+      "submitButtonText": "Submit Application",
+      "submittingButtonText": "Submitting...",
+      "submitSuccessTitle": "Application Sent!",
+      "submitSuccessDescription": "Thank you for your interest. We'll review your application and get in touch if there's a match."
+    }
+  },
+  "contactPage": {
+    "metaTitle": "Contact AlMonef & Sons | Get In Touch",
+    "metaDescription": "Contact Abdul Aziz AlMonef & Sons for your trade and transport needs. Reach us by phone, email, or visit our office.",
+    "headerTitle": "Contact Us",
+    "headerSubtitle": "We're ready to assist with your trade and transport needs. Reach out via phone, email, or visit our office in Al Badai.",
+    "sendMessageCardTitle": "Send Us a Message",
+    "contactDetails": [
+      { "titleKey": "officeAddress", "title": "Office Address", "lines": ["Al Badai, Al Qassim", "Saudi Arabia"] },
+      { "titleKey": "phone", "title": "Phone", "lines": ["3212000"] },
+      { "titleKey": "faxNumber", "title": "Fax Number", "lines": ["3213000"] },
+      { "titleKey": "email", "title": "Email", "lines": ["info@almonef-transport.com"] },
+      { "titleKey": "workingHours", "title": "Working Hours", "lines": ["Sun - Thu: 8:00 AM - 6:00 PM", "Friday: Closed", "Saturday: 10:00 AM - 2:00 PM (By Appointment)"] }
+    ],
+    "locationMapSection": {
+      "heading": "Find Our Office in Al Badai, Al Qassim",
+      "mapImageAlt": "Map showing office location in Al Badai, Al Qassim"
+    },
+    "form": {
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Your name",
+      "fullNameMinLengthError": "Name must be at least 2 characters.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "emailInvalidError": "Please enter a valid email address.",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Regarding your services...",
+      "subjectMinLengthError": "Subject must be at least 5 characters.",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us how we can help...",
+      "messageMinLengthError": "Message must be at least 10 characters.",
+      "messageMaxLengthError": "Message cannot exceed 500 characters.",
+      "submitButtonText": "Send Message",
+      "submittingButtonText": "Sending...",
+      "submitSuccessTitle": "Message Sent!",
+      "submitSuccessDescription": "Thank you for contacting us. We'll get back to you soon."
+    }
   }
 }
