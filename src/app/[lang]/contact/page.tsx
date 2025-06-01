@@ -32,6 +32,7 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
   
   // The API key is sourced from environment variables (e.g., .env.local file)
   // See .env.local.example for the required variable name: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+  // Ensure your .env.local file has NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=YOUR_API_KEY_HERE
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
@@ -83,6 +84,7 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
         </h2>
         <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg border border-border">
           <GoogleMapComponent 
+            key={lang} // Add key here to force re-mount on language change
             apiKey={apiKey}
             center={companyLocation}
             markerPosition={companyLocation}
