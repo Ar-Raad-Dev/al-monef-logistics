@@ -201,7 +201,10 @@ export interface Translations {
     }>;
     locationMapSection: {
       heading: string;
-      mapImageAlt: string;
+      mapImageAlt: string; // This was for the old placeholder, can be repurposed or removed
+      mapMarkerTitle: string;
+      noApiKeyMessage: string;
+      loadingMessage: string;
     };
     form: {
       fullNameLabel: string;
@@ -231,6 +234,6 @@ const dictionaries: Record<Locale, () => Promise<Translations>> = {
 };
 
 export const getDictionary = async (locale: Locale): Promise<Translations> => {
-  const loadDictionary = dictionaries[locale] || dictionaries.en;
+  const loadDictionary = dictionaries[locale] || dictionaries.en; // Default to 'en' if locale is not found
   return loadDictionary();
 };

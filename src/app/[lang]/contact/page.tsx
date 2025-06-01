@@ -1,6 +1,6 @@
 
 import ContactForm from '@/components/contact-form';
-import MapEmbed from '@/components/map-embed';
+import GoogleMapComponent from '@/components/google-map';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Mail, Phone, MapPin, Clock, Printer } from 'lucide-react'; 
 import type { Locale } from '@/lib/dictionaries';
@@ -23,9 +23,13 @@ const contactIconMap = {
   workingHours: Clock,
 };
 
+// Coordinates for Al Badai, Al Qassim, Saudi Arabia
+const companyLocation = { lat: 25.9638, lng: 43.7118 };
+
 export default async function ContactPage({ params: { lang } }: { params: { lang: Locale }}) {
   const dictionary = await getDictionary(lang);
   const d = dictionary.contactPage;
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -74,7 +78,19 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
           {d.locationMapSection.heading}
         </h2>
-        <MapEmbed altText={d.locationMapSection.mapImageAlt} lang={lang} />
+        <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg border border-border">
+          <GoogleMapComponent 
+            apiKey={apiKey}
+            center={companyLocation}
+            markerPosition={companyLocation}
+            markerTitle={d.locationMapSection.mapMarkerTitle}
+            lang={lang}
+            noApiKeyMessage={d.locationMapSection.noApiKeyMessage}
+            loadingMessage={d.locationMapSection.loadingMessage}
+            // You can add a mapId prop here if you have cloud-based map styling configured
+            // mapId="YOUR_CUSTOM_MAP_ID" 
+          />
+        </div>
       </section>
     </div>
   );

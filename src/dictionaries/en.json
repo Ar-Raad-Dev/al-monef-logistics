@@ -209,7 +209,10 @@
     ],
     "locationMapSection": {
       "heading": "Find Our Office in Al Badai, Al Qassim",
-      "mapImageAlt": "Map showing office location in Al Badai, Al Qassim"
+      "mapImageAlt": "Map showing office location in Al Badai, Al Qassim",
+      "mapMarkerTitle": "AlMonef & Sons Head Office",
+      "noApiKeyMessage": "Google Maps API Key is missing. Please configure it to display the map.",
+      "loadingMessage": "Loading map"
     },
     "form": {
       "fullNameLabel": "Full Name",
