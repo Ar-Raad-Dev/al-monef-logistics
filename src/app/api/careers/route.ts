@@ -37,43 +37,42 @@ export async function POST(request: NextRequest) {
     if (cvFile) {
       console.log(`CV File details - Name: ${cvFile.name}, Type: ${cvFile.type}, Size: ${cvFile.size} bytes`);
       
-      // Convert File to Buffer for upload with firebase-admin
-      const fileBuffer = Buffer.from(await cvFile.arrayBuffer());
-      
-      // Create a unique path for the file in Firebase Storage
-      const sanitizedFileName = cvFile.name.replace(/[^a-zA-Z0-9._-]/g, '_'); // Sanitize filename
-      cvFilePath = `cvs/${Date.now()}_${sanitizedFileName}`;
-      
-      const bucket = storage.bucket(); // Default bucket
-      const fileUpload = bucket.file(cvFilePath);
+      // Check if storage is available
+      if (typeof storage.bucket !== 'function') {
+        console.error("Firebase Storage might not be initialized correctly. CV upload will be skipped.");
+        // Decide if you want to fail the request or proceed without CV upload
+        // For now, we'll log and proceed, but you might want to return an error
+        // return NextResponse.json({ success: false, message: "File storage service is not available. Please check server configuration." }, { status: 500 });
+      } else {
+        const fileBuffer = Buffer.from(await cvFile.arrayBuffer());
+        const sanitizedFileName = cvFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        cvFilePath = `cvs/${Date.now()}_${sanitizedFileName}`;
+        
+        const bucket = storage.bucket(); 
+        const fileUpload = bucket.file(cvFilePath);
 
-      await fileUpload.save(fileBuffer, {
-        metadata: {
-          contentType: cvFile.type,
-        },
-      });
-
-      // Get public URL (optional, ensure your Storage rules allow public reads if needed, or use signed URLs)
-      // For simplicity, we'll just store the path here. You might want to get a signed URL for secure access.
-      // cvFileUrl = await fileUpload.getSignedUrl({ action: 'read', expires: '03-09-2491' });
-      // cvFileUrl = cvFileUrl[0];
-      
-      // For now, we'll just acknowledge it's uploaded and store the path.
-      // Public URLs are generally not recommended without proper security.
-      // Storing the path allows an admin to retrieve it via Firebase console or Admin SDK.
-      cvFileUrl = `gs://${bucket.name}/${cvFilePath}`; // Store the gs:// path
-
-      console.log(`CV File uploaded to Firebase Storage at: ${cvFilePath}`);
+        await fileUpload.save(fileBuffer, {
+          metadata: {
+            contentType: cvFile.type,
+          },
+        });
+        cvFileUrl = `gs://${bucket.name}/${cvFilePath}`;
+        console.log(`CV File uploaded to Firebase Storage at: ${cvFilePath}`);
+      }
     } else {
       console.log("No CV file was uploaded or it was not found in FormData.");
     }
 
-    // Save application data to Firestore
+    // Check if firestore is available
+    if (typeof firestore.collection !== 'function') {
+         console.error("Firestore might not be initialized correctly. Application data cannot be saved.");
+         return NextResponse.json({ success: false, message: "Database service is not available. Please check server configuration." }, { status: 500 });
+    }
     const careerApplicationsRef = firestore.collection('careerApplications');
     await careerApplicationsRef.add({
       ...validationResult.data,
-      cvFileUrl: cvFileUrl, // URL or path to the CV in Firebase Storage
-      cvFilePath: cvFilePath, // The raw path in storage bucket
+      cvFileUrl: cvFileUrl, 
+      cvFilePath: cvFilePath, 
       receivedAt: Timestamp.now(),
       status: 'new',
     });
@@ -84,13 +83,16 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, message: "Application received successfully." });
 
-  } catch (error)
- {
+  } catch (error) {
     console.error("Error processing career application:", error);
-    let message = "Error processing application.";
+    let responseMessage = "Error processing application.";
      if (error instanceof Error) {
-      message = error.message;
+      responseMessage = error.message;
     }
-    return NextResponse.json({ success: false, message }, { status: 500 });
+    // More general check if it's a Firebase service issue
+    if (typeof firestore.collection !== 'function' || (formData.has('cv') && typeof storage.bucket !== 'function')) {
+        responseMessage = "A backend service (database or storage) is not available. Please check server configuration and logs.";
+    }
+    return NextResponse.json({ success: false, message: responseMessage }, { status: 500 });
   }
 }

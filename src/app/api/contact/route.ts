@@ -40,10 +40,15 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error("Error processing contact form:", error);
-    let message = "Error processing request.";
+    let responseMessage = "Error processing request.";
     if (error instanceof Error) {
-       message = error.message;
+       responseMessage = error.message;
     }
-    return NextResponse.json({ success: false, message }, { status: 500 });
+    // Check if error might be related to Firestore service
+    if (typeof firestore.collection !== 'function') {
+        responseMessage = "Database service is not available. Please check server configuration and logs.";
+        console.error("Firestore might not be initialized correctly.");
+    }
+    return NextResponse.json({ success: false, message: responseMessage }, { status: 500 });
   }
 }

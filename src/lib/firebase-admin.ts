@@ -5,7 +5,12 @@ if (!admin.apps.length) {
   try {
     const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY;
     if (!serviceAccountKey) {
-      throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY environment variable is not set.');
+      throw new Error('CRITICAL: FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY environment variable is not set. Firebase Admin SDK cannot initialize.');
+    }
+
+    const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+    if (!storageBucket) {
+      console.warn('WARNING: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET environment variable is not set. Firebase Storage operations will likely fail if attempted.');
     }
 
     // Parse the service account key JSON string
@@ -13,14 +18,13 @@ if (!admin.apps.length) {
 
     admin.initializeApp({
       credential: admin.credential.cert(parsedServiceAccount),
-      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET, // Get this from your Firebase console -> Storage
+      storageBucket: storageBucket, // Allow initialization even if storageBucket is undefined, but warn above
     });
     console.log('Firebase Admin SDK initialized successfully.');
   } catch (error) {
-    console.error('Firebase Admin SDK initialization error:', error);
-    // Optionally, throw the error or handle it as per your app's needs
-    // For example, you might not want the app to start if Firebase Admin fails to initialize
-    // throw new Error('Failed to initialize Firebase Admin SDK: ' + (error as Error).message);
+    console.error('CRITICAL: Firebase Admin SDK initialization error. Backend Firebase operations will fail:', error);
+    // Not re-throwing, to allow the app to potentially start for non-Firebase related parts,
+    // but backend Firebase features will be broken. Error is logged critically.
   }
 }
 
