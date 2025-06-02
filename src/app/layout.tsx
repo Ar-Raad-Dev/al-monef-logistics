@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Abdul Aziz AlMonef Logistics Hub',
+  title: 'Abdul Aziz Mohammad Al Monef & Sons Company',
   description: 'Leading Trade and Transport Services.',
   icons: {
     icon: "/favicon.ico",

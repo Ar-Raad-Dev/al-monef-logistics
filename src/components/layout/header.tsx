@@ -59,7 +59,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
         <Link href={`/${lang}`} className="flex items-center gap-2">
           <Package2 className="h-6 w-6 text-primary" />
           <span className="font-bold text-lg font-headline">
-            {lang === 'ar' ? 'عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad AlMonef & Sons'}
+            {lang === 'ar' ? 'شركة عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad Al Monef & Sons Company'}
           </span>
         </Link>
         
@@ -70,8 +70,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
               href={item.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
-                // Check current pathname against item.href. Also handle if item.href is /en and pathname is /en/
-                (pathname === item.href || pathname === `${item.href}/`) ? "text-primary" : "text-muted-foreground"
+                // Check current pathname against item.href. Also handle if item.href is /en and pathname is /en/") ? "text-primary" : "text-muted-foreground"
               )}
             >
               {item.label}
@@ -100,7 +99,7 @@ export default function Header({ lang, dictionary }: HeaderProps) {
                   <Link href={`/${lang}`} className="flex items-center gap-2 text-lg font-semibold mb-4">
                     <Package2 className="h-6 w-6 text-primary" />
                     <span className="font-headline">
-                      {lang === 'ar' ? 'عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad AlMonef & Sons'}
+                      {lang === 'ar' ? 'شركة عبدالعزيز محمد المنيف وأولاده' : 'Abdul Aziz Mohammad Al Monef & Sons Company'}
                     </span>
                   </Link>
                   {navItems.map((item) => (
