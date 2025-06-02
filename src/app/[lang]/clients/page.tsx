@@ -15,19 +15,21 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   };
 }
 
-const partnerPlaceholders = {
-  alwatania: 'https://placehold.co/150x80/D4E7F0/29ABE2?text=AlWatania',
-  mahamalWater: 'https://placehold.co/150x80/29ABE2/FFFFFF?text=Mahamal',
-  miradWater: 'https://placehold.co/150x80/D4E7F0/29ABE2?text=MiradWater',
-  ksaRetailers: 'https://placehold.co/150x80/29ABE2/FFFFFF?text=RetailKSA',
-  fbDistributors: 'https://placehold.co/150x80/D4E7F0/29ABE2?text=F%26BDist',
-  constructionLeaders: 'https://placehold.co/150x80/29ABE2/FFFFFF?text=Construction',
+// Define local image paths directly or derive from dictionary if they need to be internationalized
+// For simplicity, defining them here assuming they are language-agnostic.
+const partnerLogos: Record<string, string> = {
+  alwatania: '/images/clients/logos/alwatania-logo.png',
+  mahamalWater: '/images/clients/logos/mahamal-water-logo.png',
+  miradWater: '/images/clients/logos/mirad-water-logo.png',
+  ksaRetailers: '/images/clients/logos/ksa-retailers-logo.png',
+  fbDistributors: '/images/clients/logos/fb-distributors-logo.png',
+  constructionLeaders: '/images/clients/logos/construction-leaders-logo.png',
 };
 
-const testimonialAvatars = {
-  alwatania: 'https://placehold.co/100x100/D4E7F0/29ABE2?text=LM',
-  mahamalWater: 'https://placehold.co/100x100/29ABE2/FFFFFF?text=PH',
-  anonymousFMCG: 'https://placehold.co/100x100/D4E7F0/29ABE2?text=OD',
+const testimonialAvatars: Record<string, string> = {
+  alwatania: '/images/clients/avatars/logistics-manager.jpg',
+  mahamalWater: '/images/clients/avatars/procurement-head.jpg',
+  anonymousFMCG: '/images/clients/avatars/operations-director.jpg',
 };
 
 
@@ -53,12 +55,11 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
             <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
               <CardContent className="flex justify-center items-center h-24">
                 <Image 
-                    src={partnerPlaceholders[partner.nameKey as keyof typeof partnerPlaceholders]} 
-                    alt={`${dictionary.navigation.clients} - ${partner.name}`}
+                    src={partnerLogos[partner.nameKey as keyof typeof partnerLogos]} 
+                    alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`} // More descriptive alt
                     width={120} 
                     height={60} 
                     style={{objectFit:"contain"}}
-                    data-ai-hint={partner.imageHint}
                 />
               </CardContent>
             </Card>
@@ -82,7 +83,6 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
                 testimonial={testimonial.testimonial}
                 avatarUrl={testimonialAvatars[testimonial.companyKey as keyof typeof testimonialAvatars]}
                 rating={testimonial.rating}
-                imageHint={testimonial.avatarHint}
             />
           ))}
         </div>

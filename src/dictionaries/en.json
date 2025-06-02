@@ -1,3 +1,4 @@
+
 {
   "metadata": {
     "title": "Abdul Aziz Mohammad AlMonef & Sons | Trade & Transport",
@@ -130,21 +131,21 @@
     "keyPartnersSection": {
       "heading": "Key Partners",
       "partners": [
-        { "nameKey": "alwatania", "name": "Al Watania Poultry", "imageHint": "company logo" },
-        { "nameKey": "mahamalWater", "name": "Mahamal Al Madina Water", "imageHint": "company logo" },
-        { "nameKey": "miradWater", "name": "Mirad Water Factory", "imageHint": "company logo" },
-        { "nameKey": "ksaRetailers", "name": "Major KSA Retailers", "imageHint": "company logo" },
-        { "nameKey": "fbDistributors", "name": "Food & Beverage Distributors", "imageHint": "company logo" },
-        { "nameKey": "constructionLeaders", "name": "Construction Sector Leaders", "imageHint": "company logo" }
+        { "nameKey": "alwatania", "name": "Al Watania Poultry" },
+        { "nameKey": "mahamalWater", "name": "Mahamal Al Madina Water" },
+        { "nameKey": "miradWater", "name": "Mirad Water Factory" },
+        { "nameKey": "ksaRetailers", "name": "Major KSA Retailers" },
+        { "nameKey": "fbDistributors", "name": "Food & Beverage Distributors" },
+        { "nameKey": "constructionLeaders", "name": "Construction Sector Leaders" }
       ],
       "trustedByNote": "Trusted by leaders in food & beverage, retail, and industrial logistics across Saudi Arabia."
     },
     "testimonialsSection": {
       "heading": "Client Testimonials",
       "testimonials": [
-        { "name": "Logistics Manager", "companyKey": "alwatania", "company": "Al Watania Poultry", "testimonial": "Abdul Aziz Mohammad AlMonef & Sons consistently delivers reliable and timely transport for our goods to Hofuf. Their professionalism is key to our supply chain.", "avatarHint": "manager portrait", "rating": 5 },
-        { "name": "Procurement Head", "companyKey": "mahamalWater", "company": "Mahamal Al Madina Water", "testimonial": "Their trailer leasing options are flexible and their vehicles top-notch. Abdul Aziz Mohammad AlMonef & Sons has been a valuable partner for our distribution needs.", "avatarHint": "person face", "rating": 5 },
-        { "name": "Operations Director", "companyKey": "anonymousFMCG", "company": "Anonymous FMCG Client", "testimonial": "We trust Abdul Aziz Mohammad AlMonef & Sons for their extensive network throughout KSA. They handle our diverse logistics requirements with utmost care.", "avatarHint": "director photo", "rating": 4 }
+        { "name": "Logistics Manager", "companyKey": "alwatania", "company": "Al Watania Poultry", "testimonial": "Abdul Aziz Mohammad AlMonef & Sons consistently delivers reliable and timely transport for our goods to Hofuf. Their professionalism is key to our supply chain.", "rating": 5 },
+        { "name": "Procurement Head", "companyKey": "mahamalWater", "company": "Mahamal Al Madina Water", "testimonial": "Their trailer leasing options are flexible and their vehicles top-notch. Abdul Aziz Mohammad AlMonef & Sons has been a valuable partner for our distribution needs.", "rating": 5 },
+        { "name": "Operations Director", "companyKey": "anonymousFMCG", "company": "Anonymous FMCG Client", "testimonial": "We trust Abdul Aziz Mohammad AlMonef & Sons for their extensive network throughout KSA. They handle our diverse logistics requirements with utmost care.", "rating": 4 }
       ]
     }
   },

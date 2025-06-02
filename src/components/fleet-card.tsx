@@ -8,19 +8,17 @@ interface FleetCardProps {
   description: string;
   imageUrl: string;
   icon: LucideIcon;
-  imageHint: string;
 }
 
-export default function FleetCard({ name, description, imageUrl, icon: Icon, imageHint }: FleetCardProps) {
+export default function FleetCard({ name, description, imageUrl, icon: Icon }: FleetCardProps) {
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
       <div className="relative h-56 w-full">
         <Image 
           src={imageUrl} 
           alt={name} 
-          layout="fill" 
-          objectFit="cover" 
-          data-ai-hint={imageHint}
+          fill 
+          style={{objectFit:"cover"}}
           className="transition-transform duration-500 group-hover:scale-105"
         />
       </div>

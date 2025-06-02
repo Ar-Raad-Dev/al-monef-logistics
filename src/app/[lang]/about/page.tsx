@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
 
 const iconMap = {
   crNumber: Info,
-  chamberMembership: Building2, // Using Building2 as a generic icon for Chamber
+  chamberMembership: Building2, 
   phone: Phone,
   fax: Printer,
   address: MapPin,
@@ -39,12 +39,12 @@ export default async function AboutPage({ params: { lang } }: { params: { lang: 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/600x450/D4E7F0/29ABE2"
+              src="/images/about/company-overview.jpg" // Local image path
               alt={d.companyOverview.imageAlt}
               fill
               style={{objectFit:"cover"}}
-              data-ai-hint="logistics company team"
               className="transform hover:scale-105 transition-transform duration-500"
+              priority // Good to add priority for LCP images
             />
           </div>
           <div>

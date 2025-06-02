@@ -17,8 +17,10 @@ export default function HeroSection({ dictionary, lang }: HeroSectionProps) {
         muted
         playsInline 
         className="absolute inset-0 w-full h-full object-cover z-0"
+        // Poster image for while video loads or if it fails
+        // poster="/images/hero/hero-poster.jpg" 
       >
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4" />
+        <source src="/videos/hero-background.mp4" type="video/mp4" />
         {lang === 'ar' ? 'متصفحك لا يدعم عرض الفيديو.' : 'Your browser does not support the video tag.'}
       </video>
       <div className="absolute inset-0 bg-black/60 z-10" />

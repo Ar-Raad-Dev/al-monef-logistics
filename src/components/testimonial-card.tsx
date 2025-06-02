@@ -1,6 +1,6 @@
 
 import Image from 'next/image';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card'; // Removed CardHeader as it wasn't used
 import { Star } from 'lucide-react';
 
 interface TestimonialCardProps {
@@ -9,10 +9,9 @@ interface TestimonialCardProps {
   testimonial: string;
   avatarUrl?: string;
   rating?: number;
-  imageHint?: string;
 }
 
-export default function TestimonialCard({ name, company, testimonial, avatarUrl, rating = 5, imageHint = "person portrait" }: TestimonialCardProps) {
+export default function TestimonialCard({ name, company, testimonial, avatarUrl, rating = 5 }: TestimonialCardProps) {
   return (
     <Card className="flex flex-col h-full shadow-lg bg-card">
       <CardContent className="pt-6 pb-4 flex-grow">
@@ -23,11 +22,10 @@ export default function TestimonialCard({ name, company, testimonial, avatarUrl,
           {avatarUrl ? (
             <Image 
               src={avatarUrl} 
-              alt={name} 
+              alt={name} // Alt text is sufficient with the name
               width={40} 
               height={40} 
               className="rounded-full" 
-              data-ai-hint={imageHint}
             />
           ) : (
             <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-primary">

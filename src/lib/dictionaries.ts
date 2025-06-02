@@ -127,7 +127,7 @@ export interface Translations {
       partners: Array<{
         nameKey: 'alwatania' | 'mahamalWater' | 'miradWater' | 'ksaRetailers' | 'fbDistributors' | 'constructionLeaders';
         name: string;
-        imageHint: string;
+        // imageHint removed
       }>;
       trustedByNote: string;
     };
@@ -138,7 +138,7 @@ export interface Translations {
         companyKey: 'alwatania' | 'mahamalWater' | 'anonymousFMCG';
         company: string;
         testimonial: string;
-        avatarHint: string;
+        // avatarHint removed
         rating: number;
       }>;
     };
@@ -178,8 +178,8 @@ export interface Translations {
       generalApplicationOption: string;
       cvLabel: string;
       cvFileTypes: string;
-      cvFileSizeError?: string; // Optional, for max file size
-      cvFileTypeError?: string; // Optional, for allowed file types
+      cvFileSizeError?: string; 
+      cvFileTypeError?: string; 
       coverLetterLabel: string;
       coverLetterPlaceholder: string;
       coverLetterMinLengthError: string;

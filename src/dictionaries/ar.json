@@ -1,3 +1,4 @@
+
 {
   "metadata": {
     "title": "عبدالعزيز محمد المنيف وأولاده | للتجارة والنقل",
@@ -130,21 +131,21 @@
     "keyPartnersSection": {
       "heading": "شركاؤنا الرئيسيون",
       "partners": [
-        { "nameKey": "alwatania", "name": "الوطنية للدواجن", "imageHint": "company logo" },
-        { "nameKey": "mahamalWater", "name": "مياه محامل المدينة", "imageHint": "company logo" },
-        { "nameKey": "miradWater", "name": "مصنع مياه ميراد", "imageHint": "company logo" },
-        { "nameKey": "ksaRetailers", "name": "كبار تجار التجزئة في السعودية", "imageHint": "company logo" },
-        { "nameKey": "fbDistributors", "name": "موزعو الأغذية والمشروبات", "imageHint": "company logo" },
-        { "nameKey": "constructionLeaders", "name": "رواد قطاع البناء", "imageHint": "company logo" }
+        { "nameKey": "alwatania", "name": "الوطنية للدواجن" },
+        { "nameKey": "mahamalWater", "name": "مياه محامل المدينة" },
+        { "nameKey": "miradWater", "name": "مصنع مياه ميراد" },
+        { "nameKey": "ksaRetailers", "name": "كبار تجار التجزئة في السعودية" },
+        { "nameKey": "fbDistributors", "name": "موزعو الأغذية والمشروبات" },
+        { "nameKey": "constructionLeaders", "name": "رواد قطاع البناء" }
       ],
       "trustedByNote": "موثوق به من قبل الرواد في مجال الأغذية والمشروبات، وتجارة التجزئة، والخدمات اللوجستية الصناعية في جميع أنحاء المملكة العربية السعودية."
     },
     "testimonialsSection": {
       "heading": "شهادات العملاء",
       "testimonials": [
-        { "name": "مدير الخدمات اللوجستية", "companyKey": "alwatania", "company": "الوطنية للدواجن", "testimonial": "تقدم شركة عبدالعزيز محمد المنيف وأولاده باستمرار نقلًا موثوقًا وفي الوقت المناسب لبضائعنا إلى الهفوف. احترافهم هو مفتاح سلسلة التوريد لدينا.", "avatarHint": "manager portrait", "rating": 5 },
-        { "name": "رئيس قسم المشتريات", "companyKey": "mahamalWater", "company": "مياه محامل المدينة", "testimonial": "خيارات تأجير المقطورات لديهم مرنة ومركباتهم من الدرجة الأولى. لقد كانت شركة عبدالعزيز محمد المنيف وأولاده شريكًا قيمًا لاحتياجات التوزيع لدينا.", "avatarHint": "person face", "rating": 5 },
-        { "name": "مدير العمليات", "companyKey": "anonymousFMCG", "company": "عميل مجهول في قطاع السلع الاستهلاكية", "testimonial": "نحن نثق في شركة عبدالعزيز محمد المنيف وأولاده لشبكتهم الواسعة في جميع أنحاء المملكة العربية السعودية. إنهم يتعاملون مع متطلباتنا اللوجستية المتنوعة بعناية فائقة.", "avatarHint": "director photo", "rating": 4 }
+        { "name": "مدير الخدمات اللوجستية", "companyKey": "alwatania", "company": "الوطنية للدواجن", "testimonial": "تقدم شركة عبدالعزيز محمد المنيف وأولاده باستمرار نقلًا موثوقًا وفي الوقت المناسب لبضائعنا إلى الهفوف. احترافهم هو مفتاح سلسلة التوريد لدينا.", "rating": 5 },
+        { "name": "رئيس قسم المشتريات", "companyKey": "mahamalWater", "company": "مياه محامل المدينة", "testimonial": "خيارات تأجير المقطورات لديهم مرنة ومركباتهم من الدرجة الأولى. لقد كانت شركة عبدالعزيز محمد المنيف وأولاده شريكًا قيمًا لاحتياجات التوزيع لدينا.", "rating": 5 },
+        { "name": "مدير العمليات", "companyKey": "anonymousFMCG", "company": "عميل مجهول في قطاع السلع الاستهلاكية", "testimonial": "نحن نثق في شركة عبدالعزيز محمد المنيف وأولاده لشبكتهم الواسعة في جميع أنحاء المملكة العربية السعودية. إنهم يتعاملون مع متطلباتنا اللوجستية المتنوعة بعناية فائقة.", "rating": 4 }
       ]
     }
   },
@@ -196,8 +197,9 @@
       "submitErrorTitle": "خطأ في الإرسال",
       "submitErrorDescription": "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.",
       "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
-    },
-    "contactPage": {
+    }
+  },
+  "contactPage": {
       "metaTitle": "اتصل بشركة عبدالعزيز محمد المنيف وأولاده | تواصل معنا",
       "metaDescription": "اتصل بشركة عبدالعزيز محمد المنيف وأولاده لتلبية احتياجاتك في مجال التجارة والنقل. تواصل معنا عبر الهاتف أو البريد الإلكتروني أو قم بزيارة مكتبنا.",
       "headerTitle": "تواصل معنا",
@@ -240,5 +242,4 @@
         "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
       }
     }
-  }
 }

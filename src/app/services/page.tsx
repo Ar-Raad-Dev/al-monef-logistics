@@ -1,124 +1,244 @@
-
-import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Truck, Ship, Plane, Warehouse, Package, Car, Handshake, Award } from 'lucide-react';
-import FleetCard from '@/components/fleet-card';
-
-const fleetItems = [
-  { name: 'مقطورات مسطحة', description: 'متعددة الاستخدامات لمختلف أنواع البضائع، متاحة للبيع والتأجير.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "flatbed trailer" },
-  { name: 'مقطورات ذات جوانب ستائرية', description: 'سهلة التحميل والتفريغ، مثالية للبضائع المعبأة على منصات نقالة.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Truck, imageHint: "curtain side trailer" },
-  { name: 'مقطورات مبردة', description: 'نقل يمكن التحكم في درجة حرارته للبضائع الحساسة.', imageUrl: 'https://placehold.co/600x400/29ABE2/FFFFFF', icon: Truck, imageHint: "refrigerated trailer" },
-  { name: 'سيارات وشاحنات تجارية', description: 'مركبات موثوقة لعمليات الأعمال والبضائع الصغيرة.', imageUrl: 'https://placehold.co/600x400/D4E7F0/29ABE2', icon: Car, imageHint: "commercial van" },
-];
-
-const logisticsSolutions = [
-    { icon: Package, title: "شحن البضائع", description: "خدمات شحن جوي وبحري وبري فعالة وموثوقة عالميًا." },
-    { icon: Warehouse, title: "التخزين والتوزيع", description: "مرافق تخزين آمنة وشبكات توزيع مبسطة." },
-    { icon: Truck, title: "إدارة سلسلة التوريد", description: "تحسين سلسلة التوريد من البداية إلى النهاية لتعزيز الكفاءة وتوفير التكاليف." },
-    { icon: Award, title: "التخليص الجمركي", description: "معالجة خبيرة للوثائق الجمركية لتجارة دولية ومحلية سلسة." }
-];
-
-const currentPartnerships = [
-    { name: "الوطنية للدواجن (الهفوف)", description: "شريك لوجستي رئيسي لتوزيع الدواجن." },
-    { name: "مصنع مياه محامل المدينة", description: "نقل المياه المعبأة عبر المناطق." },
-    { name: "مصنع مياه ميراد", description: "خدمات توصيل موثوقة لمنتجات المياه." }
-];
-
-export default function ServicesPage() {
-  return (
-    <div className="container mx-auto px-4 py-16 md:py-24">
-      <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 font-headline">خدماتنا المتخصصة</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          حلول شاملة لتجارة المركبات، والتأجير، والخدمات اللوجستية والنقل على مستوى المملكة.
-        </p>
-      </header>
-
-      <section id="vehicle-trade" className="mb-16 md:mb-24 scroll-mt-20">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-foreground mb-6 font-headline flex items-center gap-3">
-              <Car className="h-10 w-10 text-primary" /> خدمات تجارة المركبات
-            </h2>
-            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              نحن متخصصون في بيع وشراء المقطورات والشاحنات والمركبات التجارية الأخرى الجديدة والمستعملة عالية الجودة. يتم اختيار مخزوننا بعناية لتلبية الاحتياجات التشغيلية المتنوعة.
-            </p>
-            <ul className="list-disc list-inside text-lg text-muted-foreground space-y-2 mb-4 mr-5"> {/* Added mr-5 for RTL list marker */}
-              <li>مجموعة واسعة من المقطورات (مسطحة، مبردة، ذات جوانب ستائرية، إلخ.)</li>
-              <li>توريد مركبات وسيارات تجارية محددة</li>
-              <li>عمليات فحص وتقييم شفافة</li>
-              <li>خيارات تأجير مرنة متاحة للمقطورات والمركبات</li>
-            </ul>
-          </div>
-          <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
-            <Image
-              src="https://placehold.co/600x450/29ABE2/FFFFFF"
-              alt="مقطورات ومركبات تجارية للبيع"
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint="trailers commercial vehicles"
-              className="transform hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="logistics" className="mb-16 md:mb-24 scroll-mt-20">
-         <h2 className="text-3xl font-bold text-foreground mb-12 font-headline text-center flex items-center justify-center gap-3">
-            <Package className="h-10 w-10 text-primary" /> حلول الخدمات اللوجستية والنقل
-        </h2>
-        <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
-            نقدم نقلًا موثوقًا للبضائع عبر المملكة العربية السعودية، مما يضمن التسليم الآمن وفي الوقت المناسب. تتعامل شبكتنا الواسعة وفريقنا المتمرس مع التحديات اللوجستية المتنوعة.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {logisticsSolutions.map(service => (
-                <Card key={service.title} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <CardHeader className="items-center text-center">
-                         <div className="p-3 bg-primary/10 rounded-full w-fit mb-2">
-                            <service.icon className="h-10 w-10 text-primary" />
-                        </div>
-                        <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                        <p className="text-sm text-muted-foreground">{service.description}</p>
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
-        
-        <h3 className="text-2xl font-bold text-foreground mb-6 font-headline text-center flex items-center justify-center gap-3">
-            <Handshake className="h-8 w-8 text-primary" /> الشراكات الرئيسية الحالية
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {currentPartnerships.map(partner => (
-                <Card key={partner.name} className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader>
-                        <CardTitle className="text-lg font-semibold">{partner.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm text-muted-foreground">{partner.description}</p>
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
-      </section>
-
-      <section id="fleet" className="scroll-mt-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12 font-headline">
-          أسطولنا الحديث والمتنوع
-        </h2>
-        <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
-          اكتشف مجموعتنا من المقطورات والمركبات. نقدم خيارات للبيع والتأجير، ونستخدمها في عمليات النقل الواسعة لدينا. يمكن أن تساعدك فلاتر "للبيع"، "قيد الاستخدام"، "مؤجرة" في تضييق نطاق البحث (الميزة قادمة قريبًا).
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {fleetItems.map((item) => (
-            <FleetCard key={item.name} {...item} />
-          ))}
-        </div>
-        <p className="text-center text-muted-foreground mt-12 text-lg">
-          يتم صيانة أسطولنا المتنوع بدقة وتجهيزه لضمان النقل الآمن والفعال.
-        </p>
-      </section>
-    </div>
-  );
+{
+  "metadata": {
+    "title": "عبدالعزيز محمد المنيف وأولاده | للتجارة والنقل",
+    "description": "خدمات لوجستية رائدة وتجارة المقطورات والمركبات في البدائع، القصيم، المملكة العربية السعودية."
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "خدماتنا",
+    "clients": "عملاؤنا",
+    "careers": "الوظائف",
+    "contact": "اتصل بنا",
+    "switchLanguage": "English"
+  },
+  "hero": {
+    "title": "عبدالعزيز محمد المنيف وأولاده",
+    "tagline": "نقود التجارة إلى الأمام عبر المملكة العربية السعودية",
+    "exploreServices": "اكتشف خدماتنا",
+    "getInTouch": "تواصل معنا"
+  },
+  "companyIntro": {
+    "heading": "شريكك في التجارة والنقل بالمملكة العربية السعودية",
+    "paragraph": "تعتبر شركة عبدالعزيز محمد المنيف وأولاده للتجارة والنقل اسمًا رائدًا في صناعة الخدمات اللوجستية والتجارة، وتعمل من البدائع، القصيم. نحن متخصصون في المركبات التجارية ونقدم خدمات لوجستية يمكن الاعتماد عليها في جميع أنحاء المملكة.",
+    "discoverStory": "اكتشف قصتنا"
+  },
+  "quickStats": {
+    "heading": "تأثيرنا بالأرقام",
+    "stats": {
+      "yearsInBusiness": { "title": "سنوات في العمل", "description": "خبرة واسعة في الخدمات اللوجستية والتجارة." },
+      "trailersCount": { "title": "عدد المقطورات", "description": "أسطول كبير ومتنوع لتلبية مختلف الاحتياجات." },
+      "companiesServed": { "title": "الشركات التي خدمناها", "description": "موثوق به من قبل الشركات في جميع أنحاء المملكة." },
+      "trailersSold": { "title": "المقطورات المباعة", "description": "ربط المشترين والبائعين بفعالية." }
+    }
+  },
+  "keyServices": {
+    "heading": "الخدمات الرئيسية التي نقدمها",
+    "services": {
+      "vehicleTrade": { "title": "خدمات تجارة المركبات", "description": "بيع وشراء وتأجير المقطورات والمركبات التجارية عالية الجودة." },
+      "logistics": { "title": "الخدمات اللوجستية والنقل", "description": "نقل موثوق للبضائع عبر المملكة العربية السعودية مع شراكات رئيسية." },
+      "fleetShowcase": { "title": "معرض الأسطول", "description": "اكتشف أسطولنا الحديث، المتاح للبيع أو التأجير أو الاستخدام التشغيلي." }
+    },
+    "learnMore": "اعرف المزيد"
+  },
+  "footer": {
+    "quickLinks": "روابط سريعة",
+    "legalInfo": "المعلومات القانونية",
+    "crNumber": "رقم السجل التجاري",
+    "chamberNumber": "رقم عضوية الغرفة التجارية",
+    "connectWithUs": "تواصل معنا",
+    "copyright": "عبدالعزيز محمد المنيف وأولاده للتجارة والنقل. جميع الحقوق محفوظة.",
+    "tagline": "نقود التجارة إلى الأمام عبر المملكة العربية السعودية."
+  },
+  "aboutPage": {
+    "metaTitle": "عن شركة عبدالعزيز محمد المنيف وأولاده | قصتنا",
+    "metaDescription": "تعرف على شركة عبدالعزيز محمد المنيف وأولاده، رسالتنا، رؤيتنا، والتزامنا بالتميز في الخدمات اللوجستية والتجارة في المملكة العربية السعودية.",
+    "headerTitle": "عن شركة عبدالعزيز محمد المنيف وأولاده",
+    "headerSubtitle": "رواد في مجال الخدمات اللوجستية وتجارة المركبات في المملكة العربية السعودية، ملتزمون بالنزاهة والتميز.",
+    "companyOverview": {
+      "imageAlt": "فريق أو عمليات شركة عبدالعزيز محمد المنيف وأولاده",
+      "heading": "شركتنا",
+      "paragraph1": "تعتبر شركة عبدالعزيز محمد المنيف وأولاده للتجارة والنقل اسمًا رائدًا في صناعة الخدمات اللوجستية والتجارة، وتعمل من البدائع، القصيم، المملكة العربية السعودية. مع سنوات من الخبرة، نحن متخصصون في شراء وبيع وتأجير المقطورات والمركبات التجارية، ونقدم خدمات لوجستية يمكن الاعتماد عليها في جميع أنحاء المملكة.",
+      "paragraph2": "أساسنا مبني على الثقة والكفاءة والفهم العميق للسوق السعودي. نسعى جاهدين لتمكين الشركات من خلال توفير حلول سلسة وموثوقة مصممة خصيصًا لتلبية احتياجاتهم الفريدة."
+    },
+    "missionVision": {
+      "missionHeading": "مهمتنا",
+      "missionText": "أن نكون المزود الأول لحلول التجارة والنقل الشاملة في المملكة العربية السعودية، وتقديم قيمة استثنائية من خلال الابتكار والموثوقية والنهج الذي يركز على العميل. نهدف إلى تسهيل النمو الاقتصادي من خلال ربط الشركات وتمكين الحركة الفعالة للبضائع.",
+      "visionHeading": "رؤيتنا",
+      "visionText": "أن نكون الرائد بلا منازع في قطاع الخدمات اللوجستية وتجارة المركبات في المملكة العربية السعودية، معترف بنا لالتزامنا الثابت بالجودة والنزاهة والممارسات المستدامة، مع تعزيز الشراكات طويلة الأجل والمساهمة في ازدهار المملكة."
+    },
+    "credentials": {
+      "heading": "وثائق الشركة",
+      "items": [
+        { "nameKey": "crNumber", "name": "رقم السجل التجاري", "value": "112990003463" },
+        { "nameKey": "chamberMembership", "name": "عضوية الغرفة التجارية", "value": "121800" },
+        { "nameKey": "phone", "name": "الهاتف", "value": "3212000" },
+        { "nameKey": "fax", "name": "الفاكس", "value": "3213000" },
+        { "nameKey": "address", "name": "العنوان", "value": "البدائع، القصيم، المملكة العربية السعودية" }
+      ]
+    }
+  },
+  "servicesPage": {
+    "metaTitle": "خدماتنا | عبدالعزيز محمد المنيف للتجارة والنقل",
+    "metaDescription": "اكتشف خدماتنا الشاملة في تجارة المركبات، والتأجير، والخدمات اللوجستية في جميع أنحاء المملكة العربية السعودية.",
+    "headerTitle": "خدماتنا المتخصصة",
+    "headerSubtitle": "حلول شاملة لتجارة المركبات، والتأجير، والخدمات اللوجستية والنقل على مستوى المملكة.",
+    "vehicleTradeSection": {
+      "heading": "خدمات تجارة المركبات",
+      "paragraph": "نحن متخصصون في بيع وشراء المقطورات والشاحنات والمركبات التجارية الأخرى الجديدة والمستعملة عالية الجودة. يتم اختيار مخزوننا بعناية لتلبية الاحتياجات التشغيلية المتنوعة.",
+      "listItems": [
+        "مجموعة واسعة من المقطورات (مسطحة، مبردة، ذات جوانب ستائرية، إلخ.)",
+        "توريد مركبات وسيارات تجارية محددة",
+        "عمليات فحص وتقييم شفافة",
+        "خيارات تأجير مرنة متاحة للمقطورات والمركبات"
+      ],
+      "imageAlt": "مقطورات ومركبات تجارية للبيع"
+    },
+    "logisticsSection": {
+      "heading": "حلول الخدمات اللوجستية والنقل",
+      "paragraph": "نقدم نقلًا موثوقًا للبضائع عبر المملكة العربية السعودية، مما يضمن التسليم الآمن وفي الوقت المناسب. تتعامل شبكتنا الواسعة وفريقنا المتمرس مع التحديات اللوجستية المتنوعة.",
+      "solutions": [
+        { "titleKey": "freightForwarding", "title": "شحن البضائع", "description": "خدمات شحن جوي وبحري وبري فعالة وموثوقة عالميًا." },
+        { "titleKey": "warehousing", "title": "التخزين والتوزيع", "description": "مرافق تخزين آمنة وشبكات توزيع مبسطة." },
+        { "titleKey": "supplyChain", "title": "إدارة سلسلة التوريد", "description": "تحسين سلسلة التوريد من البداية إلى النهاية لتعزيز الكفاءة وتوفير التكاليف." },
+        { "titleKey": "customsClearance", "title": "التخليص الجمركي", "description": "معالجة خبيرة للوثائق الجمركية لتجارة دولية ومحلية سلسة." }
+      ],
+      "partnershipsHeading": "الشراكات الرئيسية الحالية",
+      "partnerships": [
+        { "name": "الوطنية للدواجن (الهفوف)", "description": "شريك لوجستي رئيسي لتوزيع الدواجن." },
+        { "name": "مصنع مياه محامل المدينة", "description": "نقل المياه المعبأة عبر المناطق." },
+        { "name": "مصنع مياه ميراد", "description": "خدمات توصيل موثوقة لمنتجات المياه." }
+      ]
+    },
+    "fleetSection": {
+      "heading": "أسطولنا الحديث والمتنوع",
+      "paragraph": "اكتشف مجموعتنا من المقطورات والمركبات. نقدم خيارات للبيع والتأجير، ونستخدمها في عمليات النقل الواسعة لدينا. يمكن أن تساعدك فلاتر 'للبيع'، 'قيد الاستخدام'، 'مؤجرة' في تضييق نطاق البحث (الميزة قادمة قريبًا).",
+      "items": [
+        { "nameKey": "flatbedTrailers", "name": "مقطورات مسطحة", "description": "متعددة الاستخدامات لمختلف أنواع البضائع، متاحة للبيع والتأجير." },
+        { "nameKey": "curtainSideTrailers", "name": "مقطورات ذات جوانب ستائرية", "description": "سهلة التحميل والتفريغ، مثالية للبضائع المعبأة على منصات نقالة." },
+        { "nameKey": "refrigeratedTrailers", "name": "مقطورات مبردة", "description": "نقل يمكن التحكم في درجة حرارته للبضائع الحساسة." },
+        { "nameKey": "commercialVehicles", "name": "سيارات وشاحنات تجارية", "description": "مركبات موثوقة لعمليات الأعمال والبضائع الصغيرة." }
+      ],
+      "maintenanceNote": "يتم صيانة أسطولنا المتنوع بدقة وتجهيزه لضمان النقل الآمن والفعال."
+    }
+  },
+  "clientsPage": {
+    "metaTitle": "عملاؤنا الكرام | عبدالعزيز محمد المنيف وأولاده",
+    "metaDescription": "نفخر بخدمة رواد الصناعة في جميع أنحاء المملكة العربية السعودية. شاهد شركاءنا الرئيسيين وشهاداتهم.",
+    "headerTitle": "عملاؤنا الكرام",
+    "headerSubtitle": "بناء شراكات قوية ودائمة هو جوهر ما نقوم به. نفخر بخدمة الرواد في مختلف الصناعات.",
+    "keyPartnersSection": {
+      "heading": "شركاؤنا الرئيسيون",
+      "partners": [
+        { "nameKey": "alwatania", "name": "الوطنية للدواجن" },
+        { "nameKey": "mahamalWater", "name": "مياه محامل المدينة" },
+        { "nameKey": "miradWater", "name": "مصنع مياه ميراد" },
+        { "nameKey": "ksaRetailers", "name": "كبار تجار التجزئة في السعودية" },
+        { "nameKey": "fbDistributors", "name": "موزعو الأغذية والمشروبات" },
+        { "nameKey": "constructionLeaders", "name": "رواد قطاع البناء" }
+      ],
+      "trustedByNote": "موثوق به من قبل الرواد في مجال الأغذية والمشروبات، وتجارة التجزئة، والخدمات اللوجستية الصناعية في جميع أنحاء المملكة العربية السعودية."
+    },
+    "testimonialsSection": {
+      "heading": "شهادات العملاء",
+      "testimonials": [
+        { "name": "مدير الخدمات اللوجستية", "companyKey": "alwatania", "company": "الوطنية للدواجن", "testimonial": "تقدم شركة عبدالعزيز محمد المنيف وأولاده باستمرار نقلًا موثوقًا وفي الوقت المناسب لبضائعنا إلى الهفوف. احترافهم هو مفتاح سلسلة التوريد لدينا.", "rating": 5 },
+        { "name": "رئيس قسم المشتريات", "companyKey": "mahamalWater", "company": "مياه محامل المدينة", "testimonial": "خيارات تأجير المقطورات لديهم مرنة ومركباتهم من الدرجة الأولى. لقد كانت شركة عبدالعزيز محمد المنيف وأولاده شريكًا قيمًا لاحتياجات التوزيع لدينا.", "rating": 5 },
+        { "name": "مدير العمليات", "companyKey": "anonymousFMCG", "company": "عميل مجهول في قطاع السلع الاستهلاكية", "testimonial": "نحن نثق في شركة عبدالعزيز محمد المنيف وأولاده لشبكتهم الواسعة في جميع أنحاء المملكة العربية السعودية. إنهم يتعاملون مع متطلباتنا اللوجستية المتنوعة بعناية فائقة.", "rating": 4 }
+      ]
+    }
+  },
+  "careersPage": {
+    "metaTitle": "وظائف في عبدالعزيز محمد المنيف وأولاده | انضم إلى فريقنا",
+    "metaDescription": "اكتشف فرص العمل في شركة عبدالعزيز محمد المنيف وأولاده. نحن نوظف سائقين وموظفي مكاتب ومتخصصين في الخدمات اللوجستية.",
+    "headerTitle": "وظائف في عبدالعزيز محمد المنيف وأولاده",
+    "headerSubtitle": "انضم إلى فريقنا المتنامي! نحن نبحث دائمًا عن سائقين متفانين وموظفي مكاتب ومتخصصين في الخدمات اللوجستية للمساهمة في نجاحنا.",
+    "currentOpeningsSection": {
+      "heading": "الوظائف الشاغرة الحالية",
+      "openings": [
+        { "titleKey": "heavyVehicleDriver", "title": "سائق - مركبات ثقيلة", "description": "مطلوب سائقون ذوو خبرة للمركبات الثقيلة لطرق عبر المملكة العربية السعودية. رخصة سارية وسجل جيد ضروريان." },
+        { "titleKey": "officeAccountant", "title": "محاسب مكتبي", "description": "محاسب يهتم بالتفاصيل لإدارة السجلات المالية وكشوف المرتبات والتقارير. درجة علمية وخبرة ذات صلة مطلوبة." },
+        { "titleKey": "logisticsCoordinator", "title": "منسق لوجستيات", "description": "محترف منظم لتخطيط الطرق وتنسيق السائقين وضمان التسليم في الوقت المناسب. مهارات اتصال قوية مطلوبة." }
+      ],
+      "checkBackNote": "تضاف وظائف جديدة بانتظام. تحقق مرة أخرى كثيرًا أو قدم طلبًا عامًا أدناه."
+    },
+    "applicationFormSection": {
+      "heading": "قدم الآن",
+      "cardTitle": "أرسل طلبك",
+      "cardDescription": "هل أنت مهتم بوظيفة؟ املأ النموذج أدناه. سنتصل بك إذا كان ملفك الشخصي يتوافق مع متطلباتنا."
+    },
+    "form": {
+      "fullNameLabel": "الاسم الكامل",
+      "fullNamePlaceholder": "اسمك الكامل",
+      "fullNameMinLengthError": "يجب أن يتكون الاسم من حرفين على الأقل.",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "رقم هاتفك",
+      "phoneMinLengthError": "الرجاء إدخال رقم هاتف صالح.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "your.email@example.com",
+      "emailInvalidError": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
+      "positionLabel": "الوظيفة المتقدم لها",
+      "positionSelectPlaceholder": "اختر وظيفة",
+      "positionRequiredError": "الرجاء تحديد وظيفة.",
+      "generalApplicationOption": "طلب عام",
+      "cvLabel": "تحميل السيرة الذاتية",
+      "cvFileTypes": "(PDF, DOC, DOCX - الحد الأقصى 5 ميجابايت)",
+      "cvFileSizeError": "يجب أن يكون حجم ملف السيرة الذاتية أقل من 5 ميجابايت.",
+      "cvFileTypeError": "نوع الملف غير صالح. يُسمح فقط بملفات PDF أو DOC أو DOCX.",
+      "coverLetterLabel": "رسالة تعريفية / رسالة (اختياري)",
+      "coverLetterPlaceholder": "أخبرنا بإيجاز لماذا أنت مناسب...",
+      "coverLetterMinLengthError": "يجب أن تتكون الرسالة من 10 أحرف على الأقل.",
+      "coverLetterMaxLengthError": "لا يمكن أن تتجاوز الرسالة 500 حرف.",
+      "submitButtonText": "إرسال الطلب",
+      "submittingButtonText": "جارٍ الإرسال...",
+      "submitSuccessTitle": "تم إرسال الطلب!",
+      "submitSuccessDescription": "شكرًا لاهتمامك. سنراجع طلبك وسنتصل بك إذا كان هناك تطابق.",
+      "submitErrorTitle": "خطأ في الإرسال",
+      "submitErrorDescription": "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.",
+      "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
+    }
+  },
+  "contactPage": {
+      "metaTitle": "اتصل بشركة عبدالعزيز محمد المنيف وأولاده | تواصل معنا",
+      "metaDescription": "اتصل بشركة عبدالعزيز محمد المنيف وأولاده لتلبية احتياجاتك في مجال التجارة والنقل. تواصل معنا عبر الهاتف أو البريد الإلكتروني أو قم بزيارة مكتبنا.",
+      "headerTitle": "تواصل معنا",
+      "headerSubtitle": "نحن على استعداد لمساعدتك في احتياجات التجارة والنقل الخاصة بك. تواصل معنا عبر الهاتف أو البريد الإلكتروني أو قم بزيارة مكتبنا في البدائع.",
+      "sendMessageCardTitle": "أرسل لنا رسالة",
+      "contactDetails": [
+        { "titleKey": "officeAddress", "title": "عنوان المكتب", "lines": ["البدائع، القصيم", "المملكة العربية السعودية"] },
+        { "titleKey": "phone", "title": "الهاتف", "lines": ["3212000"] },
+        { "titleKey": "faxNumber", "title": "رقم الفاكس", "lines": ["3213000"] },
+        { "titleKey": "email", "title": "البريد الإلكتروني", "lines": ["info@almonef-transport.com"] },
+        { "titleKey": "workingHours", "title": "ساعات العمل", "lines": ["الأحد - الخميس: 8:00 صباحًا - 6:00 مساءً", "الجمعة: مغلق", "السبت: 10:00 صباحًا - 2:00 ظهرًا (بموعد مسبق)"] }
+      ],
+      "locationMapSection": {
+        "heading": "اعثر على مكتبنا في البدائع، القصيم",
+        "mapImageAlt": "خريطة توضح موقع المكتب في البدائع، القصيم",
+        "mapMarkerTitle": "مكتب شركة عبدالعزيز محمد المنيف وأولاده الرئيسي",
+        "noApiKeyMessage": "مفتاح واجهة برمجة تطبيقات خرائط جوجل مفقود. يرجى تكوينه لعرض الخريطة.",
+        "loadingMessage": "جاري تحميل الخريطة"
+      },
+      "form": {
+        "fullNameLabel": "الاسم الكامل",
+        "fullNamePlaceholder": "اسمك",
+        "fullNameMinLengthError": "يجب أن يتكون الاسم من حرفين على الأقل.",
+        "emailLabel": "البريد الإلكتروني",
+        "emailPlaceholder": "your.email@example.com",
+        "emailInvalidError": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
+        "subjectLabel": "الموضوع",
+        "subjectPlaceholder": "بخصوص خدماتكم...",
+        "subjectMinLengthError": "يجب أن يتكون الموضوع من 5 أحرف على الأقل.",
+        "messageLabel": "الرسالة",
+        "messagePlaceholder": "أخبرنا كيف يمكننا مساعدتك...",
+        "messageMinLengthError": "يجب أن تتكون الرسالة من 10 أحرف على الأقل.",
+        "messageMaxLengthError": "لا يمكن أن تتجاوز الرسالة 500 حرف.",
+        "submitButtonText": "إرسال الرسالة",
+        "submittingButtonText": "جارٍ الإرسال...",
+        "submitSuccessTitle": "تم إرسال الرسالة!",
+        "submitSuccessDescription": "شكرًا لتواصلك معنا. سنعود إليك قريبًا.",
+        "submitErrorTitle": "خطأ في الإرسال",
+        "submitErrorDescription": "حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+        "submitNetworkErrorDescription": "لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
+      }
+    }
 }

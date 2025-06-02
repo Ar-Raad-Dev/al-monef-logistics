@@ -29,6 +29,14 @@ const fleetIconMap = {
   commercialVehicles: Car,
 };
 
+// Define local image paths for fleet items
+const fleetImagePaths: Record<string, string> = {
+  flatbedTrailers: '/images/fleet/flatbed-trailer.jpg',
+  curtainSideTrailers: '/images/fleet/curtain-side-trailer.jpg',
+  refrigeratedTrailers: '/images/fleet/refrigerated-trailer.jpg',
+  commercialVehicles: '/images/fleet/commercial-van.jpg',
+};
+
 export default async function ServicesPage({ params: { lang } }: { params: { lang: Locale }}) {
   const dictionary = await getDictionary(lang);
   const d = dictionary.servicesPage;
@@ -59,11 +67,10 @@ export default async function ServicesPage({ params: { lang } }: { params: { lan
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/600x450/29ABE2/FFFFFF"
+              src="/images/services/vehicle-trade.jpg" // Local image path
               alt={d.vehicleTradeSection.imageAlt}
               fill
               style={{objectFit:"cover"}}
-              data-ai-hint="trailers commercial vehicles"
               className="transform hover:scale-105 transition-transform duration-500"
             />
           </div>
@@ -123,14 +130,7 @@ export default async function ServicesPage({ params: { lang } }: { params: { lan
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {d.fleetSection.items.map((item) => {
             const Icon = fleetIconMap[item.nameKey as keyof typeof fleetIconMap];
-            const imageUrl = item.nameKey === 'flatbedTrailers' ? 'https://placehold.co/600x400/29ABE2/FFFFFF' :
-                             item.nameKey === 'curtainSideTrailers' ? 'https://placehold.co/600x400/D4E7F0/29ABE2' :
-                             item.nameKey === 'refrigeratedTrailers' ? 'https://placehold.co/600x400/29ABE2/FFFFFF' :
-                             'https://placehold.co/600x400/D4E7F0/29ABE2';
-            const imageHint = item.nameKey === 'flatbedTrailers' ? "flatbed trailer" :
-                              item.nameKey === 'curtainSideTrailers' ? "curtain side trailer" :
-                              item.nameKey === 'refrigeratedTrailers' ? "refrigerated trailer" :
-                              "commercial van";
+            const imageUrl = fleetImagePaths[item.nameKey as keyof typeof fleetImagePaths];
             return (
                 <FleetCard 
                     key={item.name} 
@@ -138,7 +138,6 @@ export default async function ServicesPage({ params: { lang } }: { params: { lan
                     description={item.description}
                     imageUrl={imageUrl}
                     icon={Icon}
-                    imageHint={imageHint}
                 />
             );
         })}
