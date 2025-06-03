@@ -1,4 +1,5 @@
 
+import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { LucideIcon } from 'lucide-react';
@@ -10,7 +11,7 @@ interface FleetCardProps {
   icon: LucideIcon;
 }
 
-export default function FleetCard({ name, description, imageUrl, icon: Icon }: FleetCardProps) {
+const FleetCard = React.memo(function FleetCard({ name, description, imageUrl, icon: Icon }: FleetCardProps) {
   return (
     <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
       <div className="relative h-56 w-full">
@@ -33,4 +34,6 @@ export default function FleetCard({ name, description, imageUrl, icon: Icon }: F
       </CardContent>
     </Card>
   );
-}
+});
+
+export default FleetCard;

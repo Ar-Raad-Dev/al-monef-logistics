@@ -67,11 +67,12 @@ export default async function ServicesPage({ params: { lang } }: { params: { lan
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/images/services/vehicle-trade.jpg" // Local image path
+              src="/images/services/vehicle-trade.jpg" 
               alt={d.vehicleTradeSection.imageAlt}
               fill
               style={{objectFit:"cover"}}
               className="transform hover:scale-105 transition-transform duration-500"
+              priority
             />
           </div>
         </div>

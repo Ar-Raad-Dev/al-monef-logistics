@@ -1,6 +1,7 @@
 
+import React from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardFooter } from '@/components/ui/card'; // Removed CardHeader as it wasn't used
+import { Card, CardContent, CardFooter } from '@/components/ui/card'; 
 import { Star } from 'lucide-react';
 
 interface TestimonialCardProps {
@@ -11,7 +12,7 @@ interface TestimonialCardProps {
   rating?: number;
 }
 
-export default function TestimonialCard({ name, company, testimonial, avatarUrl, rating = 5 }: TestimonialCardProps) {
+const TestimonialCard = React.memo(function TestimonialCard({ name, company, testimonial, avatarUrl, rating = 5 }: TestimonialCardProps) {
   return (
     <Card className="flex flex-col h-full shadow-lg bg-card">
       <CardContent className="pt-6 pb-4 flex-grow">
@@ -22,7 +23,7 @@ export default function TestimonialCard({ name, company, testimonial, avatarUrl,
           {avatarUrl ? (
             <Image 
               src={avatarUrl} 
-              alt={name} // Alt text is sufficient with the name
+              alt={name} 
               width={40} 
               height={40} 
               className="rounded-full" 
@@ -50,4 +51,6 @@ export default function TestimonialCard({ name, company, testimonial, avatarUrl,
       </CardFooter>
     </Card>
   );
-}
+});
+
+export default TestimonialCard;

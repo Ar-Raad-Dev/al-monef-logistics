@@ -1,4 +1,5 @@
 
+import React from 'react';
 import type { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +16,7 @@ interface ServiceCardProps {
   lang: Locale;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, link, learnMoreText, lang }: ServiceCardProps) {
+const ServiceCard = React.memo(function ServiceCard({ icon: Icon, title, description, link, learnMoreText, lang }: ServiceCardProps) {
   const LearnMoreIcon = lang === 'ar' ? ArrowLeft : ArrowRight;
   const iconMarginClass = lang === 'ar' ? "mr-2" : "ml-2";
 
@@ -39,4 +40,6 @@ export default function ServiceCard({ icon: Icon, title, description, link, lear
       </div>
     </Card>
   );
-}
+});
+
+export default ServiceCard;
