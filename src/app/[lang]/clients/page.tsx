@@ -15,18 +15,18 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   };
 }
 
-// Define local image paths directly or derive from dictionary if they need to be internationalized
-// For simplicity, defining them here assuming they are language-agnostic.
+const CACHE_BUST_QUERY = '?v=imgrefresh1'; // Cache-busting query parameter
+
 const partnerLogos: Record<string, string> = {
   alwatania: '/images/clients/logos/alwatania-logo.png',
-  mahamalWater: '/images/clients/logos/mahamal-water-logo.png', // Represents "Al Madinah Water Factory"
+  mahamalWater: '/images/clients/logos/almadinah-water-logo.png',
   miradWater: '/images/clients/logos/mirad-water-logo.png',
 };
 
 const testimonialAvatars: Record<string, string> = {
-  alwatania: '/images/clients/avatars/logistics-manager.jpg',
-  mahamalWater: '/images/clients/avatars/procurement-head.jpg', // Represents "Al Madinah Water Factory"
-  anonymousFMCG: '/images/clients/avatars/operations-director.jpg',
+  alwatania: '/images/clients/avatars/alwatania-logo.png',
+  mahamalWater: '/images/clients/avatars/almadinah-water-logo.png',
+  anonymousFMCG: '/images/clients/avatars/mirad-water-logo.png',
 };
 
 
@@ -49,17 +49,20 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 items-center">
           {d.keyPartnersSection.partners.map((partner) => {
-            const logoSrc = partnerLogos[partner.nameKey as keyof typeof partnerLogos];
+            let logoSrc = partnerLogos[partner.nameKey as keyof typeof partnerLogos];
+            if (logoSrc) {
+              logoSrc += CACHE_BUST_QUERY; // Append cache-busting query
+            }
             return (
               <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
                 <CardContent className="flex justify-center items-center h-24">
                   {logoSrc ? (
-                    <Image 
-                        key={logoSrc} // Added key prop
-                        src={logoSrc} 
-                        alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`} 
-                        width={120} 
-                        height={60} 
+                    <Image
+                        key={`${logoSrc}-${lang}`}
+                        src={logoSrc}
+                        alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`}
+                        width={120}
+                        height={60}
                         style={{objectFit:"contain"}}
                     />
                   ) : (
@@ -80,16 +83,22 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
           <Quote className={`h-10 w-10 text-primary ${lang === 'ar' ? 'transform scale-x-[-1]' : ''}`}/> {d.testimonialsSection.heading}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {d.testimonialsSection.testimonials.map((testimonial) => (
-            <TestimonialCard 
-                key={testimonial.name} 
-                name={testimonial.name}
-                company={testimonial.company}
-                testimonial={testimonial.testimonial}
-                avatarUrl={testimonialAvatars[testimonial.companyKey as keyof typeof testimonialAvatars]}
-                rating={testimonial.rating}
-            />
-          ))}
+          {d.testimonialsSection.testimonials.map((testimonial) => {
+            let avatarSrc = testimonialAvatars[testimonial.companyKey as keyof typeof testimonialAvatars];
+            if (avatarSrc) {
+              avatarSrc += CACHE_BUST_QUERY; // Append cache-busting query
+            }
+            return (
+                <TestimonialCard
+                    key={testimonial.name}
+                    name={testimonial.name}
+                    company={testimonial.company}
+                    testimonial={testimonial.testimonial}
+                    avatarUrl={avatarSrc}
+                    rating={testimonial.rating}
+                />
+            );
+          })}
         </div>
       </section>
     </div>
