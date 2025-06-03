@@ -19,14 +19,14 @@ const CACHE_BUST_QUERY = '?v=imgrefresh1'; // Cache-busting query parameter
 
 const partnerLogos: Record<string, string> = {
   alwatania: '/images/clients/logos/alwatania-logo.png',
-  mahamalWater: '/images/clients/logos/almadinah-water-logo.png',
+  mahamalWater: '/images/clients/logos/almadinah-water-logo.png', // Key remains, value is the path to almadinah logo
   miradWater: '/images/clients/logos/mirad-water-logo.png',
 };
 
 const testimonialAvatars: Record<string, string> = {
   alwatania: '/images/clients/avatars/alwatania-logo.png',
-  mahamalWater: '/images/clients/avatars/almadinah-water-logo.png',
-  anonymousFMCG: '/images/clients/avatars/mirad-water-logo.png',
+  mahamalWater: '/images/clients/avatars/almadinah-water-logo.png', // Key remains for Al Madinah Water Factory
+  miradWater: '/images/clients/avatars/mirad-water-logo.png', // Changed from anonymousFMCG to miradWater
 };
 
 
@@ -58,7 +58,7 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
                 <CardContent className="flex justify-center items-center h-24">
                   {logoSrc ? (
                     <Image
-                        key={`${logoSrc}-${lang}`}
+                        key={`${logoSrc}-${lang}-${CACHE_BUST_QUERY}`}
                         src={logoSrc}
                         alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`}
                         width={120}
@@ -104,3 +104,5 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
     </div>
   );
 }
+
+    
