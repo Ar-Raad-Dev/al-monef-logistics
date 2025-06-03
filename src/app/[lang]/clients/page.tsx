@@ -19,13 +19,13 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
 // For simplicity, defining them here assuming they are language-agnostic.
 const partnerLogos: Record<string, string> = {
   alwatania: '/images/clients/logos/alwatania-logo.png',
-  mahamalWater: '/images/clients/logos/mahamal-water-logo.png',
+  mahamalWater: '/images/clients/logos/mahamal-water-logo.png', // Represents "Al Madinah Water Factory"
   miradWater: '/images/clients/logos/mirad-water-logo.png',
 };
 
 const testimonialAvatars: Record<string, string> = {
   alwatania: '/images/clients/avatars/logistics-manager.jpg',
-  mahamalWater: '/images/clients/avatars/procurement-head.jpg',
+  mahamalWater: '/images/clients/avatars/procurement-head.jpg', // Represents "Al Madinah Water Factory"
   anonymousFMCG: '/images/clients/avatars/operations-director.jpg',
 };
 
@@ -48,19 +48,27 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
            <Handshake className="h-10 w-10 text-primary"/> {d.keyPartnersSection.heading}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 items-center">
-          {d.keyPartnersSection.partners.map((partner) => (
-            <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
-              <CardContent className="flex justify-center items-center h-24">
-                <Image 
-                    src={partnerLogos[partner.nameKey as keyof typeof partnerLogos]} 
-                    alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`} // More descriptive alt
-                    width={120} 
-                    height={60} 
-                    style={{objectFit:"contain"}}
-                />
-              </CardContent>
-            </Card>
-          ))}
+          {d.keyPartnersSection.partners.map((partner) => {
+            const logoSrc = partnerLogos[partner.nameKey as keyof typeof partnerLogos];
+            return (
+              <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
+                <CardContent className="flex justify-center items-center h-24">
+                  {logoSrc ? (
+                    <Image 
+                        key={logoSrc} // Added key prop
+                        src={logoSrc} 
+                        alt={`${partner.name} ${lang === 'ar' ? 'شعار' : 'Logo'}`} 
+                        width={120} 
+                        height={60} 
+                        style={{objectFit:"contain"}}
+                    />
+                  ) : (
+                    <div className="text-sm text-muted-foreground">{partner.name} Logo</div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
          <p className="text-center text-muted-foreground mt-8 text-lg">
           {d.keyPartnersSection.trustedByNote}
