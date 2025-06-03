@@ -31,7 +31,7 @@ const fleetIconMap = {
 
 // Define local image paths for fleet items
 const fleetImagePaths: Record<string, string> = {
-  flatbedTrailers: '/images/fleet/flatbed-trailer.jpg',
+  flatbedTrailers: '/images/fleet/flatbed-trailer.png',
   curtainSideTrailers: '/images/fleet/curtain-side-trailer.jpg',
   refrigeratedTrailers: '/images/fleet/refrigerated-trailer.jpg',
   commercialVehicles: '/images/fleet/commercial-van.jpg',
@@ -67,7 +67,7 @@ export default async function ServicesPage({ params: { lang } }: { params: { lan
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/images/services/vehicle-trade.jpg" 
+              src="/images/services/vehicle-trade.png" 
               alt={d.vehicleTradeSection.imageAlt}
               fill
               style={{objectFit:"cover"}}

@@ -21,9 +21,6 @@ const partnerLogos: Record<string, string> = {
   alwatania: '/images/clients/logos/alwatania-logo.png',
   mahamalWater: '/images/clients/logos/mahamal-water-logo.png',
   miradWater: '/images/clients/logos/mirad-water-logo.png',
-  ksaRetailers: '/images/clients/logos/ksa-retailers-logo.png',
-  fbDistributors: '/images/clients/logos/fb-distributors-logo.png',
-  constructionLeaders: '/images/clients/logos/construction-leaders-logo.png',
 };
 
 const testimonialAvatars: Record<string, string> = {
@@ -50,7 +47,7 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
         <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 font-headline flex items-center justify-center gap-3">
            <Handshake className="h-10 w-10 text-primary"/> {d.keyPartnersSection.heading}
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 items-center">
           {d.keyPartnersSection.partners.map((partner) => (
             <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
               <CardContent className="flex justify-center items-center h-24">

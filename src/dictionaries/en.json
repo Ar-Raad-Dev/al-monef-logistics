@@ -107,7 +107,7 @@
       "partnershipsHeading": "Current Key Partnerships",
       "partnerships": [
         { "name": "Al Watania Poultry (Hofuf)", "description": "Key logistics partner for poultry distribution." },
-        { "name": "Mahamal Al Madina Water Factory", "description": "Transporting bottled water across regions." },
+        { "name": "Al Madinah Water Factory", "description": "Transporting bottled water across regions." },
         { "name": "Mirad Water Factory", "description": "Reliable delivery services for water products." }
       ]
     },
@@ -132,11 +132,8 @@
       "heading": "Key Partners",
       "partners": [
         { "nameKey": "alwatania", "name": "Al Watania Poultry" },
-        { "nameKey": "mahamalWater", "name": "Mahamal Al Madina Water" },
-        { "nameKey": "miradWater", "name": "Mirad Water Factory" },
-        { "nameKey": "ksaRetailers", "name": "Major KSA Retailers" },
-        { "nameKey": "fbDistributors", "name": "Food & Beverage Distributors" },
-        { "nameKey": "constructionLeaders", "name": "Construction Sector Leaders" }
+        { "nameKey": "mahamalWater", "name": "Al Madinah Water Factory" },
+        { "nameKey": "miradWater", "name": "Mirad Water Factory" }
       ],
       "trustedByNote": "Trusted by leaders in food & beverage, retail, and industrial logistics across Saudi Arabia."
     },
@@ -144,7 +141,7 @@
       "heading": "Client Testimonials",
       "testimonials": [
         { "name": "Logistics Manager", "companyKey": "alwatania", "company": "Al Watania Poultry", "testimonial": "Abdul Aziz Mohammad Al Monef & Sons Company consistently delivers reliable and timely transport for our goods to Hofuf. Their professionalism is key to our supply chain.", "rating": 5 },
-        { "name": "Procurement Head", "companyKey": "mahamalWater", "company": "Mahamal Al Madina Water", "testimonial": "Their trailer leasing options are flexible and their vehicles top-notch. Abdul Aziz Mohammad Al Monef & Sons Company has been a valuable partner for our distribution needs.", "rating": 5 },
+        { "name": "Procurement Head", "companyKey": "mahamalWater", "company": "Al Madinah Water Factory", "testimonial": "Their trailer leasing options are flexible and their vehicles top-notch. Abdul Aziz Mohammad Al Monef & Sons Company has been a valuable partner for our distribution needs.", "rating": 5 },
         { "name": "Operations Director", "companyKey": "anonymousFMCG", "company": "Anonymous FMCG Client", "testimonial": "We trust Abdul Aziz Mohammad Al Monef & Sons Company for their extensive network throughout KSA. They handle our diverse logistics requirements with utmost care.", "rating": 4 }
       ]
     }
