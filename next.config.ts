@@ -1,7 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Next.js configuration options */
   images: {
     // No remote patterns needed if all images are local
     // remotePatterns: [
