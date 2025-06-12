@@ -1,25 +1,20 @@
 
 // This configuration is for client-side Firebase SDK initialization.
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-// Optionally import other services like getAnalytics, getAuth, getFirestore (client version)
-// import { getAnalytics } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics"; // Added for Firebase Analytics
+// Optionally import other services like getAuth, getFirestore (client version)
 // import { getAuth } from "firebase/auth";
 // import { getFirestore } from "firebase/firestore";
 
-// !!! IMPORTANT !!!
-// Replace the values below with the Firebase Web App configuration
-// from your *NEW* Firebase project.
-// You can find this in your new Firebase project's settings:
-// Project Settings (gear icon) > General tab > Your apps > Web app > SDK setup and configuration (select "Config").
+// Your web app's Firebase configuration from your new "almaneef-logistics" project
 export const firebaseClientConfig = {
-  apiKey: "YOUR_NEW_WEB_API_KEY", // Replace with your new API key
-  authDomain: "YOUR_NEW_PROJECT_ID.firebaseapp.com", // Replace YOUR_NEW_PROJECT_ID
-  databaseURL: "https://YOUR_NEW_PROJECT_ID-default-rtdb.firebaseio.com", // Replace YOUR_NEW_PROJECT_ID (if using RTDB)
-  projectId: "YOUR_NEW_PROJECT_ID", // Replace with your new Project ID
-  storageBucket: "YOUR_NEW_PROJECT_ID.appspot.com", // Replace YOUR_NEW_PROJECT_ID
-  messagingSenderId: "YOUR_NEW_MESSAGING_SENDER_ID", // Replace with your new Sender ID
-  appId: "YOUR_NEW_APP_ID", // Replace with your new App ID
-  // measurementId: "YOUR_NEW_MEASUREMENT_ID" // Optional, for Google Analytics
+  apiKey: "AIzaSyCBHe167qClkDebeIgYb9NXIl2tRXkBWCk",
+  authDomain: "almaneef-logistics.firebaseapp.com",
+  projectId: "almaneef-logistics",
+  storageBucket: "almaneef-logistics.firebasestorage.app",
+  messagingSenderId: "517910068717",
+  appId: "1:517910068717:web:bfd67f1faea6ebfe4a3be4",
+  measurementId: "G-0GMSRGELN7"
 };
 
 export function getClientFirebaseApp(): FirebaseApp | null {
@@ -33,16 +28,15 @@ export function getClientFirebaseApp(): FirebaseApp | null {
   }
 
   // Ensure all required config values are present before initializing
-  // (Basic check, you should ensure all your new config values are present)
   if (
     !firebaseClientConfig.apiKey ||
     !firebaseClientConfig.authDomain ||
     !firebaseClientConfig.projectId ||
-    firebaseClientConfig.apiKey === "YOUR_NEW_WEB_API_KEY" // Check if it's still a placeholder
+    !firebaseClientConfig.appId
   ) {
     console.error(
-      'Firebase client config is missing required fields or contains placeholder values. ' +
-      'Please update src/lib/firebase-client-config.ts with your new Firebase project configuration.'
+      'Firebase client config is missing required fields. ' +
+      'Please check src/lib/firebase-client-config.ts.'
     );
     // Return null as Firebase cannot initialize properly
     return null;
@@ -51,14 +45,17 @@ export function getClientFirebaseApp(): FirebaseApp | null {
   try {
     const app = initializeApp(firebaseClientConfig);
 
+    // Initialize Firebase Analytics if measurementId is present
+    if (firebaseClientConfig.measurementId) {
+      try {
+        getAnalytics(app);
+        // console.log("Firebase Analytics initialized successfully.");
+      } catch (e) {
+        console.error("Failed to initialize Firebase Analytics", e);
+      }
+    }
+
     // Initialize other Firebase services here if needed, e.g.:
-    // if (firebaseClientConfig.measurementId) {
-    //   try {
-    //     getAnalytics(app);
-    //   } catch (e) {
-    //     console.error("Failed to initialize Firebase Analytics", e);
-    //   }
-    // }
     // export const auth = getAuth(app);
     // export const db = getFirestore(app); // client-side Firestore
 
