@@ -18,8 +18,7 @@ const contactIconMap = {
 const companyLocation = { lat: 25.9638, lng: 43.7118 };
 
 export async function generateMetadata(
-  { params }: { params: { lang: Locale } },
-  parent?: ResolvingMetadata
+  { params }: { params: { lang: Locale } }
 ): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {

@@ -22,8 +22,7 @@ const testimonialAvatars: Record<string, string> = {
 };
 
 export async function generateMetadata(
-  { params }: { params: { lang: Locale } },
-  parent?: ResolvingMetadata
+  { params }: { params: { lang: Locale } }
 ): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {

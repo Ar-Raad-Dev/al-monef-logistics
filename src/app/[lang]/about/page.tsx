@@ -14,12 +14,9 @@ const iconMap = {
   address: MapPin,
 };
 
-// Apply 'props: any' and internal assertion for generateMetadata
 export async function generateMetadata(
-  props: any, // Changed
-  parent?: ResolvingMetadata
+  { params }: { params: { lang: Locale } }
 ): Promise<Metadata> {
-  const { params } = props as { params: { lang: Locale } }; // Internal assertion
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.aboutPage.metaTitle,
@@ -27,9 +24,8 @@ export async function generateMetadata(
   };
 }
 
-// Default export props already uses 'any'
 export default async function AboutPage(props: any) {
-  const { params } = props as { params: { lang: Locale } }; // Internal assertion
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
