@@ -12,7 +12,7 @@ export const firebaseClientConfig = {
   authDomain: "al-monef-logistics.firebaseapp.com",
   databaseURL: "https://al-monef-logistics-default-rtdb.firebaseio.com",
   projectId: "al-monef-logistics",
-  storageBucket: "al-monef-logistics.appspot.com", // Corrected to .appspot.com as is typical
+  storageBucket: "al-monef-logistics.firebasestorage.app", // Updated to match user's NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
   messagingSenderId: "506676299367",
   appId: "1:506676299367:web:c1b7843f668ea2cb1f76c2"
   // measurementId is optional and not included in the provided config
