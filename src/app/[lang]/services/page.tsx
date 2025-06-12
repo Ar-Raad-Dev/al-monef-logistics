@@ -5,20 +5,7 @@ import { Truck, Package, Car, Handshake, Award, Warehouse } from 'lucide-react';
 import FleetCard from '@/components/fleet-card';
 import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
-import type { Metadata } from 'next';
-
-// Define an explicit interface for the page props
-// interface ServicesPageProps {
-//   params: { lang: Locale };
-// }
-
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
-  const dictionary = await getDictionary(params.lang);
-  return {
-    title: dictionary.servicesPage.metaTitle,
-    description: dictionary.servicesPage.metaDescription,
-  };
-}
+import type { Metadata, ResolvingMetadata } from 'next';
 
 const logisticsIconMap = {
   freightForwarding: Package,
@@ -34,7 +21,6 @@ const fleetIconMap = {
   commercialVehicles: Car,
 };
 
-// Define local image paths for fleet items
 const fleetImagePaths: Record<string, string> = {
   flatbedTrailers: '/images/fleet/flatbed-trailer.png',
   curtainSideTrailers: '/images/fleet/curtain-side-trailer.jpg',
@@ -42,7 +28,19 @@ const fleetImagePaths: Record<string, string> = {
   commercialVehicles: '/images/fleet/commercial-van.jpg',
 };
 
-export default async function ServicesPage({ params }: { params: { lang: Locale } }) {
+interface ServicesPageProps {
+  params: { lang: Locale };
+}
+
+export async function generateMetadata({ params }: ServicesPageProps): Promise<Metadata> {
+  const dictionary = await getDictionary(params.lang);
+  return {
+    title: dictionary.servicesPage.metaTitle,
+    description: dictionary.servicesPage.metaDescription,
+  };
+}
+
+export default async function ServicesPage({ params }: ServicesPageProps) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.servicesPage;
@@ -75,6 +73,7 @@ export default async function ServicesPage({ params }: { params: { lang: Locale 
             <Image
               src="/images/services/vehicle-trade.png" 
               alt={d.vehicleTradeSection.imageAlt}
+              data-ai-hint="trucks trailers"
               fill
               style={{objectFit:"cover"}}
               className="transform hover:scale-105 transition-transform duration-500"

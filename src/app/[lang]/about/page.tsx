@@ -6,7 +6,6 @@ import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-// Icon mapping remains the same
 const iconMap = {
   crNumber: Info,
   chamberMembership: Building2,
@@ -15,8 +14,12 @@ const iconMap = {
   address: MapPin,
 };
 
+interface AboutPageProps {
+  params: { lang: Locale };
+}
+
 export async function generateMetadata(
-  { params }: { params: { lang: Locale } },
+  { params }: AboutPageProps,
   parent?: ResolvingMetadata
 ): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
@@ -26,10 +29,7 @@ export async function generateMetadata(
   };
 }
 
-// Using 'any' for props as a diagnostic step for the PageProps constraint issue
-export default async function AboutPage(props: any) {
-  // Assert the type of params internally
-  const params = props.params as { lang: Locale };
+export default async function AboutPage({ params }: AboutPageProps) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;

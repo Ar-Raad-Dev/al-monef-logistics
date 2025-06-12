@@ -6,14 +6,12 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Briefcase, CalendarDays, ShoppingBag, Building, Truck, Ship, Plane, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/dictionaries';
-// Note: HomePage does not typically have generateMetadata if it's the root of a lang segment
 
-// Define an explicit interface for the page props
-// interface HomePageProps {
-//   params: { lang: Locale };
-// }
+interface HomePageProps {
+  params: { lang: Locale };
+}
 
-export default async function HomePage({ params }: { params: { lang: Locale } }) {
+export default async function HomePage({ params }: HomePageProps) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
 

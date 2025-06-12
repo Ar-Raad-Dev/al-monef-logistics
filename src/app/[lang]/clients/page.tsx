@@ -5,14 +5,27 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Handshake, Quote } from 'lucide-react';
 import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-// Define an explicit interface for the page props
-// interface ClientsPageProps {
-//   params: { lang: Locale };
-// }
+const CACHE_BUST_QUERY = '?v=imgrefresh1'; 
 
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
+const partnerLogos: Record<string, string> = {
+  alwatania: '/images/clients/logos/alwatania-logo.png',
+  mahamalWater: '/images/clients/logos/almadinah-water-logo.png',
+  miradWater: '/images/clients/logos/mirad-water-logo.png',
+};
+
+const testimonialAvatars: Record<string, string> = {
+  alwatania: '/images/clients/avatars/alwatania-logo.png',
+  mahamalWater: '/images/clients/avatars/almadinah-water-logo.png',
+  miradWater: '/images/clients/avatars/mirad-water-logo.png',
+};
+
+interface ClientsPageProps {
+  params: { lang: Locale };
+}
+
+export async function generateMetadata({ params }: ClientsPageProps): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.clientsPage.metaTitle,
@@ -20,21 +33,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   };
 }
 
-const CACHE_BUST_QUERY = '?v=imgrefresh1'; // Cache-busting query parameter
-
-const partnerLogos: Record<string, string> = {
-  alwatania: '/images/clients/logos/alwatania-logo.png',
-  mahamalWater: '/images/clients/logos/almadinah-water-logo.png', // Key remains, value is the path to almadinah logo
-  miradWater: '/images/clients/logos/mirad-water-logo.png',
-};
-
-const testimonialAvatars: Record<string, string> = {
-  alwatania: '/images/clients/avatars/alwatania-logo.png',
-  mahamalWater: '/images/clients/avatars/almadinah-water-logo.png', // Key remains for Al Madinah Water Factory
-  miradWater: '/images/clients/avatars/mirad-water-logo.png', // Changed from anonymousFMCG to miradWater
-};
-
-export default async function ClientsPage({ params }: { params: { lang: Locale } }) {
+export default async function ClientsPage({ params }: ClientsPageProps) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.clientsPage;
@@ -56,7 +55,7 @@ export default async function ClientsPage({ params }: { params: { lang: Locale }
           {d.keyPartnersSection.partners.map((partner) => {
             let logoSrc = partnerLogos[partner.nameKey as keyof typeof partnerLogos];
             if (logoSrc) {
-              logoSrc += CACHE_BUST_QUERY; // Append cache-busting query
+              logoSrc += CACHE_BUST_QUERY;
             }
             return (
               <Card key={partner.name} className="p-4 shadow-md hover:shadow-lg transition-shadow duration-300 bg-card">
@@ -91,7 +90,7 @@ export default async function ClientsPage({ params }: { params: { lang: Locale }
           {d.testimonialsSection.testimonials.map((testimonial) => {
             let avatarSrc = testimonialAvatars[testimonial.companyKey as keyof typeof testimonialAvatars];
             if (avatarSrc) {
-              avatarSrc += CACHE_BUST_QUERY; // Append cache-busting query
+              avatarSrc += CACHE_BUST_QUERY;
             }
             return (
                 <TestimonialCard
