@@ -4,21 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Target, Eye, Info, Phone, Printer, MapPin } from 'lucide-react';
 import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-// Define an explicit interface for the page props
-// interface AboutPageProps {
-//   params: { lang: Locale };
-// }
-
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
-  const dictionary = await getDictionary(params.lang);
-  return {
-    title: dictionary.aboutPage.metaTitle,
-    description: dictionary.aboutPage.metaDescription,
-  };
-}
-
+// Icon mapping remains the same
 const iconMap = {
   crNumber: Info,
   chamberMembership: Building2,
@@ -27,8 +15,22 @@ const iconMap = {
   address: MapPin,
 };
 
-export default async function AboutPage({ params }: { params: { lang: Locale } }) {
-  const { lang } = params; // Destructure lang from params
+export async function generateMetadata(
+  { params }: { params: { lang: Locale } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
+  const dictionary = await getDictionary(params.lang);
+  return {
+    title: dictionary.aboutPage.metaTitle,
+    description: dictionary.aboutPage.metaDescription,
+  };
+}
+
+// Using 'any' for props as a diagnostic step for the PageProps constraint issue
+export default async function AboutPage(props: any) {
+  // Assert the type of params internally
+  const params = props.params as { lang: Locale };
+  const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
 
@@ -45,12 +47,13 @@ export default async function AboutPage({ params }: { params: { lang: Locale } }
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/images/about/company-overview.jpg" // Local image path
+              src="https://placehold.co/800x600.png" 
               alt={d.companyOverview.imageAlt}
+              data-ai-hint="office building"
               fill
               style={{objectFit:"cover"}}
               className="transform hover:scale-105 transition-transform duration-500"
-              priority // Good to add priority for LCP images
+              priority
             />
           </div>
           <div>
