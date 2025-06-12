@@ -24,9 +24,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function AboutPage(props: any) {
-  const { params } = props as { params: { lang: Locale } };
-  const { lang } = params;
+export default async function AboutPage({ params }: { params: any }) {
+  const { lang } = params as { lang: Locale };
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
 

@@ -6,11 +6,9 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Briefcase, CalendarDays, ShoppingBag, Building, Truck, Ship, Plane, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/dictionaries';
-// No specific Metadata for HomePage usually, but can be added if needed.
 
-export default async function HomePage(props: any) {
-  const { params } = props as { params: { lang: Locale } };
-  const { lang } = params;
+export default async function HomePage({ params }: { params: any }) {
+  const { lang } = params as { lang: Locale };
   const dictionary = await getDictionary(lang);
 
   const stats = [
