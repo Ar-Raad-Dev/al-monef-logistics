@@ -7,7 +7,12 @@ import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
+// Define an explicit interface for the page props
+interface ContactPageProps {
+  params: { lang: Locale };
+}
+
+export async function generateMetadata({ params }: ContactPageProps): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.contactPage.metaTitle,
@@ -26,7 +31,8 @@ const contactIconMap = {
 // Coordinates for Al Badai, Al Qassim, Saudi Arabia
 const companyLocation = { lat: 25.9638, lng: 43.7118 };
 
-export default async function ContactPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function ContactPage({ params }: ContactPageProps) {
+  const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.contactPage;
   

@@ -6,7 +6,12 @@ import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
+// Define an explicit interface for the page props
+interface CareersPageProps {
+  params: { lang: Locale };
+}
+
+export async function generateMetadata({ params }: CareersPageProps): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.careersPage.metaTitle,
@@ -14,12 +19,12 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   };
 }
 
-export default async function CareersPage({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function CareersPage({ params }: CareersPageProps) {
+  const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.careersPage;
 
   const availablePositions = d.currentOpeningsSection.openings.map(job => job.title);
-
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
