@@ -27,7 +27,7 @@ export async function generateMetadata(
   };
 }
 
-// Default export props should already be 'any' from the previous step
+// Default export props already uses 'any'
 export default async function AboutPage(props: any) {
   const { params } = props as { params: { lang: Locale } }; // Internal assertion
   const { lang } = params;
@@ -123,5 +123,3 @@ export default async function AboutPage(props: any) {
     </div>
   );
 }
-
-    
