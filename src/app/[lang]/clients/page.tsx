@@ -104,5 +104,3 @@ export default async function ClientsPage({ params: { lang } }: { params: { lang
     </div>
   );
 }
-
-    

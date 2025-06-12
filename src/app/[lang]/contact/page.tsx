@@ -30,9 +30,6 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
   const dictionary = await getDictionary(lang);
   const d = dictionary.contactPage;
   
-  // The API key is sourced from environment variables (e.g., .env.local file)
-  // Ensure your .env.local file has NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=YOUR_API_KEY_HERE
-  // and that you've restarted your Next.js dev server after adding/changing it.
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
@@ -83,12 +80,8 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
           {d.locationMapSection.heading}
         </h2>
         <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg border border-border">
-          {/* If the map stays on 'Loading...', check your browser's developer console (usually F12) 
-              for specific errors from the Google Maps API. This often indicates an issue with 
-              the API key configuration in Google Cloud Console (e.g., Maps JavaScript API not enabled,
-              billing issues, or incorrect HTTP referrer restrictions). */}
           <GoogleMapComponent 
-            key={lang} // Force re-mount on language change
+            key={lang} 
             apiKey={apiKey}
             center={companyLocation}
             markerPosition={companyLocation}
@@ -96,8 +89,6 @@ export default async function ContactPage({ params: { lang } }: { params: { lang
             lang={lang}
             noApiKeyMessage={d.locationMapSection.noApiKeyMessage}
             loadingMessage={d.locationMapSection.loadingMessage}
-            // You can add a mapId prop here if you have cloud-based map styling configured
-            // mapId="YOUR_CUSTOM_MAP_ID" 
           />
         </div>
       </section>
