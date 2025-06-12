@@ -1,9 +1,8 @@
-
 import Image from 'next/image';
-import { NextPage, GetServerSideProps } from 'next';
+import { NextPage } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Target, Eye, Info, Phone, Printer, MapPin } from 'lucide-react';
-import type { Locale, Translations } from '@/lib/dictionaries';
+import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -15,12 +14,8 @@ const iconMap = {
   address: MapPin,
 };
 
-// This function is an App Router convention. If this page is treated by
-// Next.js as a Pages Router page due to getServerSideProps, this might not be called
-// or could cause conflicts.
 export async function generateMetadata(
   { params }: { params: { lang: Locale } }
-  // parent parameter removed as it caused issues and was unused
 ): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
@@ -29,41 +24,16 @@ export async function generateMetadata(
   };
 }
 
-// Props expected by the AboutPage component
 interface AboutPageProps {
-  lang: Locale;
-  d: Translations['aboutPage']; // Pass the specific 'aboutPage' part of the dictionary
+  params: {
+    lang: Locale;
+  };
 }
 
-export const getServerSideProps: GetServerSideProps<AboutPageProps, { lang: string }> = async (context) => {
-  const langParam = context.params?.lang;
-
-  // Basic validation for lang parameter
-  if (typeof langParam !== 'string' || (langParam !== 'en' && langParam !== 'ar')) {
-    return {
-      notFound: true,
-    };
-  }
-  const lang = langParam as Locale;
-
-  try {
-    const dictionary = await getDictionary(lang);
-    return {
-      props: {
-        lang,
-        d: dictionary.aboutPage,
-      },
-    };
-  } catch (error) {
-    console.error("Failed to get dictionary in getServerSideProps for AboutPage:", error);
-    return {
-      notFound: true, // Fallback if dictionary fails
-    };
-  }
-};
-
-const AboutPage: NextPage<AboutPageProps> = ({ lang, d }) => {
-  // dictionary and d are now passed directly as props
+const AboutPage: NextPage<AboutPageProps> = async ({ params }) => {
+  const { lang } = params;
+  const dictionary = await getDictionary(lang);
+  const d = dictionary.aboutPage;
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
@@ -78,7 +48,7 @@ const AboutPage: NextPage<AboutPageProps> = ({ lang, d }) => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/800x600.png"
+              src="https://placehold.co/800x600.png"   
               alt={d.companyOverview.imageAlt}
               data-ai-hint="office building"
               fill
