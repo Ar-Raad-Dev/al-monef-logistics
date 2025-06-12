@@ -55,8 +55,12 @@ export default async function CareersPage(
                 <CardTitle className="text-xl font-semibold">{job.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{job.description}</CardDescription>
-              </CardContent>
+          <CareerApplicationForm
+            availablePositions={availablePositions}
+            dictionary={d.form} // Add this line
+            lang={lang}         // Add this line
+          />
+        </CardContent>
             </Card>
           ))}
         </div>
