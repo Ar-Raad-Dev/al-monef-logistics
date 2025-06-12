@@ -27,12 +27,13 @@ export async function generateMetadata(
 export async function generateStaticParams() {
   const locales: Locale[] = ['en', 'ar'];
   return locales.map((lang) => ({
-    lang,
+    lang, // This means params will be { lang: 'en' } or { lang: 'ar' }
   }));
 }
 
-export default async function AboutPage({ params }: { params: any }) {
-  const { lang } = params as { lang: Locale };
+// Change the props signature here to match what generateStaticParams provides
+export default async function AboutPage({ params }: { params: { lang: Locale } }) {
+  const { lang } = params; // lang can be directly destructured
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
 
