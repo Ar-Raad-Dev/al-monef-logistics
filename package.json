@@ -1,9 +1,10 @@
+
 {
   "name": "almonef-sons-company-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --hostname 0.0.0.0",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "next build",
@@ -11,6 +12,9 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "postinstall": "patch-package"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.8.0",
