@@ -1,8 +1,8 @@
 
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { firestore, storage } from '@/lib/firebase-admin'; // Import Firestore and Storage instances
-import { Timestamp } from 'firebase-admin/firestore'; // For server-side timestamp
+import { firestore, storage } from '@/lib/firebase-admin'; 
+import { Timestamp } from 'firebase-admin/firestore'; 
 
 const CareerApplicationSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -14,15 +14,17 @@ const CareerApplicationSchema = z.object({
 
 
 export async function POST(request: NextRequest) {
+  let receivedFormData: FormData | null = null; // Declare here to be accessible in catch
+
   try {
-    const formData = await request.formData();
+    receivedFormData = await request.formData(); // Assign here
     
     const applicationData = {
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
-      position: formData.get('position') as string,
-      message: (formData.get('message') as string | null) || undefined,
+      name: receivedFormData.get('name') as string,
+      phone: receivedFormData.get('phone') as string,
+      email: receivedFormData.get('email') as string,
+      position: receivedFormData.get('position') as string,
+      message: (receivedFormData.get('message') as string | null) || undefined,
     };
 
     const validationResult = CareerApplicationSchema.safeParse(applicationData);
@@ -30,19 +32,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Invalid data provided.", errors: validationResult.error.flatten() }, { status: 400 });
     }
     
-    const cvFile = formData.get('cv') as File | null;
+    const cvFile = receivedFormData.get('cv') as File | null;
     let cvFileUrl = null;
     let cvFilePath = null;
 
     if (cvFile) {
-      console.log(`CV File details - Name: ${cvFile.name}, Type: ${cvFile.type}, Size: ${cvFile.size} bytes`);
-      
-      // Check if storage is available
+      // Server-side file validation
+      if (cvFile.size > 5 * 1024 * 1024) { // 5MB limit
+        return NextResponse.json({ success: false, message: "CV file size exceeds 5MB limit." }, { status: 400 });
+      }
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowedTypes.includes(cvFile.type)) {
+        return NextResponse.json({ success: false, message: "Invalid CV file type. Only PDF, DOC, DOCX allowed." }, { status: 400 });
+      }
+
       if (typeof storage.bucket !== 'function') {
         console.error("Firebase Storage might not be initialized correctly. CV upload will be skipped.");
-        // Decide if you want to fail the request or proceed without CV upload
-        // For now, we'll log and proceed, but you might want to return an error
-        // return NextResponse.json({ success: false, message: "File storage service is not available. Please check server configuration." }, { status: 500 });
+        // Potentially return an error or proceed without CV based on requirements
       } else {
         const fileBuffer = Buffer.from(await cvFile.arrayBuffer());
         const sanitizedFileName = cvFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
@@ -57,13 +63,9 @@ export async function POST(request: NextRequest) {
           },
         });
         cvFileUrl = `gs://${bucket.name}/${cvFilePath}`;
-        console.log(`CV File uploaded to Firebase Storage at: ${cvFilePath}`);
       }
-    } else {
-      console.log("No CV file was uploaded or it was not found in FormData.");
     }
 
-    // Check if firestore is available
     if (typeof firestore.collection !== 'function') {
          console.error("Firestore might not be initialized correctly. Application data cannot be saved.");
          return NextResponse.json({ success: false, message: "Database service is not available. Please check server configuration." }, { status: 500 });
@@ -77,10 +79,6 @@ export async function POST(request: NextRequest) {
       status: 'new',
     });
 
-    console.log("New career application received and saved to Firestore:", validationResult.data);
-    if (cvFileUrl) console.log("CV Storage URL:", cvFileUrl);
-
-
     return NextResponse.json({ success: true, message: "Application received successfully." });
 
   } catch (error) {
@@ -89,8 +87,10 @@ export async function POST(request: NextRequest) {
      if (error instanceof Error) {
       responseMessage = error.message;
     }
-    // More general check if it's a Firebase service issue
-    if (typeof firestore.collection !== 'function' || (formData.has('cv') && typeof storage.bucket !== 'function')) {
+    
+    const hadCvIntent = receivedFormData ? receivedFormData.has('cv') : false;
+
+    if (typeof firestore.collection !== 'function' || (hadCvIntent && typeof storage.bucket !== 'function')) {
         responseMessage = "A backend service (database or storage) is not available. Please check server configuration and logs.";
     }
     return NextResponse.json({ success: false, message: responseMessage }, { status: 500 });
