@@ -1,37 +1,21 @@
 
 // This configuration is for client-side Firebase SDK initialization.
-// Firebase App Hosting often injects client-side Firebase configuration automatically.
-// However, if you need to initialize Firebase manually on the client for features
-// like Firebase Authentication, client-side Firestore/Realtime Database, or Analytics,
-// you can use a config object structured like this.
-
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 // Optionally import other services like getAnalytics, getAuth, getFirestore (client version)
 // import { getAnalytics } from "firebase/analytics";
 // import { getAuth } from "firebase/auth";
 // import { getFirestore } from "firebase/firestore";
 
-// The Web API Key provided by the user.
-const apiKey = "AIzaSyCvB8NSn_B55ZqcgYgGaJ2OsIiT7SciRms";
-
-// These other values would typically come from your Firebase project settings
-// and should be set as environment variables for security and flexibility.
-// Ensure these are prefixed with NEXT_PUBLIC_ if accessed on the client.
-const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-const authDomain = projectId ? `${projectId}.firebaseapp.com` : undefined;
-const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
-const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID;
-const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
-const measurementId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID; // Optional, for Google Analytics for Firebase
-
+// The complete Firebase Web App configuration object provided by the user.
 export const firebaseClientConfig = {
-  apiKey: apiKey,
-  authDomain: authDomain,
-  projectId: projectId,
-  storageBucket: storageBucket,
-  messagingSenderId: messagingSenderId,
-  appId: appId,
-  measurementId: measurementId, // Only include if you use Firebase Analytics
+  apiKey: "AIzaSyCvB8NSn_B55ZqcgYgGaJ2OsIiT7SciRms",
+  authDomain: "al-monef-logistics.firebaseapp.com",
+  databaseURL: "https://al-monef-logistics-default-rtdb.firebaseio.com",
+  projectId: "al-monef-logistics",
+  storageBucket: "al-monef-logistics.appspot.com", // Corrected to .appspot.com as is typical
+  messagingSenderId: "506676299367",
+  appId: "1:506676299367:web:c1b7843f668ea2cb1f76c2"
+  // measurementId is optional and not included in the provided config
 };
 
 export function getClientFirebaseApp(): FirebaseApp | null {
@@ -47,12 +31,12 @@ export function getClientFirebaseApp(): FirebaseApp | null {
   // Ensure all required config values are present before initializing
   if (
     !firebaseClientConfig.apiKey ||
-    !firebaseClientConfig.authDomain || // authDomain relies on projectId
+    !firebaseClientConfig.authDomain ||
     !firebaseClientConfig.projectId
   ) {
     console.error(
       'Firebase client config is missing required fields (apiKey, authDomain, projectId). ' +
-      'Ensure NEXT_PUBLIC_FIREBASE_PROJECT_ID and your API key are correctly set.'
+      'Please ensure the provided firebaseClientConfig object is complete.'
     );
     // Return null as Firebase cannot initialize properly
     return null;
@@ -62,7 +46,7 @@ export function getClientFirebaseApp(): FirebaseApp | null {
     const app = initializeApp(firebaseClientConfig);
 
     // Initialize other Firebase services here if needed, e.g.:
-    // if (firebaseClientConfig.measurementId) {
+    // if (firebaseClientConfig.measurementId) { // Check if measurementId exists if you add it
     //   try {
     //     getAnalytics(app);
     //   } catch (e) {
@@ -70,7 +54,7 @@ export function getClientFirebaseApp(): FirebaseApp | null {
     //   }
     // }
     // export const auth = getAuth(app);
-    // export const db = getFirestore(app);
+    // export const db = getFirestore(app); // client-side Firestore
 
     return app;
   } catch (e) {
