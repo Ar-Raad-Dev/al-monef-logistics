@@ -15,9 +15,10 @@ const iconMap = {
 };
 
 export async function generateMetadata(
-  { params }: { params: { lang: Locale } }
+  props: any
 ): Promise<Metadata> {
-  const dictionary = await getDictionary(params.lang);
+  const lang = props.params?.lang as Locale || 'ar';
+  const dictionary = await getDictionary(lang);
   return {
     title: dictionary.aboutPage.metaTitle,
     description: dictionary.aboutPage.metaDescription,
@@ -27,13 +28,12 @@ export async function generateMetadata(
 export async function generateStaticParams() {
   const locales: Locale[] = ['en', 'ar'];
   return locales.map((lang) => ({
-    lang, // This means params will be { lang: 'en' } or { lang: 'ar' }
+    lang,
   }));
 }
 
-// Change the props signature here to match what generateStaticParams provides
-export default async function AboutPage({ params }: { params: { lang: Locale } }) {
-  const { lang } = params; // lang can be directly destructured
+export default async function AboutPage(props: any) {
+  const lang = props.params?.lang as Locale || 'ar';
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
 

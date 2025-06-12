@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Handshake, Quote } from 'lucide-react';
 import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 
 const CACHE_BUST_QUERY = '?v=imgrefresh1';
 
@@ -22,17 +22,25 @@ const testimonialAvatars: Record<string, string> = {
 };
 
 export async function generateMetadata(
-  { params }: { params: { lang: Locale } }
+  props: any
 ): Promise<Metadata> {
-  const dictionary = await getDictionary(params.lang);
+  const lang = props.params?.lang as Locale || 'ar';
+  const dictionary = await getDictionary(lang);
   return {
     title: dictionary.clientsPage.metaTitle,
     description: dictionary.clientsPage.metaDescription,
   };
 }
 
-export default async function ClientsPage({ params }: { params: any }) {
-  const { lang } = params as { lang: Locale };
+export async function generateStaticParams() {
+  const locales: Locale[] = ['en', 'ar'];
+  return locales.map((lang) => ({
+    lang,
+  }));
+}
+
+export default async function ClientsPage(props: any) {
+  const lang = props.params?.lang as Locale || 'ar';
   const dictionary = await getDictionary(lang);
   const d = dictionary.clientsPage;
 

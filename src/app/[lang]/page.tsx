@@ -6,9 +6,22 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Briefcase, CalendarDays, ShoppingBag, Building, Truck, Ship, Plane, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/dictionaries';
+import type { Metadata } from 'next'; // Added for generateMetadata
 
-export default async function HomePage({ params }: { params: any }) {
-  const { lang } = params as { lang: Locale };
+// No generateMetadata for the root page of a [lang] segment typically,
+// metadata is handled by [lang]/layout.tsx.
+// If specific metadata for domain.com/en or domain.com/ar is needed,
+// it can be added here. For now, we'll assume layout handles it.
+
+export async function generateStaticParams() {
+  const locales: Locale[] = ['en', 'ar'];
+  return locales.map((lang) => ({
+    lang,
+  }));
+}
+
+export default async function HomePage(props: any) {
+  const lang = props.params?.lang as Locale || 'ar';
   const dictionary = await getDictionary(lang);
 
   const stats = [
