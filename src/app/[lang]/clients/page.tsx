@@ -8,11 +8,11 @@ import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata } from 'next';
 
 // Define an explicit interface for the page props
-interface ClientsPageProps {
-  params: { lang: Locale };
-}
+// interface ClientsPageProps {
+//   params: { lang: Locale };
+// }
 
-export async function generateMetadata({ params }: ClientsPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.clientsPage.metaTitle,
@@ -34,7 +34,7 @@ const testimonialAvatars: Record<string, string> = {
   miradWater: '/images/clients/avatars/mirad-water-logo.png', // Changed from anonymousFMCG to miradWater
 };
 
-export default async function ClientsPage({ params }: ClientsPageProps) {
+export default async function ClientsPage({ params }: { params: { lang: Locale } }) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.clientsPage;

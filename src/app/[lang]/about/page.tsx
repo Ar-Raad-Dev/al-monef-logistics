@@ -7,11 +7,11 @@ import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata } from 'next';
 
 // Define an explicit interface for the page props
-interface AboutPageProps {
-  params: { lang: Locale };
-}
+// interface AboutPageProps {
+//   params: { lang: Locale };
+// }
 
-export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.aboutPage.metaTitle,
@@ -27,7 +27,7 @@ const iconMap = {
   address: MapPin,
 };
 
-export default async function AboutPage({ params }: AboutPageProps) {
+export default async function AboutPage({ params }: { params: { lang: Locale } }) {
   const { lang } = params; // Destructure lang from params
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
@@ -120,5 +120,3 @@ export default async function AboutPage({ params }: AboutPageProps) {
     </div>
   );
 }
-
-
