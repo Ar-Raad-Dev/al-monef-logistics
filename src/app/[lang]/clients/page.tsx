@@ -7,7 +7,7 @@ import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-const CACHE_BUST_QUERY = '?v=imgrefresh1'; 
+const CACHE_BUST_QUERY = '?v=imgrefresh1';
 
 const partnerLogos: Record<string, string> = {
   alwatania: '/images/clients/logos/alwatania-logo.png',
@@ -21,11 +21,10 @@ const testimonialAvatars: Record<string, string> = {
   miradWater: '/images/clients/avatars/mirad-water-logo.png',
 };
 
-interface ClientsPageProps {
-  params: { lang: Locale };
-}
-
-export async function generateMetadata({ params }: ClientsPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { lang: Locale } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.clientsPage.metaTitle,
@@ -33,7 +32,8 @@ export async function generateMetadata({ params }: ClientsPageProps): Promise<Me
   };
 }
 
-export default async function ClientsPage({ params }: ClientsPageProps) {
+export default async function ClientsPage(props: any) {
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.clientsPage;

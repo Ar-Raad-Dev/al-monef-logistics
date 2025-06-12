@@ -6,12 +6,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Briefcase, CalendarDays, ShoppingBag, Building, Truck, Ship, Plane, ArrowLeft, ArrowRight } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/dictionaries';
+// No specific Metadata for HomePage usually, but can be added if needed.
 
-interface HomePageProps {
-  params: { lang: Locale };
-}
-
-export default async function HomePage({ params }: HomePageProps) {
+export default async function HomePage(props: any) {
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
 
@@ -45,7 +43,7 @@ export default async function HomePage({ params }: HomePageProps) {
             </p>
             <Link href={`/${lang}/about`}>
               <Button size="lg" variant="default" className="transition-transform hover:scale-105 group">
-                {dictionary.companyIntro.discoverStory} 
+                {dictionary.companyIntro.discoverStory}
                 <Briefcase className={lang === 'ar' ? "mr-2 h-5 w-5" : "ml-2 h-5 w-5"} />
               </Button>
             </Link>
@@ -60,9 +58,9 @@ export default async function HomePage({ params }: HomePageProps) {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat) => (
-              <StatCard 
-                key={stat.titleKey} 
-                icon={stat.icon} 
+              <StatCard
+                key={stat.titleKey}
+                icon={stat.icon}
                 value={stat.valueKey}
                 title={dictionary.quickStats.stats[stat.titleKey as keyof typeof dictionary.quickStats.stats].title}
                 description={dictionary.quickStats.stats[stat.descriptionKey as keyof typeof dictionary.quickStats.stats].description}
@@ -79,9 +77,9 @@ export default async function HomePage({ params }: HomePageProps) {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => (
-              <ServiceCard 
-                key={service.titleKey} 
-                icon={service.icon} 
+              <ServiceCard
+                key={service.titleKey}
+                icon={service.icon}
                 title={dictionary.keyServices.services[service.titleKey as keyof typeof dictionary.keyServices.services].title}
                 description={dictionary.keyServices.services[service.descriptionKey as keyof typeof dictionary.keyServices.services].description}
                 link={`/${lang}${service.link}`}

@@ -14,12 +14,8 @@ const iconMap = {
   address: MapPin,
 };
 
-interface AboutPageProps {
-  params: { lang: Locale };
-}
-
 export async function generateMetadata(
-  { params }: AboutPageProps,
+  { params }: { params: { lang: Locale } },
   parent?: ResolvingMetadata
 ): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
@@ -29,7 +25,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function AboutPage({ params }: AboutPageProps) {
+export default async function AboutPage(props: any) {
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
@@ -47,7 +44,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/800x600.png" 
+              src="https://placehold.co/800x600.png"
               alt={d.companyOverview.imageAlt}
               data-ai-hint="office building"
               fill

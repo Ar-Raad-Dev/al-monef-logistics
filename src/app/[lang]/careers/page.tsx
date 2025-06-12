@@ -6,11 +6,10 @@ import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-interface CareersPageProps {
-  params: { lang: Locale };
-}
-
-export async function generateMetadata({ params }: CareersPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { lang: Locale } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.careersPage.metaTitle,
@@ -18,7 +17,8 @@ export async function generateMetadata({ params }: CareersPageProps): Promise<Me
   };
 }
 
-export default async function CareersPage({ params }: CareersPageProps) {
+export default async function CareersPage(props: any) {
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.careersPage;
@@ -69,8 +69,8 @@ export default async function CareersPage({ params }: CareersPageProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <CareerApplicationForm 
-              availablePositions={availablePositions} 
+            <CareerApplicationForm
+              availablePositions={availablePositions}
               dictionary={d.form}
               lang={lang}
             />

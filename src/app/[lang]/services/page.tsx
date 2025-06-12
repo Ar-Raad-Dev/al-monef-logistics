@@ -28,11 +28,10 @@ const fleetImagePaths: Record<string, string> = {
   commercialVehicles: '/images/fleet/commercial-van.jpg',
 };
 
-interface ServicesPageProps {
-  params: { lang: Locale };
-}
-
-export async function generateMetadata({ params }: ServicesPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { lang: Locale } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
   return {
     title: dictionary.servicesPage.metaTitle,
@@ -40,7 +39,8 @@ export async function generateMetadata({ params }: ServicesPageProps): Promise<M
   };
 }
 
-export default async function ServicesPage({ params }: ServicesPageProps) {
+export default async function ServicesPage(props: any) {
+  const { params } = props as { params: { lang: Locale } };
   const { lang } = params;
   const dictionary = await getDictionary(lang);
   const d = dictionary.servicesPage;
@@ -71,7 +71,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/images/services/vehicle-trade.png" 
+              src="/images/services/vehicle-trade.png"
               alt={d.vehicleTradeSection.imageAlt}
               data-ai-hint="trucks trailers"
               fill
@@ -108,7 +108,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
                 );
             })}
         </div>
-        
+
         <h3 className="text-2xl font-bold text-foreground mb-6 font-headline text-center flex items-center justify-center gap-3">
             <Handshake className="h-8 w-8 text-primary" /> {d.logisticsSection.partnershipsHeading}
         </h3>
@@ -138,8 +138,8 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
             const Icon = fleetIconMap[item.nameKey as keyof typeof fleetIconMap];
             const imageUrl = fleetImagePaths[item.nameKey as keyof typeof fleetImagePaths];
             return (
-                <FleetCard 
-                    key={item.name} 
+                <FleetCard
+                    key={item.name}
                     name={item.name}
                     description={item.description}
                     imageUrl={imageUrl}
