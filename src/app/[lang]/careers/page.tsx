@@ -24,7 +24,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CareersPage(props: any) {
+export default async function CareersPage(
+  props: any
+) {
   const lang = props.params?.lang as Locale || 'ar';
   const dictionary = await getDictionary(lang);
   const d = dictionary.careersPage;
