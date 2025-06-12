@@ -24,6 +24,14 @@ export async function generateMetadata(
   };
 }
 
+export async function generateStaticParams() {
+  // Define the locales you support
+  const locales: Locale[] = ['en', 'ar']; // Add other locales as needed
+  return locales.map((lang) => ({
+    lang,
+  }));
+}
+
 interface AboutPageProps {
   params: {
     lang: Locale;
