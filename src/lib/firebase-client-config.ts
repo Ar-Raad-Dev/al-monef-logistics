@@ -5,6 +5,12 @@
 // like Firebase Authentication, client-side Firestore/Realtime Database, or Analytics,
 // you can use a config object structured like this.
 
+import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
+// Optionally import other services like getAnalytics, getAuth, getFirestore (client version)
+// import { getAnalytics } from "firebase/analytics";
+// import { getAuth } from "firebase/auth";
+// import { getFirestore } from "firebase/firestore";
+
 // The Web API Key provided by the user.
 const apiKey = "AIzaSyCvB8NSn_B55ZqcgYgGaJ2OsIiT7SciRms";
 
@@ -13,7 +19,7 @@ const apiKey = "AIzaSyCvB8NSn_B55ZqcgYgGaJ2OsIiT7SciRms";
 // Ensure these are prefixed with NEXT_PUBLIC_ if accessed on the client.
 const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 const authDomain = projectId ? `${projectId}.firebaseapp.com` : undefined;
-const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET; // This is already used in firebase-admin.ts
+const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
 const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID;
 const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
 const measurementId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID; // Optional, for Google Analytics for Firebase
@@ -28,61 +34,47 @@ export const firebaseClientConfig = {
   measurementId: measurementId, // Only include if you use Firebase Analytics
 };
 
-// HOW TO USE THIS FOR CLIENT-SIDE FIREBASE INITIALIZATION:
-//
-// 1. Ensure all necessary environment variables (NEXT_PUBLIC_FIREBASE_PROJECT_ID, etc.) are set.
-// 2. In a client-side entry point of your application (e.g., a custom _app.tsx if using Pages Router,
-//    or a client component in the root layout for App Router, or a dedicated client-side Firebase setup file),
-//    you would import this config and initialize Firebase:
-//
-// import { initializeApp, getApps, getApp } from 'firebase/app';
-// import { firebaseClientConfig } from './firebase-client-config';
-// // Optionally import other services like getAnalytics, getAuth, getFirestore (client version)
-// // import { getAnalytics } from "firebase/analytics";
-// // import { getAuth } from "firebase/auth";
-// // import { getFirestore } from "firebase/firestore";
+export function getClientFirebaseApp(): FirebaseApp | null {
+  if (typeof window === 'undefined') {
+    // Firebase client SDK should not be initialized on the server
+    return null;
+  }
 
-// export function getClientFirebaseApp() {
-//   if (getApps().length > 0) {
-//     return getApp();
-//   }
-//
-//   // Ensure all required config values are present before initializing
-//   if (
-//     !firebaseClientConfig.apiKey ||
-//     !firebaseClientConfig.authDomain ||
-//     !firebaseClientConfig.projectId
-//   ) {
-//     console.error(
-//       'Firebase client config is missing required fields (apiKey, authDomain, projectId). ' +
-//       'Ensure NEXT_PUBLIC_FIREBASE_PROJECT_ID and other related env vars are set.'
-//     );
-//     // Return a dummy or throw an error, as Firebase cannot initialize
-//     return null; 
-//   }
-//
-//   const app = initializeApp(firebaseClientConfig);
-//
-//   // Initialize other Firebase services here if needed, e.g.:
-//   // if (typeof window !== 'undefined' && firebaseClientConfig.measurementId) {
-//   //   try {
-//   //     getAnalytics(app);
-//   //   } catch (e) {
-//   //     console.error("Failed to initialize Firebase Analytics", e);
-//   //   }
-//   // }
-//   // export const auth = getAuth(app);
-//   // export const db = getFirestore(app);
-//
-//   return app;
-// }
-//
-// // Then, you might call getClientFirebaseApp() in a useEffect hook in a top-level client component.
-// // Example (in a client component):
-// // useEffect(() => {
-// //   getClientFirebaseApp();
-// // }, []);
-//
-// // Note: Your current application does not explicitly use client-side Firebase SDK features
-// // that require this manual initialization. Form submissions are handled via API routes
-// // which use the server-side Admin SDK.
+  if (getApps().length > 0) {
+    return getApp();
+  }
+
+  // Ensure all required config values are present before initializing
+  if (
+    !firebaseClientConfig.apiKey ||
+    !firebaseClientConfig.authDomain || // authDomain relies on projectId
+    !firebaseClientConfig.projectId
+  ) {
+    console.error(
+      'Firebase client config is missing required fields (apiKey, authDomain, projectId). ' +
+      'Ensure NEXT_PUBLIC_FIREBASE_PROJECT_ID and your API key are correctly set.'
+    );
+    // Return null as Firebase cannot initialize properly
+    return null;
+  }
+
+  try {
+    const app = initializeApp(firebaseClientConfig);
+
+    // Initialize other Firebase services here if needed, e.g.:
+    // if (firebaseClientConfig.measurementId) {
+    //   try {
+    //     getAnalytics(app);
+    //   } catch (e) {
+    //     console.error("Failed to initialize Firebase Analytics", e);
+    //   }
+    // }
+    // export const auth = getAuth(app);
+    // export const db = getFirestore(app);
+
+    return app;
+  } catch (e) {
+    console.error("Error initializing Firebase client app:", e);
+    return null;
+  }
+}
