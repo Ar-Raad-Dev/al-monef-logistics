@@ -1,10 +1,10 @@
+
 import Image from 'next/image';
-import { NextPage } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Target, Eye, Info, Phone, Printer, MapPin } from 'lucide-react';
 import type { Locale } from '@/lib/dictionaries';
 import { getDictionary } from '@/lib/dictionaries';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 
 const iconMap = {
   crNumber: Info,
@@ -25,21 +25,14 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  // Define the locales you support
-  const locales: Locale[] = ['en', 'ar']; // Add other locales as needed
+  const locales: Locale[] = ['en', 'ar'];
   return locales.map((lang) => ({
     lang,
   }));
 }
 
-interface AboutPageProps {
-  params: {
-    lang: Locale;
-  };
-}
-
-const AboutPage: NextPage<AboutPageProps> = async ({ params }) => {
-  const { lang } = params;
+export default async function AboutPage({ params }: { params: any }) {
+  const { lang } = params as { lang: Locale };
   const dictionary = await getDictionary(lang);
   const d = dictionary.aboutPage;
 
@@ -56,7 +49,7 @@ const AboutPage: NextPage<AboutPageProps> = async ({ params }) => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/800x600.png"   
+              src="https://placehold.co/800x600.png"
               alt={d.companyOverview.imageAlt}
               data-ai-hint="office building"
               fill
@@ -131,6 +124,4 @@ const AboutPage: NextPage<AboutPageProps> = async ({ params }) => {
       </section>
     </div>
   );
-};
-
-export default AboutPage;
+}
