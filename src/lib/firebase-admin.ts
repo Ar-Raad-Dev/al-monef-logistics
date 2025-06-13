@@ -1,55 +1,92 @@
 
 import admin from 'firebase-admin';
 
-let firestoreInstance: admin.firestore.Firestore;
-let storageInstance: admin.storage.Storage;
+let appInstance: admin.app.App | null = null;
+let firestoreInstance: admin.firestore.Firestore | null = null;
+let storageInstance: admin.storage.Storage | null = null;
+let adminSDKInitialized = false;
+
+const serviceAccountKeyJSON = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY;
+const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
 
 if (!admin.apps.length) {
-  const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY;
-  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET; // Used for client and can be used by admin
-
-  if (!serviceAccountKey) {
+  if (!serviceAccountKeyJSON) {
     console.error(
       'CRITICAL: FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY environment variable is not set. Firebase Admin SDK cannot initialize. Backend Firebase operations will fail.'
     );
-    // To prevent crashes when firestore or storage is accessed before proper init,
-    // we can assign a non-functional placeholder or throw immediately upon access.
-    // For now, accessing firestore or storage will result in an error if not initialized.
   } else {
     try {
-      // Parse the service account key JSON string
-      const parsedServiceAccount = JSON.parse(serviceAccountKey);
-
-      admin.initializeApp({
-        credential: admin.credential.cert(parsedServiceAccount),
-        storageBucket: storageBucket || undefined, // Use if available, otherwise undefined
+      const serviceAccount = JSON.parse(serviceAccountKeyJSON);
+      appInstance = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        storageBucket: storageBucket || undefined,
       });
+      firestoreInstance = admin.firestore(appInstance);
+      storageInstance = admin.storage(appInstance);
+      adminSDKInitialized = true;
       console.log('Firebase Admin SDK initialized successfully.');
-      firestoreInstance = admin.firestore();
-      storageInstance = admin.storage();
-    } catch (error) {
-      console.error('CRITICAL: Firebase Admin SDK initialization error. Backend Firebase operations will fail:', error);
-      // Log the error but don't re-throw, to allow the app to potentially start for non-Firebase related parts.
-      // Firebase Admin features will be broken.
+    } catch (error: any) {
+      console.error(
+        'CRITICAL: Firebase Admin SDK initialization error. Backend Firebase operations will fail:',
+        error.message
+      );
+      // Attempt to log more details if available
+      if (error.code) console.error(`Error Code: ${error.code}`);
+      if (process.env.NODE_ENV === 'development' && serviceAccountKeyJSON) {
+        console.error('Service Account Key (first 50 chars):', serviceAccountKeyJSON.substring(0, 50));
+      }
     }
   }
 } else {
-  // If apps are already initialized, get the default app's services
-  const defaultApp = admin.app();
-  firestoreInstance = defaultApp.firestore();
-  storageInstance = defaultApp.storage();
+  appInstance = admin.app(); // Get the default app
+  firestoreInstance = admin.firestore(appInstance);
+  storageInstance = admin.storage(appInstance);
+  adminSDKInitialized = true;
   // console.log('Firebase Admin SDK: Using existing initialized app.');
 }
 
-// Export instances that might be undefined if initialization failed
-// Consumers should check if they are defined before using, or handle errors.
-// Alternatively, throw an error here if not initialized.
-export const firestore = firestoreInstance!; // Add '!' to assert it will be defined, or handle undefined case
-export const storage = storageInstance!;   // Add '!' to assert it will be defined, or handle undefined case
-
-// A helper to check if admin is initialized, useful for graceful degradation
-export function isAdminInitialized(): boolean {
-  return admin.apps.length > 0 && !!firestoreInstance && !!storageInstance;
+// Throw a more specific error if services are accessed without proper initialization
+function ensureInitialized<T>(serviceInstance: T | null, serviceName: string): T {
+  if (!adminSDKInitialized || !serviceInstance) {
+    // This log helps identify if the SDK was expected to be initialized
+    // console.error(`Attempted to access ${serviceName} before Firebase Admin SDK was successfully initialized or ${serviceName} is null.`);
+    throw new Error(
+      `Firebase Admin SDK not initialized or ${serviceName} service is unavailable. Ensure FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY is correctly set and valid.`
+    );
+  }
+  return serviceInstance;
 }
 
-export default admin;
+// Using a getter to ensure initialization check on every access.
+// This is safer than exporting potentially null instances.
+export const firestore = new Proxy({}, {
+  get: (_, prop) => {
+    const service = ensureInitialized(firestoreInstance, 'Firestore');
+    const value = (service as any)[prop];
+    return typeof value === 'function' ? value.bind(service) : value;
+  }
+}) as admin.firestore.Firestore;
+
+export const storage = new Proxy({}, {
+  get: (_, prop) => {
+    const service = ensureInitialized(storageInstance, 'Storage');
+    const value = (service as any)[prop];
+    return typeof value === 'function' ? value.bind(service) : value;
+  }
+}) as admin.storage.Storage;
+
+
+export function isAdminInitialized(): boolean {
+  return adminSDKInitialized;
+}
+
+// Export the app instance if needed, also through a getter for safety
+export const adminApp = new Proxy({}, {
+  get: (_, prop) => {
+    const app = ensureInitialized(appInstance, 'Admin App');
+    const value = (app as any)[prop];
+    return typeof value === 'function' ? value.bind(app) : value;
+  }
+}) as admin.app.App;
+
+export default admin; // Export the default admin namespace
