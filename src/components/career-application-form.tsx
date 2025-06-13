@@ -31,13 +31,10 @@ interface CareerApplicationFormProps {
 
 export default function CareerApplicationForm({ availablePositions, dictionary: d, lang }: CareerApplicationFormProps) {
   const { toast } = useToast();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Check if running in a browser environment
   const isBrowser = typeof window !== 'undefined';
 
-  // Define schema INSIDE the component to ensure browser APIs are available
-  // Conditionally define 'cv' part of the schema based on environment
   const formSchema = z.object({
     name: z.string().min(2, { message: d.fullNameMinLengthError }),
     phone: z.string().min(7, { message: d.phoneMinLengthError }),
@@ -47,10 +44,10 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
       ? z.instanceof(FileList).optional()
           .refine(files => !files || files.length === 0 || (files?.[0]?.size !== undefined && files[0].size <= 5 * 1024 * 1024), d.cvFileSizeError || `Max file size is 5MB.`)
           .refine(files => !files || files.length === 0 || (files?.[0]?.type !== undefined && ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files[0].type)), d.cvFileTypeError || "Only PDF, DOC, DOCX files are allowed.")
-      : z.any().optional(), // Fallback for non-browser environments
+      : z.any().optional(),
     message: z.string().min(10, { message: d.coverLetterMinLengthError }).max(500, { message: d.coverLetterMaxLengthError }).optional().or(z.literal('')),
   });
-  
+
   type CareerFormValues = z.infer<typeof formSchema>;
 
   const form = useForm<CareerFormValues>({
@@ -74,7 +71,6 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
     if (values.message) {
       formData.append('message', values.message);
     }
-    // Ensure cv is a FileList and has files before appending
     if (values.cv && typeof FileList !== 'undefined' && values.cv instanceof FileList && values.cv.length > 0) {
       formData.append('cv', values.cv[0]);
     }
@@ -82,7 +78,7 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
     try {
       const response = await fetch('/api/careers', {
         method: 'POST',
-        body: formData, 
+        body: formData,
       });
 
       const result = await response.json();
@@ -91,11 +87,11 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
         toast({
           title: d.submitSuccessTitle,
           description: d.submitSuccessDescription,
-          variant: "default", 
+          variant: "default",
         });
         form.reset();
         if (fileInputRef.current) {
-          fileInputRef.current.value = ""; 
+          fileInputRef.current.value = "";
         }
       } else {
         toast({
@@ -184,19 +180,25 @@ export default function CareerApplicationForm({ availablePositions, dictionary: 
         <FormField
           control={form.control}
           name="cv"
-          render={({ field: { onChange, value, ...restField } }) => ( // `value` might be an empty string from server, onChange expects files
+          render={({ field }) => (
             <FormItem>
               <FormLabel>{d.cvLabel} <span className="text-xs text-muted-foreground">{d.cvFileTypes}</span></FormLabel>
               <FormControl>
                 <div className="relative">
-                    <Input 
-                        type="file" 
+                    <Input
+                        type="file"
                         accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                        onChange={(e) => onChange(e.target.files)} // Pass FileList to RHF
                         className={`bg-input focus:bg-background transition-colors ${lang === 'ar' ? 'pl-10' : 'pr-10'}`}
-                        ref={fileInputRef}
-                        // Do not spread `value` here if it can be a string and input type file expects FileList or empty string
-                        {...restField} // Spreads name, onBlur, ref from RHF
+                        name={field.name}
+                        onBlur={field.onBlur}
+                        onChange={(e) => {
+                            field.onChange(e.target.files);
+                        }}
+                        ref={(instance) => {
+                            field.ref(instance); // Pass instance to RHF's ref
+                            fileInputRef.current = instance; // Also assign to your custom ref
+                        }}
+                        // Do not pass `value` for file inputs from RHF `field.value`
                     />
                     <Paperclip className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground ${lang === 'ar' ? 'right-3' : 'left-3'}`} />
                 </div>
