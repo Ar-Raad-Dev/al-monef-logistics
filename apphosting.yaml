@@ -13,20 +13,10 @@ runConfig:
 
 env:
   - variable: FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY
-    value: '{
-      "type": "service_account",
-      "project_id": "almaneef-logistics",
-      "private_key_id": "b7e81d29a2b79fd32d1c2e2fa73ba6e7e8845699",
-      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2JPfgeEx2HvMH\n16oTm/CCPqBWl03abOb2Bbxe1TisgNQTwAxJgjC/8cobesYwJ7pnoqOgpi51ggPK\nGMG4X92i/95+DLexqTyPVsZOA6DiPEt56XOahzSGGfoxzjqftRl/NPDybf/waW36\nplFHpxtIEVanSelyM673GWBNbBMpC20L8a+hKaOid0iv9wfL6iccXLRN6H/1Vd/e\nKHqDAp27PRBchcXR2moENIDsun21tzCK2rYWDfOUlYvPykXaItKYREulUpCBTX9t\nyHt5e6/ElKo1IT1sA1yScnowCfwM2+1oxml1mNW2uqyyxTPDfVpkGl4bzeSoP2So\nU8zdtgoHAgMBAAECggEATipSN8HYak6A1CpAghbHIVW34EEhN23JteWjP304S4sj\nt/AQNdGJky2zopRPDeZWr9fTaYM3Z9UqRCXYqIN3bVZpyGUzxanPY+IEywDyn3Pp\nngFJy5RfPXdTb+FFNjl1Hip9hkQfdDACcvDB68JySjyql7L33DsCyGba9Y6+MDvN\nT4OVkm/5IQSAhMU5SCyDwwOKtmR5p7bqBisg8pqE+sZcgj8yduC45AD/lvjq5LJt\nFXtz7sK0DqBmQzzgP07hqSF8BcU/v/lGA6If4LjGXcdZsi5gNJdsO07eI0dUk15H\nZfCCY6LOeTgn28yyIAAobvNjERZvu4bHIAHnDRIlfQKBgQDuKY6xsxML43gW+d3y\nmlewPk8jSczoBVxXoUnYgVnXQ3+924JE6o1hfx7tADGbLkFam7+nY5V7QpYpj0yJ\nGHp7FEDf0fHnBP52t6qHw/gTMbrBqp5xTO+FQBkEYSVHgJHJlAfuDiocx7Ki5rrv\nAcEw51QdvqipolLXh9csZvfZ/QKBgQDDyVepyGiU9flb9kyoCxf5YIrBCUkLu02b\n1Z6zgPKDTsMWCAJfdxlC0rgzPkYoEgAOsC46UYGWc2PciWG9EHSsJke+BumuGAqM\nPLVImD+hMU7eoysrc3JDAV1Y7yAN29muoHJ5YcmJL9pUdtwIoRK1R+Ql5h46WGjk\nnKN3Vb/hUwKBgDVJGQMLJNzJFQpW92CbRblKB5zGm1DiOinlDUeikT5HfOI2pavT\nqrRAo+O04mRs8fRa2oOSFVTRrhU4WZBm6Kh2/JjXOT9N770SFNZxcySgQL+p8+83\nnnN6xt4i+htIWdX3B9ssUiHEUGSAKRzmkJnnd/t7t/LUPaK5YtwtYZDlAoGARFNE\nk4zL6og4wH4g3Fgawr2NTraF1mFEQUj4fF5Yw7g93rdm1JgEqcxN2hw2cY9uk7Gq\nQFHnbnDQfcs337oZbWZijQ9uh4H+VFhvT2lKc194zbuVujEsw/N69ylkP1HlEssN\niAy3P3gCso1UVnKXy8nN9efrzqLB4F5FscSsFN8CgYEA02nu2brw8lFD1JRcR6e4\nVO/h7Lk/B6mbx6aYdkdsDb+TM3azeB8FWBkCymWj9DmID0ut9gx7EiXIglmPGpoM\nVcFs19zBj+t9MmhEN8HPzRUWIqYgiEfs7G1VjOP+KzyCiPhLASAsRs0RWjrQ8Z5Y\nmGjQ/NyRcJWGAVo+II7Abhs=\n-----END PRIVATE KEY-----\n",
-      "client_email": "firebase-adminsdk-fbsvc@almaneef-logistics.iam.gserviceaccount.com",
-      "client_id": "110619278050961786729",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40almaneef-logistics.iam.gserviceaccount.com",
-      "universe_domain": "googleapis.com"
-    }'
-    availability: # This key is needed for both build (for Next.js data collection) and runtime (for API execution)
+    # IMPORTANT: Replace YOUR_SECRET_NAME with the actual name of the secret you created in Google Secret Manager.
+    # The project ID 'almaneef-logistics' should be correct.
+    secret: projects/almaneef-logistics/secrets/FIREBASE_ADMIN_SA_KEY/versions/latest
+    availability:
       - BUILD
       - RUNTIME
 # You can add other environment variables here if needed, for example:
