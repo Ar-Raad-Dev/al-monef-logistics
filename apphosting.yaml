@@ -13,8 +13,8 @@ runConfig:
 
 env:
   - variable: FIREBASE_ADMIN_SERVICE_ACCOUNT_KEY
-    # IMPORTANT: Replace YOUR_SECRET_NAME with the actual name of the secret you created in Google Secret Manager.
-    # The project ID 'almaneef-logistics' should be correct.
+    # IMPORTANT: Ensure 'FIREBASE_ADMIN_SA_KEY' matches the exact name
+    # you gave the secret in Google Secret Manager for project 'almaneef-logistics'.
     secret: projects/almaneef-logistics/secrets/FIREBASE_ADMIN_SA_KEY/versions/latest
     availability:
       - BUILD
@@ -27,9 +27,3 @@ env:
 #
 # Note on FIREBASE_WEBAPP_CONFIG and FIREBASE_CONFIG:
 # The build logs indicate these are already being injected by App Hosting.
-# If they were not, you could define them here too.
-# Example for FIREBASE_WEBAPP_CONFIG (if it wasn't automatically injected):
-#  - variable: FIREBASE_WEBAPP_CONFIG
-#    value: '{"apiKey":"your-api-key","authDomain":"your-auth-domain",...}'
-#    availability:
-#      - BUILD
