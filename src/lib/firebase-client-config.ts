@@ -35,7 +35,8 @@ export function getClientFirebaseApp(): FirebaseApp | null {
     console.error(
       'Firebase client config is missing required fields. ' +
       'Please ensure NEXT_PUBLIC_FIREBASE_API_KEY, NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, ' +
-      'NEXT_PUBLIC_FIREBASE_PROJECT_ID, and NEXT_PUBLIC_FIREBASE_APP_ID environment variables are set.'
+      'NEXT_PUBLIC_FIREBASE_PROJECT_ID, and NEXT_PUBLIC_FIREBASE_APP_ID environment variables are set. ' +
+      'These are typically configured in your Firebase App Hosting environment settings in the Firebase Console.'
     );
     return null;
   }
