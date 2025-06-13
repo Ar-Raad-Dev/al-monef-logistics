@@ -178,8 +178,8 @@ export interface Translations {
       generalApplicationOption: string;
       cvLabel: string;
       cvFileTypes: string;
-      cvFileSizeError?: string; 
-      cvFileTypeError?: string; 
+      cvFileSizeError?: string;
+      cvFileTypeError?: string;
       coverLetterLabel: string;
       coverLetterPlaceholder: string;
       coverLetterMinLengthError: string;
@@ -206,7 +206,7 @@ export interface Translations {
     }>;
     locationMapSection: {
       heading: string;
-      mapImageAlt: string; 
+      mapImageAlt: string;
       mapMarkerTitle: string;
       noApiKeyMessage: string;
       loadingMessage: string;
@@ -237,8 +237,8 @@ export interface Translations {
 }
 
 const dictionaries: Record<Locale, () => Promise<Translations>> = {
-  en: () => import('@/dictionaries/en.json').then((module) => module.default),
-  ar: () => import('@/dictionaries/ar.json').then((module) => module.default),
+  en: () => import('@/dictionaries/en.json').then((module) => module.default as unknown as Translations),
+  ar: () => import('@/dictionaries/ar.json').then((module) => module.default as unknown as Translations),
 };
 
 export const getDictionary = async (locale: Locale): Promise<Translations> => {
