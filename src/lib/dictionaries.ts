@@ -127,7 +127,6 @@ export interface Translations {
       partners: Array<{
         nameKey: 'alwatania' | 'mahamalWater' | 'miradWater' | 'ksaRetailers' | 'fbDistributors' | 'constructionLeaders';
         name: string;
-        // imageHint removed
       }>;
       trustedByNote: string;
     };
@@ -138,7 +137,6 @@ export interface Translations {
         companyKey: 'alwatania' | 'mahamalWater' | 'anonymousFMCG';
         company: string;
         testimonial: string;
-        // avatarHint removed
         rating: number;
       }>;
     };
