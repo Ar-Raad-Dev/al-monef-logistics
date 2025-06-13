@@ -55,12 +55,10 @@ export default async function CareersPage(
                 <CardTitle className="text-xl font-semibold">{job.title}</CardTitle>
               </CardHeader>
               <CardContent>
-          <CareerApplicationForm
-            availablePositions={availablePositions}
-            dictionary={d.form} // Add this line
-            lang={lang}         // Add this line
-          />
-        </CardContent>
+                {/* The error was here. This component was used inside a job card by mistake. It should be in the section below. */}
+                {/* Removing the problematic CareerApplicationForm from here. */}
+                <CardDescription>{job.description}</CardDescription>
+              </CardContent>
             </Card>
           ))}
         </div>
@@ -92,3 +90,5 @@ export default async function CareersPage(
     </div>
   );
 }
+
+    
