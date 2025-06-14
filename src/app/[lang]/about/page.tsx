@@ -50,7 +50,7 @@ export default async function AboutPage(props: any) {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/800x600.png"
+              src="/images/company-overview.png"
               alt={d.companyOverview.imageAlt}
               data-ai-hint="office building"
               fill
