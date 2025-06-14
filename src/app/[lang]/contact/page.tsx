@@ -41,6 +41,8 @@ export default async function ContactPage(props: any) {
   const d = dictionary.contactPage;
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  console.log('[ContactPage Server Component] NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:', apiKey ? 'Present' : 'MISSING or Empty', 'Value (first 5 chars):', apiKey?.substring(0,5));
+
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">

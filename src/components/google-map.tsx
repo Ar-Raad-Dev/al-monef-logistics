@@ -36,10 +36,11 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
 
   useEffect(() => {
     isMounted.current = true;
-    // console.log(`[${lang}] GoogleMapComponent effect triggered. API Key: ${apiKey ? 'Present' : 'MISSING'}`);
+    console.log(`[GoogleMapComponent Client] Received apiKey prop: ${apiKey ? 'Present' : 'MISSING or Empty'}`, 'Value (first 5 chars):', apiKey?.substring(0,5));
+
 
     if (!apiKey) {
-      console.error(`[${lang}] Google Maps API Key is missing.`);
+      console.error(`[${lang}] Google Maps API Key is missing in GoogleMapComponent prop.`);
       if (isMounted.current) {
         setInternalErrorMessage(noApiKeyMessage);
         setStatus('error');
@@ -56,34 +57,30 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
       return;
     }
     
-    // console.log(`[${lang}] Attempting to load Google Maps (Center: ${center.lat},${center.lng})`);
     if (isMounted.current) {
       setStatus('loading');
       setInternalErrorMessage(null);
     }
 
-    // Workaround for js-api-loader singleton issue with dynamic options
-    const GmapsLoader = Loader as any; // Type assertion for internal access
+    const GmapsLoader = Loader as any; 
     if (GmapsLoader.instance && GmapsLoader.instance.options.language !== lang) {
       console.warn(
-        `Google Maps Loader instance detected with language '${GmapsLoader.instance.options.language}', but current language is '${lang}'. ` +
-        `Resetting loader instance to allow re-initialization with new language.`,
+        `Google Maps Loader instance detected with language '${GmapsLoader.instance.options.language}', but current language is '${lang}'. Resetting loader instance.`,
         { previousOptions: GmapsLoader.instance.options, newLanguage: lang }
       );
-      GmapsLoader.instance = null; // Modify internal static property
+      GmapsLoader.instance = null; 
     }
 
     const loader = new Loader({
       apiKey: apiKey,
       version: 'weekly',
       libraries: ['marker'],
-      language: lang, // This is the critical option that was causing conflict
-      id: '__googleMapsScriptId', // Explicitly set the ID, though it's the default
+      language: lang, 
+      id: '__googleMapsScriptId', 
     });
 
     loader.load().then(async (google) => {
       if (!isMounted.current) {
-        // console.log(`[${lang}] GoogleMapComponent unmounted before map could be initialized.`);
         return;
       }
       if (!mapRef.current) {
@@ -95,7 +92,6 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
         return;
       }
 
-      // console.log(`[${lang}] Google Maps API script loaded. Initializing map.`);
       try {
         const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
         const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
@@ -103,7 +99,7 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
         const map = new Map(mapRef.current, {
           center: center,
           zoom: zoom,
-          mapId: mapId || 'DEMO_MAP_ID', // It's good practice to use your own Map ID in production
+          mapId: mapId || 'DEMO_MAP_ID', 
           disableDefaultUI: false,
         });
 
@@ -113,13 +109,11 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
             position: markerPosition,
             title: markerTitle,
           });
-          // console.log(`[${lang}] Marker added to map at:`, markerPosition);
         }
 
         if (isMounted.current) {
           setStatus('loaded');
         }
-        // console.log(`[${lang}] Map initialization complete.`);
       } catch (initError) {
         console.error(`[${lang}] Error initializing Google Map instance:`, initError);
         if (isMounted.current) {
@@ -129,7 +123,6 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
       }
     }).catch(e => {
       if (!isMounted.current) {
-        // console.log(`[${lang}] GoogleMapComponent unmounted before map loading error could be processed.`);
         return;
       }
       console.error(`[${lang}] Error loading Google Maps API script:`, e);
@@ -142,24 +135,13 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({
 
     return () => {
       isMounted.current = false;
-      // console.log(`[${lang}] GoogleMapComponent effect cleanup. mapRef.current:`, mapRef.current);
-      
-      // Clear the map container's content. The map instance itself is managed by the Maps API
-      // and should be garbage collected when its DOM element is removed or cleared.
       if (mapRef.current) {
         mapRef.current.innerHTML = '';
-        // console.log(`[${lang}] mapRef.current content cleared.`);
       }
-
-      // Removing the script tag explicitly can sometimes help ensure a cleaner state 
-      // for subsequent loads, though the Loader instance reset is the primary fix here.
       const script = document.getElementById('__googleMapsScriptId');
       if (script) {
         script.remove();
-        // console.log(`[${lang}] Google Maps script tag (__googleMapsScriptId) removed.`);
       }
-      // No need to delete window.google.maps as Loader.instance = null should allow
-      // the loader to re-evaluate its state upon next instantiation.
     };
   }, [apiKey, center.lat, center.lng, zoom, markerPosition?.lat, markerPosition?.lng, markerTitle, mapId, lang, noApiKeyMessage, loadingMessage]);
 
