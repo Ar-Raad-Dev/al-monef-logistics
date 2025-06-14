@@ -19,11 +19,13 @@ env:
     availability:
       - BUILD
       - RUNTIME
-# You can add other environment variables here if needed, for example:
-#  - variable: NEXT_PUBLIC_SOME_CLIENT_VAR
-#    value: 'some_value_for_client'
-#    availability:
-#      - BUILD # So Next.js can inline it for client-side bundles
-#
+  - variable: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+    # This secret should contain your actual Google Maps API Key.
+    # Ensure 'GOOGLE_MAPS_API_KEY_VALUE' matches the name you gave the secret
+    # in Google Secret Manager for project 'almaneef-logistics'.
+    secret: projects/almaneef-logistics/secrets/GOOGLE_MAPS_API_KEY_VALUE/versions/latest
+    availability:
+      - BUILD # Essential for Next.js to inline it for client-side bundles
+
 # Note on FIREBASE_WEBAPP_CONFIG and FIREBASE_CONFIG:
 # The build logs indicate these are already being injected by App Hosting.
